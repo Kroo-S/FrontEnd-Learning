@@ -1,0 +1,8 @@
+@import 'mixin';  //引入mixin
+
+.text{
+    @include singleline-ellipsis(600px);    //包含变量的样式
+}
+.content-text{
+    @include singleline-ellipsis(1000px);   //变量为1000的样式
+}

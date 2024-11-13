@@ -1,0 +1,10 @@
+// 加个width的变量
+
+//单行溢出的封装样式：
+
+@mixin singleline-ellipsis($width){
+    width:$width;    //宽度等于scss中传入的变量
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

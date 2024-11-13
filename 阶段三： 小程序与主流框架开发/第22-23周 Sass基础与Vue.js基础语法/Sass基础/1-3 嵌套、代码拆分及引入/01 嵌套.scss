@@ -1,0 +1,19 @@
+// 1. 嵌套
+
+div span{
+    color:red;
+}
+
+div span a{
+    color:blue;
+}
+
+// 优点：只用修改一次嵌套代码，就可以实现所有的变化
+div{
+    span{
+        color:red;
+        a{
+            color:blue;
+        }
+    }
+}

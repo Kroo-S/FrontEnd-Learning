@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="320px" height="144px" viewBox="0 0 320 144" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>优惠券版心背景</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M247,128 C247,123.581722 243.418278,120 239,120 C234.581722,120 231,123.581722 231,128 L8,128 C8,123.581722 4.418278,120 0,120 L0,8 C4.418278,8 8,4.418278 8,1.87591609e-11 L231,-6.27276009e-15 C231,4.418278 234.581722,8 239,8 C243.418278,8 247,4.418278 247,1.86445859e-11 L296,-6.27276009e-15 C296,4.418278 299.581722,8 304,8 L304,120 C299.581722,120 296,123.581722 296,128 L247,128 Z" id="path-1"></path>
+    </defs>
+    <g id="优惠券版心背景" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-2" transform="translate(8.000000, 8.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Combined-Shape">
+                <use fill="#FFFFFF" xlink:href="#path-1"></use>
+                <path stroke-opacity="0.2" stroke="#F01414" stroke-width="2" d="M247.945071,127 L295.054929,127 C295.516078,122.828383 298.828383,119.516078 303,119.054929 L303,8.94507122 C298.828383,8.4839224 295.516078,5.17161661 295.054929,1 L247.945071,1 C247.447627,5.49995046 243.632554,9 239,9 C234.367446,9 230.552373,5.49995046 230.054929,1 L8.94507122,1 C8.4839224,5.17161661 5.17161661,8.4839224 1,8.94507122 L1,119.054929 C5.17161661,119.516078 8.4839224,122.828383 8.94507122,127 L230.054929,127 C230.552373,122.50005 234.367446,119 239,119 C243.632554,119 247.447627,122.50005 247.945071,127 Z" stroke-linejoin="square" fill-opacity="0.1" fill="#F01414"></path>
+            </g>
+            <path d="M239,13 L239,115" id="Line" stroke-opacity="0.2" stroke="#F01414" stroke-width="2" stroke-dasharray="2,3" mask="url(#mask-2)"></path>
+        </g>
+        <text id="优-惠-券" font-family="PingFangSC-Semibold, PingFang SC" font-size="16" font-weight="500" line-spacing="24" fill="#F01414" fill-opacity="0.6">
+            <tspan x="272" y="53">优</tspan>
+            <tspan x="272" y="77">惠</tspan>
+            <tspan x="272" y="101">券</tspan>
+        </text>
+    </g>
+</svg>

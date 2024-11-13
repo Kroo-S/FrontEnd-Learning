@@ -1,0 +1,130 @@
+/**index.wxss**/
+.header{
+  position: relative;
+}
+.header-input{
+  background: rgba(255,255,255,0.10);
+  border: 1rpx solid #D9DDE1;
+  border-radius: 18px;
+  margin: 22rpx 36rpx 14rpx 36rpx;
+  padding:0px 36rpx;
+  text-align: center;
+}
+.header-input-placeholder{
+  font-family: PingFangSC-Regular;
+  font-size: 13px;
+  color: rgba(133,133,133,0.60);
+  letter-spacing: 0;
+  text-align: left;
+  line-height: 15rpx;
+  text-align: center;
+}
+.header-input-icon{
+  color: rgba(133,133,133,0.60);
+  position:absolute;
+  left: 50rpx;
+  top:10rpx;
+}
+.navigator{
+  display: flex;
+  line-height:112rpx;
+}
+.navigator-item{
+  position: relative;
+  flex:1;
+  text-align: center;
+  vertical-align:middle;
+  font-size:32rpx;
+}
+.navigator-img{
+  width:36rpx;
+  height:36rpx;
+  position:relative;
+  top:8rpx;
+}
+.navigator-active{
+  position: absolute;
+  left:98rpx;
+  bottom:24rpx;
+  width:40rpx;
+  height:8rpx;
+  background: #F01414;
+  border-radius: 2px;
+}
+.swiper {
+  height: 234rpx;
+}
+.swiper-item{
+  box-sizing: border-box;
+  padding:0 6rpx;
+}
+.swiper-image{
+  border-radius: 10rpx;
+  width:708rpx;
+  height:232rpx;
+}
+
+.project {
+  margin-top: 32rpx;
+  margin-left: 40rpx;
+}
+.project-title {
+  line-height: 32rpx;
+  font-size: 28rpx;
+  color: #2B333B;
+  font-weight: bold;
+}
+.project-item {
+  display: flex;
+  margin-top: 16rpx;
+}
+.project-item-pic {
+  width: 208rpx;
+  height: 136rpx;
+  border-radius: 16rpx;
+}
+.project-item-content {
+  flex: 1;
+  margin-left: 24rpx;
+  margin-right: 40rpx;
+  border-bottom: 1rpx solid #D9DDE1;
+}
+.project-item-title {
+  line-height: 40rpx;
+  font-size: 32rpx;
+  color: #2B333B;
+  font-weight: bold;
+}
+.project-item-tags {
+  line-height: 32rpx;
+  margin-top: 12rpx;
+  font-size: 24rpx;
+}
+.project-item-tags text {
+  margin-right: 18rpx;
+}
+.project-item-text {
+  color: #71777D;
+}
+.project-item-price-active {
+  color: #F01414;
+  font-weight: bold;
+}
+.project-item-notice {
+  background: rgba(242,13,13,0.10);
+  border-radius: 4rpx;
+  font-size: 20rpx;
+  color: #F20D0D;
+}
+.project-item-user {
+  line-height: 32rpx;
+  color: #71777D;
+  font-size: 24rpx;
+}
+.project-item-icon {
+  position: relative;
+  top: 2rpx;
+  left: 4rpx;
+  width: 22rpx;
+  height: 22rpx;
+}

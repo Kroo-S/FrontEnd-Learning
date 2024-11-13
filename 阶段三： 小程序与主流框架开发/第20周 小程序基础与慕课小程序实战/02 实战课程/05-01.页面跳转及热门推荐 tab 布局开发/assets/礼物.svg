@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>礼物</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="0 16.00032 16 16.00032 16 0.00032 0 0.00032"></polygon>
+    </defs>
+    <g id="路径" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="路径学习页-问号说明" transform="translate(-214.000000, -228.000000)">
+            <g id="详情" transform="translate(32.000000, 187.000000)">
+                <g id="Group-5" transform="translate(114.000000, 40.000000)">
+                    <g id="礼物" transform="translate(68.000000, 1.000000)">
+                        <g>
+                            <path d="M1.3336,8 L14.6664,8 L14.6664,14.6674667 C14.6664,15.4034961 14.0696,16.00032 13.3336,16.00032 L2.6664,16.00032 C1.9304,16.00032 1.3336,15.4034961 1.3336,14.6674667 L1.3336,8 Z" id="Fill-1" fill="#FF5656"></path>
+                            <polygon id="Fill-3" fill-opacity="0.2" fill="#07111B" points="1.3328 9.46592 14.6656 9.46592 14.6656 8.13312 1.3328 8.13312"></polygon>
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <g id="Clip-9"></g>
+                            <path d="M1.3336,5.4664 L14.6664,5.4664 C15.4024,5.4664 16.0008,6.0632 16.0008,6.7992 L16.0008,8.1336 L0.0008,8.1336 L0.0008,6.7992 C0.0008,6.0632 0.5976,5.4664 1.3336,5.4664" id="Fill-5" fill="#FF5656" mask="url(#mask-2)"></path>
+                            <polygon id="Fill-8" fill="#FFBC00" mask="url(#mask-2)" points="6.6672 16.00032 9.3344 16.00032 9.3344 5.46592 6.6672 5.46592"></polygon>
+                            <path d="M5.3336,1.6 C4.6712,1.6 4.1336,2.1376 4.1336,2.8 C4.1336,3.4624 4.6712,4 5.3336,4 L6.5336,4 L6.5336,2.8 C6.5336,2.1376 5.996,1.6 5.3336,1.6 Z M8.1336,5.6 L5.3336,5.6 C3.7896,5.6 2.5336,4.344 2.5336,2.8 C2.5336,1.256 3.7896,0 5.3336,0 C6.8776,0 8.1336,1.256 8.1336,2.8 L8.1336,5.6 Z" id="Fill-10" fill="#FFBC00" mask="url(#mask-2)"></path>
+                            <path d="M9.4672,4 L10.6672,4 C11.328,4 11.8672,3.4624 11.8672,2.8 C11.8672,2.1376 11.328,1.6 10.6672,1.6 C10.0064,1.6 9.4672,2.1376 9.4672,2.8 L9.4672,4 Z M10.6672,5.6 L7.8672,5.6 L7.8672,2.8 C7.8672,1.256 9.1232,-1.77635684e-15 10.6672,-1.77635684e-15 C12.2112,-1.77635684e-15 13.4672,1.256 13.4672,2.8 C13.4672,4.344 12.2112,5.6 10.6672,5.6 Z" id="Fill-11" fill="#FFBC00" mask="url(#mask-2)"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

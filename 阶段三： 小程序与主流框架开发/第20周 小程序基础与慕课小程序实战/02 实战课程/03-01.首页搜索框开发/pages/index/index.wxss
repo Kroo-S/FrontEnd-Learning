@@ -1,0 +1,22 @@
+.header {
+  position: relative;
+}
+.header-input {
+  line-height: 72rpx;
+  padding: 0 36rpx;
+  margin: 22rpx 36rpx 14rpx 36rpx;
+  border: 1rpx solid #D9DDE1;
+  border-radius: 36rpx;
+  text-align: center;
+  font-size: 26rpx;
+}
+.header-input-placeholder {
+  color: rgba(133,133,133,0.60);
+}
+.header-input-icon {
+  position: absolute;
+  left: 50%;
+  top: 14rpx;
+  transform: translateX(-184rpx);
+  color: rgba(133,133,133,0.60);
+}

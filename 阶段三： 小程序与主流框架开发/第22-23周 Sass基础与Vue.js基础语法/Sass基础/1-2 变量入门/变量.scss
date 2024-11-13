@@ -1,0 +1,31 @@
+.title{
+    color:#333;
+}
+.subtitle{
+    color:#333;
+}
+.text{
+    color:#333;
+}
+
+// ================ 用变量表示 ================
+
+// 默认变量要放在具体样式前面；写在后面会被覆盖
+
+$text-color:#333;
+$small-font: 14px + 3px;
+$default-font: 'microsoft yahei';
+
+.title{
+    color:lighten($text-color,20%);     //变浅20%
+    font-family: $default-font;
+}
+
+.subtitle{
+    color:darken($text-color,20%);      //变深20%
+    font-size: $small-font;
+}
+
+.text{
+    color:$text-color;
+}

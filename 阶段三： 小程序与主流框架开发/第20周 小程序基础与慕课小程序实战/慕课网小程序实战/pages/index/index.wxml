@@ -1,0 +1,172 @@
+<!--index.wxml-->
+<!-- <view class="container">
+</view> -->
+
+<!-- ================== header ================== -->
+<view class="header">
+  <input 
+    type="text"
+    class="header-input"
+    placeholder="课程名称"
+    placeholder-class="header-input-placeholder"
+    bindinput="handleInputChange"
+  />
+  <icon 
+    type="search" 
+    class="header-input-icon"
+    size="18"
+    wx:if="{{showIcon}}"
+  />
+  <text>{{text}}</text>
+</view>
+
+<!-- ================ navigation =============== -->
+<view class="navigator">
+  <view class="navigator-item">
+    <image 
+      class="navigator-img"
+      src="../../resources/recommend.png"
+    />
+    推荐
+    <view class="navigator-active" />
+  </view>
+  <view class="navigator-item">
+    <image 
+      class="navigator-img"
+      src="../../resources/path.png"/>
+    路径
+  </view>
+  <view class="navigator-item">
+    <image 
+      class="navigator-img"
+      src="../../resources/project.png"/>
+    实战
+  </view>
+  <view class="navigator-item">
+    <image 
+      class="navigator-img"
+      src="../../resources/activity.png"/>
+    活动
+  </view>
+</view>
+
+<!-- ================== banner ================== -->
+<!-- 1. 平常方式： -->
+<!-- <swiper
+  previous-margin="18rpx"
+  next-margin="18rpx"
+  circular="{{true}}"
+  autoplay="{{true}}"
+  class="swiper"
+>
+  <swiper-item class="swiper-item">
+    <image 
+      src="../../resources/swiperList/5dce83ec082b5e1209000300.jpg"
+      class="swiper-image"
+    >
+    </image>
+  </swiper-item>
+  <swiper-item class="swiper-item">
+    <image src="../../resources/swiperList/5e6391c909a34be518000600.png"
+    class="swiper-image"></image>
+  </swiper-item>
+  <swiper-item class="swiper-item">
+    <image src="../../resources/swiperList/5eece0c6091fb1d718000600.png"
+    class="swiper-image"></image>
+  </swiper-item>
+</swiper> -->
+
+<!-- 2. 循环 -->
+<swiper
+  previous-margin="18rpx"
+  next-margin="18rpx"
+  circular="{{true}}"
+  autoplay="{{true}}"
+  class="swiper"
+>
+  <swiper-item 
+    class="swiper-item"
+    wx:for="{{swiperList}}"
+    wx:key="*this"
+  >
+    <image 
+      src="{{item.imgURL}}"
+      class="swiper-image"
+    >
+    </image>
+  </swiper-item>
+</swiper> 
+
+<!-- ======================= project ===================== -->
+<!-- 1. 一般写法 -->
+<!-- <view class="project">
+  <view class="project-title">实战推荐</view>
+  <view class="project-item">
+    <image
+      class="project-item-pic"
+      src="https://img1.mukewang.com/szimg/5ac2dfe100014a9005400300.jpg"
+    />
+    <view class="project-item-content">
+      <view class="project-item-title">
+        微信小程序入门与实战常用组件 开发技巧API  项目实战
+      </view>
+      <view class="project-item-tags">
+        <text class="project-item-price-active">¥198</text>
+        <text class="project-item-text">¥198</text>
+        <text class="project-item-notice">APP购买立减 ¥3</text>
+        <text class="project-item-text">APP购买立减 ¥3</text>
+        <view class="project-item-user">
+          <image
+            class="project-item-icon"
+            src="../../resources/user.png"
+          />
+          2892
+        </view>
+      </view>
+    </view>
+  </view>
+</view> -->
+
+<!-- 2. 循环写法 -->
+<view class="project">
+  <view class="project-title">实战推荐</view>
+  <view
+    class="project-item"
+    wx:for="{{courses}}"
+    wx:key="*this"
+  >
+    <image
+      class="project-item-pic"
+      src="{{item.imgUrl}}"
+    />
+    <view class="project-item-content">
+      <view class="project-item-title">
+        {{item.title}}
+      </view>
+      <view class="project-item-tags">
+        <view
+          wx:if="{{item.promotion}}"
+          class="project-item-price-active"
+        >¥{{item.price}}</view>
+        <view
+          wx:if="{{!item.promotion}}"
+          class="project-item-text"
+        >¥{{item.price}}</view>
+        <view
+          wx:if="{{item.notice}}"
+          class="project-item-notice"
+        >{{item.notice}}</view>
+        <view class="project-item-text">
+          {{item.level}}
+        </view>
+        <view class="project-item-user">
+          <image
+            class="project-item-icon"
+            src="../../resources/user.png"
+          />
+          {{item.sales}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

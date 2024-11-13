@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="14px" viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>证书</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="路径" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="路径学习页-问号说明" transform="translate(-214.000000, -311.000000)">
+            <g id="详情" transform="translate(32.000000, 187.000000)">
+                <g id="Group-6" transform="translate(114.000000, 122.000000)">
+                    <g id="证书" transform="translate(68.000000, 1.000000)">
+                        <g>
+                            <rect id="Rectangle-7" x="0" y="0" width="16" height="16"></rect>
+                            <path d="M14.6656,1.6 C15.4016,1.6 16,2.1728 16,2.88 L16,13.12 C16,13.8272 15.4016,14.4 14.6656,14.4 L1.3328,14.4 C0.5968,14.4 0,13.8272 0,13.12 L0,2.88 C0,2.1728 0.5968,1.6 1.3328,1.6 L14.6656,1.6 Z" id="Fill-1" fill="#FF5656"></path>
+                            <polygon id="Fill-4" fill="#FFFFFF" points="2.6672 5.44 5.3344 5.44 5.3344 4.16 2.6672 4.16"></polygon>
+                            <polygon id="Fill-6" fill="#FFFFFF" points="2.6672 8 9.3344 8 9.3344 6.72 2.6672 6.72"></polygon>
+                            <polygon id="Fill-8" fill="#FFFFFF" points="2.6672 10.56 5.3344 10.56 5.3344 9.28 2.6672 9.28"></polygon>
+                            <path d="M11.6,8 C12.704,8 13.6,8.8592 13.6,9.92 C13.6,10.9792 12.704,11.84 11.6,11.84 C10.496,11.84 9.6,10.9792 9.6,9.92 C9.6,8.8592 10.496,8 11.6,8" id="Fill-10" fill="#FFBC00"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

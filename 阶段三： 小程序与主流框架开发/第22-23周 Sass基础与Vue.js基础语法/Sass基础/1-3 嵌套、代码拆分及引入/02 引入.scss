@@ -1,0 +1,9 @@
+// $color\$content-color 用别的文件引入进来
+// $color:red;
+// $content-color:orange;
+
+@import './viriables';
+
+@import './header';
+
+@import './content';

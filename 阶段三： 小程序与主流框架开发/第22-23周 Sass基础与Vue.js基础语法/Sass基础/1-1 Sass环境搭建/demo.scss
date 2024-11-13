@@ -1,0 +1,33 @@
+// 1. sass中的样式不能有括号和分号
+
+// 2. scss的样式如下：
+
+.header{
+    font-size:12px;
+}
+// header中的span标签
+.header{
+    span{
+        color:red;
+    }
+    span:active{
+        color:green;
+    }
+    span:hover{
+        color:blue;
+    }
+}
+// 上面等价于：
+.header{
+    span{
+        color:red;
+        &:active{
+            color:green;
+        }
+        &:hover{
+            color:blue;
+        }
+    }
+}
+
+

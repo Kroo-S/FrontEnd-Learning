@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>滑块</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="实战" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="实战-分类下列表" transform="translate(-331.000000, -174.000000)" fill="#71777D">
+            <g id="导航栏" transform="translate(0.000000, 118.000000)">
+                <g id="筛选" transform="translate(0.000000, 44.000000)">
+                    <circle id="滑块" cx="337" cy="18" r="6"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

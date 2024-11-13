@@ -1,0 +1,7 @@
+{
+  "projectname": "05-01.%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E5%8F%8A%E7%83%AD%E9%97%A8%E6%8E%A8%E8%8D%90%20tab%20%E5%B8%83%E5%B1%80%E5%BC%80%E5%8F%91",
+  "setting": {
+    "compileHotReLoad": true
+  },
+  "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html"
+}

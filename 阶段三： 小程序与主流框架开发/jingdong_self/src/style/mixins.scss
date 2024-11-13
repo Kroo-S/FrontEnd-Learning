@@ -1,0 +1,8 @@
+// Ellipsis是省略的意思，这里是省略号的样式
+@mixin ellipsis{
+    overflow:hidden;
+    text-overflow: ellipsis;  //省略号
+
+    // 段落中的文字不换行,不是flex中的容器属性！！！
+    white-space:nowrap;
+}

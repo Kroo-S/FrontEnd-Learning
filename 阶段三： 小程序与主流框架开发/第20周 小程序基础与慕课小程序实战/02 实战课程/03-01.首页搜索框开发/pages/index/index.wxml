@@ -1,0 +1,15 @@
+<view class="header">
+  <input
+    type="text"
+    class="header-input"
+    placeholder="AngularJS·MySQL·Java"
+    placeholder-class="header-input-placeholder"
+    bindinput="handleInputChange"
+  />
+  <icon
+    type="search"
+    class="header-input-icon"
+    size="13"
+    wx:if="{{showIcon}}"
+  />
+</view>
