@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        
+        // 随机两个数，在[-4,4]之间，且不能都为0
+        do{
+            var dx = parseInt(Math.random()*9-4);
+            var dy = parseInt(Math.random()*9-4);
+        
+        }while(dx==0 && dy==0)        //只要出了循环，dx和dy不都是0；     都是0的话，再次重新执行循环语句；    while 和 while可以并排写
+
+        console.log(dx,dy);           
+
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

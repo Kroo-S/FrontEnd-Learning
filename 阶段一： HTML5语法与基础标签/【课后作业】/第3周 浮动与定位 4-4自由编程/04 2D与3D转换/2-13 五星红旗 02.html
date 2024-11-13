@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+
+    <style>
+
+        *{
+
+            margin: 0;
+
+            padding:0;
+
+        }
+
+        .box{
+
+            width: 300px;
+
+            height: 200px;
+
+            background-color: red;
+
+            margin: 0 auto;
+            margin-bottom:100px;
+            
+
+        }
+
+        .box .triangel{
+
+            width: 0;
+
+            height: 0;
+
+            border: 18px solid transparent;
+
+            border-top:12px solid rgb(255, 255, 0);
+
+            position: relative;
+
+            transform: rotate(0deg);
+
+           
+
+        }
+        
+        .box .triangel::before{
+
+            content: "";
+
+            position: absolute;
+
+            width: 0;
+
+            height: 0;
+
+            top:-21px;
+
+            left:-23px ;   
+
+            border: 18px solid transparent;
+
+            border-right:12px solid rgb(255, 255, 0);
+
+            transform: rotate(-20deg);
+
+        }
+
+        .box .triangel::after{
+
+            content: "";
+
+            position: absolute;
+
+            width: 0;
+
+            height: 0;
+
+            top:-21px;
+
+            left: -7px;
+
+            border: 18px solid transparent;
+
+            border-left:12px solid rgb(255, 255, 0);
+
+            transform: rotate(20deg); 
+
+        }
+
+        .box .triangel:nth-child(1){
+
+            transform: scale(1.2) translateX(20px) translateY(30px);
+
+        }
+
+        .box .triangel:nth-child(2){
+
+            transform: scale(0.5) rotate(15deg)  translateX(118px) translateY(-80px);
+
+        }
+
+        .box .triangel:nth-child(3){
+
+            transform: scale(0.5) rotate(15deg)  translateX(131px) translateY(-32px);
+
+        }
+
+        .box .triangel:nth-child(4){
+
+            transform: scale(0.5) rotate(38deg) translateX(51px) translateY(-215px);
+
+        }
+
+        .box .triangel:nth-child(5){
+
+            transform: scale(0.5) translateX(177px) translateY(-148px)
+
+        }
+
+/* ======================== before tri after 三个三角形，利用伪类组成的 ========================= */
+
+        .box .triangel2{
+
+            width: 0;
+
+            height: 0;
+
+            border: 18px solid rgba(255, 255, 255, 0.5);
+
+            border-top:12px solid rgb(255, 255, 0);
+
+            position: relative;
+
+            transform: rotate(0deg);
+
+           
+
+        }
+
+        .box .triangel2::before{
+
+            content: "";
+
+            position: absolute;
+
+            width: 0;
+
+            height: 0;
+
+            top:-21px;
+
+            left:-23px ;   
+
+            border: 18px solid rgba(255, 255, 255, 0.5);
+
+            border-right:12px solid rgb(255, 255, 0);
+
+            transform: rotate(-30deg);
+
+        }
+        .box .triangel2::before{
+
+            content: "";
+
+            position: absolute;
+
+            width: 0;
+
+            height: 0;
+
+            top:-21px;
+
+            left:-23px ;   
+
+            border: 18px solid rgba(255, 255, 255, 0.5);
+
+            border-right:12px solid rgb(255, 255, 0);
+
+            transform: rotate(60deg);
+
+        }
+
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="box">
+
+        <div class="triangel "></div>
+
+        <div class="triangel "></div>
+
+        <div class="triangel "></div>
+
+        <div class="triangel "></div>
+
+        <div class="triangel "></div>
+
+    </div>
+
+    <div class="box">
+
+        <div class="triangel2 "></div>
+
+
+    </div>
+
+</body>
+
+</html>

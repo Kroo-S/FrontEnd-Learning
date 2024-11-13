@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+        #box{
+            width: 200px;
+            height: 200px;
+            background-color: #333;
+            margin: 100px;
+            padding: 50px;
+        }
+        body{
+            height: 2000px;
+        }
+        #info{
+            font-size:30px;
+        }
+        p{
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+
+
+</head>
+<body>
+    <div id="box">
+        <p></p>
+    </div>
+    <dinv id="info"></dinv>
+
+
+    <script>
+
+        //===================== 事件对象 offsetX、clientX、pageX ======================
+
+        var oBox = document.getElementById('box');
+        var oInfo = document.getElementById('info');
+
+        //事件对象e，当事件触发时，由浏览器提供事件对象e
+        oBox.onmouseover = function(e){
+        
+            oInfo.innerHTML = 
+       
+            ' offsetX/Y :' + e.offsetX + ','+ e.offsetY + '<br>'    //事件源（方块）上的坐标
+          + ' clientX/Y :' + e.clientX + ','+ e.clientY + '<br>'    //浏览器上的坐标
+          + ' pageX/Y: '   +e.pageX + ',' +e.pageY + '<br>';        //整张网页上的坐标
+      
+        }
+
+
+        //================= e.charCode、 e.keyCode ===============
+        // <input type="text" id="field1">
+        // <h1 id="info1"></h1>
+
+        var oField1 = document.getElementById('field1');
+        var oInfo1 = document.getElementById('info1');
+
+        var oField2 = document.getElementById('field2');
+        var oInfo2 = document.getElementById('info2');
+
+        oField1.onkeypress = function(e){
+            oInfo1.innerText = "你输入的字符的字符码是：" + e.charCode;
+        }
+
+        oField2.onkeydown = function(e){
+            oInfo2.innerText = "你按下的按键的键码是：" + e.keyCode;
+        }
+
+        //===================== 小案例：方向键控制方块的移动
+
+        // #oBox{
+        //     position:absolute;
+        //     top:200px;
+        //     left:200px;
+        //     width:100px;
+        //     height:100px;
+        //     background-color:orange;
+        // }
+        // <div id="box"></div>
+
+        var oBox = document.getElementById('box');
+
+        //全局变量t、l，分别表示盒子的top属性和left属性
+        var t=200;
+        var l=200;
+
+        //监听document对象的键盘按下事件监听，表示当用户在整个网页上按下按键的时候
+        document.onkeydown= function(e){
+            switch(e.keyCode){
+                case 37:
+                    l -= 3;      //l--移动太慢了，所以l-=3；
+                    break;      //按一下要停止break，不然一直移动
+                case 38:
+                    t -= 3;
+                    break;
+                case 39:
+                    l += 3;
+                    break;
+                case 40:
+                    t += 3;
+                    break;
+            }
+
+            //更改样式
+            oBox.style.left = l + 'px';
+            oBox.style.top = t + 'px';
+
+        }
+
+        //======================== 事件对象的方法 =====================
+        
+        //============ 1. e.preventDefault()方法  用来阻止事件产生的默认动作
+        
+        //eg：制作一个文本框，只能让用户在其中输入小写字母和数字，其他字符输入无效
+        
+        // <p>
+        //     只能输入小写字母和数字
+        //     <input type="text" id="field">
+        // </p>
+
+        var oField = document.getElementById('field');
+
+        oField.onkeypress = function(e){
+            console.log(e.charCode);     //证明确实是按了按键的
+
+            //根据用户输入的字符的字符码（e.charCode）来判断
+            //数字0～9：字符码97～122
+            //小写字母a~z：字符码97～122
+
+            if(!e.charCode>=48 && e.charCode <= 57 || e.charCode >= 97 && e.charCode <=122){
+                //阻止浏览器的行为
+                e.preventDefault();
+            }
+        }
+
+        //======onmousewheel() 制作鼠标滚轮事件：
+        //当鼠标在盒子中向下滚动时，数字加1；反之，数字减1；
+        // onmousewheel: 它的事件对象e提供deltaY属性表示鼠标滚轮的方向，向下滚动时返回正值，向上滚动时返回负值
+        
+        // <div id="box"></div>
+        // <h1 id="info">0</h1>
+
+
+        var oBox = document.getElementById('box');
+        var oInfo = document.getElementById('info');
+
+        //全局变量就是info中显示的数字
+        var a = 0;
+
+
+        //给box盒子添加鼠标滚轮事件监听
+        oBox.onmousewheel = function(e){
+            //阻止默认事件：就是说当用户在盒子里面滚动鼠标滚轮的时候，此时不会引发页面的滚动条
+            e.preventDefault();
+
+            if(e.deltaY>0){     //大于0是鼠标向下滚 ，所以要a--；
+                a--;        
+            }else{
+                a++;
+            }
+            oInfo.innerText = a;
+        }
+
+
+       //=================== 2.e.stopPropagation 方法
+        // 用来阻止事件的继续传播
+
+        // eg：
+        // <div id="box1">
+        //     <button id="btn">按我</button>
+        // </div>
+
+        // div{
+        //     width:200px;
+        //     height:200px;
+        //     background-color:#333;
+        // }
+
+
+        var oBox = document.getElementById('box');
+        var oBtn = document.getElementById('btn');
+
+        //========== 输出我是按钮
+        oBox.onclick = function(){       //onclick事件会进行冒泡传播   '我是按钮'->'我是盒子'
+            console.log('我是盒子');
+        };
+        
+        oBtn.onclick = function(e){        
+            e.stopPropagation();         //切断事件的传播，当前只会输出‘我是按钮’。 阻止事件继续传播。
+            console.log('我是按钮');
+        };
+
+        //========== 输出我是盒子
+        oBtn.addEventListener('click',function(){        //true是捕获阶段，顺序是从父盒子->子按钮
+
+            //阻止事件继续传播   按钮就不会输出“我是按钮”这句话来。
+            e.stopPropagation();
+            console.log('我是盒子');
+        },true);         //true是捕获阶段
+
+        oBtn.addEventListener('click',function(){
+            console.log('我是按钮');
+        },true);
+
+
+        //eg：小案例：制作一个弹出层，点击按钮显示弹出层，点击网页任意地方，弹出层关闭
+        // <button id="btn">按我弹出弹出层</button>
+        // <div class="modal" id="modal"></div>
+
+        // .modal{
+        //     width:400px;
+        //     height:140px;
+        //     background-color:#333;
+        //     position:absolute;
+        //     top:50%;
+        //     left:50%;
+        //     margin-top:-70px;
+        //     margin-left:-200px;
+        //     display:none;
+        // }
+
+            var oBtn = document.getElementById('btn');
+            var oModal = document.getElementById('modal');
+
+            //点击按钮的时候，弹出层显示
+            oBtn.onclick = function(e){
+
+                //阻止事件继续传播到document身上
+                // document是父盒子，btn是子按钮，当点击按钮的时候，是冒泡传播
+                // 所以会得到 display:None; 弹出层不会显示
+                // 所以要在btn阶段设置传播停止
+
+                e.stopPropagation();
+                oModal.style.display = 'block';
+            };
+
+            //点击页面任何部分的时候，弹出层关闭
+            document.onclick = function(){
+                oModal.style.display = 'none';
+            };
+
+            //点击弹出层内部的时候，不能关闭弹出层，所以应该阻止事件传播
+            oModal.onclick = function(e){
+
+                //阻止事件继续传播到document身上
+                //前面用的 oModal，是获取的弹出层
+
+                e.stopPropagation();
+
+            };
+
+
+    </script>
+</body>
+</html>

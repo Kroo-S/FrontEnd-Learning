@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        /* 
+        【现象】
+            1. 一个盒子不设置高度height，当子元素都浮动的时候，无法撑起自身的高度
+            2. 这个盒子没有形成BFC
+
+        BFC:是页面上的一个独立容器，容器里面的子元素不会影响到外面的元素
+        创建BFC的方法：
+            1. float的值不是none；
+            2. position的值不是static或relative
+            3. display的值是inline-block、flex或者inline-flex
+            4. overflow:hidden;  (给父盒子设置)
+
+        什么是overflow:hidden
+            1. 表示溢出隐藏，溢出盒子边框的内容会被隐藏
+            2. 是非常好用的让盒子形成BFC的方法
+
+        BFC的其他作用
+            1. BFC可以取消盒子margin塌陷
+            2. BFC可以阻止元素被浮动元素覆盖
+
+        浏览器差异：
+            1. IE6、7使用haslayout机制，与BFC规范略有差异。浏览器IE可以使用zoom:1属性，让盒子拥有layout */
+
+        *{
+            margin:  0px;
+            padding: 0px;
+        }
+        p{
+            width: 200px;
+            height: 200px;
+            background-color: orange;
+            margin: 50px;
+        }
+        div{
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <p></p>
+    </div>
+    <div>
+        <p></p>
+    </div>
+</body>
+</html>

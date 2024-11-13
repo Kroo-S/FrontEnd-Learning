@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // ================== 定时器 setInterval() ================    
+    
+        // 第一个参数是函数，第二个参数是时间毫秒
+        // 定时器会一直执行函数
+        // 延时器只会执行一次
+
+
+        var a = 0;
+        setInterval(function(){
+            cconsole.log(++a);
+        },1000);     //1000是1000毫秒，等于1秒
+
+
+        //================= 函数的参数 ===================
+        setInterval(function(a,b){     
+
+            //形式参数a的值是88，形式参数b的值是66;
+
+        },2000,88,66);    //此时a=88，b=66
+
+        //================= 具体函数也可以传入setInterval中去 =================
+        var a = 0;
+        function fun(){
+            console.log(++a);
+        }
+
+        setInterval(fun,1000);    //这里的fun不能带括号，带上括号表示函数立即执行。
+
+
+        //==================== 清除定时器 clearInterval() ===============
+        
+        // eg:
+        // <h1 id="info"></h1>
+        // <button id="btn1">开始</button>
+        // <button id="btn2">暂停</button>
+
+        var oInfo = docuemnt.getElementById('info');
+        var oBtn1 = document.getElementById('btn1');
+        var oBtn2 = document.getElementById('btn2');
+
+        var a = 0;
+
+        //全局变量,让后续的暂停可以进行
+        var timer;
+
+        //点击的时候起作用，所以要放入一个事件监听中
+        oBtn1.onclick = function(){
+
+            //多次点击开始按钮的时候，定时器会叠加，计时速度会加快。
+            //为了防止定时器叠加，我们应该在设置定时器前清除定时器
+            clearInterval(timer);
+
+            //更改全局变量timer的值为一个定时器实体。
+            timer = setInterval(function(){
+                oInfo.innerText = ++a;
+            },1000);
+        };
+
+        oBtn2.onclick = function(){
+            clearInterval(timer);      //按暂停键时候，清除定时器
+        };
+
+        // ================== 延时器 setTimeout() ===================
+        // 延时器只会执行一次函数
+        // 清除延时器 ：clearTimeout()
+
+        // eg:
+        // <button id='btn1'>2秒后弹出你好</button>
+        // <button id='btn2'>取消弹出</button>
+
+        var btn1 = document.getElementById('btn1');
+        var btn2 = document.getElementById('btn2');
+        var timer;  //全局变量
+
+        btn1.onclick = function(){
+            timer = setTimeout(function(){
+                alert("你好");
+            },2000);
+        };
+
+        btn2.onclick = function(){
+            clearTimeout(timer);
+        };
+
+
+        //==================== 初步认识异步语句 ===================
+        
+
+        setTimeout(function(){   //setTimeout是异步语句，funciton是callback回调函数     
+            console.log('A');
+        },2000);
+
+        console.log('B');       //异步语句不会阻塞程序的正常执行
+
+        //最终输出结果是，先输出B，再输出A
+
+
+        //==================== 使用定时器实现动画 ===================
+        
+        // <button id='btn'>开始运动</button>
+        // <div id='box'></div>
+
+        //得到元素
+        var btn = document.getElementById('btn');
+        var box = document.getElementById('box');
+
+        //全局变量盒子的left值
+        var left = 100;
+
+        //按钮监听
+        btn.onclick = function(){
+            var timer = setInterval(function(){
+                //改变全局变量
+                left+=10;
+                if(left>=1000){
+                    clearInterval(timer);
+                }
+                //设置left的值
+                box.style.left = left+'px';
+            },20);
+        };
+
+        // =================== JS+CSS3结合实现动画，水平滚动 =====================
+        //结合css3中的transition
+
+        // eg：
+        // #box{
+        //     width:100px;
+        //     height:100px;
+        //     background-color:orange;
+        //     position:absolute;
+        //     top:100px;
+        //     left:100px;
+        // }
+
+        // <button id="btn">按我运动</button>
+        // <div id="box"></div>
+
+        //得到元素
+        var btn = document.getElementById('btn');
+        var box = document.getElementById('box');
+
+        //标识量，指示当前盒子在左边还是右边
+        var pos=1;         //1坐标，2右边
+
+        //函数节流锁
+        //此处用函数节流锁的原因是：不停点击按钮，滑块会来回运动，永远不会到指定边界“1100px”
+        var lock = true;
+
+        //事件监听
+        btn.onclick = function(){
+
+            //函数节流锁先检查是否关闭
+            if(!lock) return;     //!lock表示 锁关闭了，return结束函数语句
+
+            //transition的过渡效果
+            box.style.transition = 'all 2s linear 0s';
+            
+            if(pos==1){    //从左向右
+                box.style.left="1100px";        //瞬间移动，但加了过渡，就成了动画
+                pos = 2;
+            }else if(pos == 2){     //从右向左
+                box.style.left="100px";
+                pos = 1;
+            }
+
+            //核心语句执行完后，关锁
+            lock = false;
+            
+            //指定毫秒数后，再次打开锁
+            setTimeout(function(){
+                lock = true;
+            },2000);        // 这里的2000对应上面transition的‘all 2s linear 0s’
+
+        };
+        
+
+        // ===================== 函数节流
+        // 1. 只有大于设定的执行周期后，函数才允许执行第二次
+        // 2. 借助setTimeout()延时器
+        // 3. 语法：
+            var lock = true;
+            function 需要节流的函数(){
+                //如果锁是关闭状态，则不执行
+                if(!lock) return;
+                //函数关键语句
+
+                //关锁
+                lock = false;
+
+                //指定毫秒数后将锁打开
+                setTimeout(function(){
+                    lock = true;
+                },2000);
+            }
+
+
+    </script>
+</body>
+</html>

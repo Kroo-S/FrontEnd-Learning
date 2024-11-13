@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id='list'>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+        <li>列表项</li>
+    </ul>
+
+    <script>
+        
+        //================== 事件委托 ==================
+        // 题目：页面上有一个无序列表<ul>，它内部有20个<li>，
+        //      请批量给它们添加点击事件监听
+        //      实现效果：点击哪个，哪个变红
+
+        var oList = document.getElementById('list');
+        var lis = oList.getElementsByTagName('li');
+
+        //书写循环语句，批量给元素添加监听
+        for(var i=0;i<lis.length;i++){
+            lis[i].onclick = function(){
+
+                //在这个函数中，this表示点击的这个元素。
+                //this涉及函数上下文的相关知识，“面向对象”课程中介绍。
+
+                this.style.color = 'red';   //this表示当前这个
+
+            };
+        }
+
+
+        //============== 新增元素动态绑定事件 ===============
+        // 题目：页面上有一个无序列表<ul>,它内部没有<li>元素，请制作一个按钮，
+        //      点击这个按钮就能增加一个<li>元素。
+        //      并且要求每个增加的<li>元素也要有点击事件监听，
+        //      实现效果点击哪个<li>元素，哪个<li>元素就变红
+
+        // <button id='btn'>按我添加新的li列表项</button>
+        // <ul id='list'></ul>
+
+        var oBtn = document.getElementById('btn');
+        var oList = document.getElementById('list');
+        
+        var lis = oList.getElementsByTagName('li');     
+        //由于ul里面没有li列表项，所以此时不能用for循环去获得新增的li
+
+
+        //按钮点击事件
+        oBtn.onclick = function(){
+            //创建一个新的li列表项，孤儿节点
+            var oLi = document.createElement('li');
+            oLi.innerHTML = '我是列表项';
+
+            //上树
+            oList.appendChild(oLi);
+
+            //由于上面Lis无法获取新增的li，所以不用for循环去添加，而用事件添加
+            //给新创建的这个li节点添加onclick事件监听
+            oLi.onclick = function(){
+                this.style.color = 'red';
+            };
+        };
+
+        //动态绑定事件的问题和缺点：
+            // 新增元素必须分别添加事件监听，不能自动获得事件监听
+            // 大量事件监听、大量事件处理函数都会产生大量消耗内存
+            
+
+    
+        // ======================= 事件委托 =========================  
+           // 1. 可以节约内存开销
+
+
+        // ====== 利用事件冒泡机制，将后代元素事件委托给祖先元素.
+
+        // e.target:   触发此事件的最早元素，即“事件源元素”
+        // e.currentTarget:   事件处理程序附加到的元素
+        
+        // eg：
+        //     <button id='btn'>按我创建一个新列表项</button>
+        //     <ul id='list'>
+        //         <li>列表项</li>
+        //         <li>列表项</li>
+        //         <li>列表项</li>
+        //     </ul>
+
+            var oList = document.getElementById('list');
+            var oBtn = document.getElementById('btn');
+
+            oList.onclick = function(e){
+                //e.target表示拥护真正点击的那个元素
+                e.target.style.color = 'red';
+            };
+            oBtn.onclick = function(){
+                //创建新的li元素
+                var oLi = document.createElement('li');
+                //写内容
+                oLi.innerText = '我是新来的';
+                //上树
+                oList.appendChild(oLi);
+            };
+
+        // 事件委托的使用场景：
+        //     1. 有大量类似元素需要批量添加事件监听
+        //     2. 有动态元素节点需要上树时
+
+
+
+        //================= onmouseenter\onmouseover的区别 ==================
+        // 1. onmouseenter不冒泡
+        // 2. onmouseover冒泡
+
+            var oList = document.getElementById('list');
+            var oBtn = document.getElementById('btn');
+
+            //onmouseenter这个属性天生就是“不冒泡”的，
+            //相当于你事件处理函数附加给了哪个DOM节点，就是哪个自己触发，没有冒泡过程
+            
+            oList.onmouseover = function(e){
+                //e.target表示拥护真正点击的那个元素
+                e.target.style.color = 'red';
+            };
+            oBtn.onclick = function(){
+                //创建新的li元素
+                var oLi = document.createElement('li');
+                //写内容
+                oLi.innerText = '我是新来的';
+                //上树
+                oList.appendChild(oLi);
+            };
+
+        // ================ 事件委托使用的注意事项
+        // 1. 不能委托不冒泡的事件给祖先元素
+        // 2. 最内层的元素不能再有额外的内层元素了，不然li中的span标签会单独变红
+            //   eg：
+            //   <ul id="list">
+            //         <li><span>我是span</span>列表项</li>
+            //         <li><span>我是span</span>列表项</li>
+            //         <li><span>我是span</span>列表项</li>
+            //   </ul>
+
+
+
+    </script>
+
+
+
+</body>
+</html>

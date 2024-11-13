@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .content{
+            height:100px;
+            overflow:hidden;
+        }
+        .content .gradient{
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-image: radial-gradient(50% 50%,white 50%,orange 60%,yellow 70%, green 80%, blue 90%, purple 100%);
+        }
+
+
+        .box1{
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+
+            /* 样式中，需要书写开始位置和结束位置，即可实现清晰边缘 */
+            background-image: radial-gradient(50% 50%, white 0%, white 50%, orange 50%, orange 60%, yellow 60%, yellow 70%, green 70%, green 80%, blue 80%, blue 90%, purple 90%, purple 100%);
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="gradient"></div>
+    </div>
+
+
+    <!--样式中，需要书写开始位置和结束位置，即可实现清晰边缘-->
+    <div class="content">
+        <div class="box1"></div>
+    </div>
+    
+    
+</body>
+</html>

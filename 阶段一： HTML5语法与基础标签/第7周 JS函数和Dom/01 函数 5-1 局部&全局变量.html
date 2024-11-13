@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //======================== 遮蔽效应 ========================
+        
+        //全局变量
+
+        var a = 10;
+
+        function fun(){
+            //局部变量，会把全局的变量a遮蔽
+
+            var a = 5;
+            a++;
+            console.log(a);
+        }
+        fun();                   //6
+        console.log(a);          //10
+
+
+        //================ 局部变量声明提升的情况要注意 ==================
+        var a = 10;
+        function fun(){
+            a++;            
+            //局部变量a被自增1，a此时是undefined，自增1结果是NaN；
+            //声明语句在后面，所以声明提升，但不提升数值，所以a是undefined；
+            //a++是number类型的加法，Number(undefined) = NaN;
+            //NaN做任何运算，得到的结果还是NaN；
+            
+            var a = 5;      //a被重新赋值5,并不自加。
+            console.log(a);       //输出5
+        }
+        fun();
+        console.log(a);          //输出10
+
+
+        //=========================== 形参也是局部变量 ============================
+        var a =10;
+        function fun(a){      //这里的a相当于var a
+            a++;                      //形式参数在函数内部也是局部变量
+            console.log(a);     //输出8
+        }
+        fun(7);
+        console.log(a);         //输出10
+
+        //======================== 作用域链 ===========================
+        
+        // 1. 函数的嵌套：函数内部可以再有函数
+        // 2. 在函数嵌套中，变量会从内到外逐层寻找它的定义。
+        var a = 10;
+        var b = 20;
+        function fun(){
+            var c = 30;
+            function inner(){
+                var a = 40;
+                var d = 50;
+                console.log(a,b,c,d);     // 40,20,30,50
+            }
+            inner();
+        }
+        fun();
+
+        //================= 函数中不加var，则是定义的全局变量 ==================
+        function fun(){
+            a = 3;
+        }
+        fun();
+        console.log(a);    // 3
+
+        //====================
+        var a = 1;
+        var b = 2;
+        function fun(){
+            c = 3;
+            c++;
+            var b = 4;
+            b++;
+            console.log(b);       // 5  局部变量
+        }
+        fun();
+        console.log(b);           // 2  全局变量
+        //在函数外部，可以访问变量c
+        console.log(c);           // 4
+
+
+    </script>
+</body>
+</html>

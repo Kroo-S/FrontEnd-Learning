@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .pic{
+            width: 650px;
+            height:360px;
+            background-color: red;
+        }
+        .carousel{
+            position: relative;
+            width: 650px;
+            height:360px;
+            border:1px solid #000;
+            margin:  40px auto;
+        }
+        .carousel .btn{
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #000;
+            /* leftbtn 和 rightbtn共同的属性值，进行居中 */
+            top:50%;
+            margin-top: -20px;
+
+            /* 圆形 */
+            border-radius: 50%;
+            /* 文字的水平居中:
+            text-align为center，line-heigh行高与盒子高度height一样 */
+            text-align:center;
+            line-height: 40px;
+
+            /* 透明度50% */
+            background-color: rgba(255, 255, 255, 0.5);
+
+            /* hover鼠标为小手 */
+            cursor: pointer;
+
+            /* "<"、">"文字设置 */
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 26px;
+        }
+
+        .carousel .btn:hover{
+            background-color: gold;
+
+            /* color是文字的颜色变化 */
+            color: #fff;
+        }
+
+        .carousel .leftbtn{
+            left: 10px;
+        }
+        .carousel .rightbtn{
+            right: 10px;
+        }
+
+        /* 小圆点样式表： */
+        .carousel ol{
+            position: absolute;
+            width: 200px;
+            height: 20px;
+            right: 20px;
+            bottom: 20px;
+            /* background-color: green; */
+
+            /* 去掉序号1234，但根据文档规范，这里还是要用ol */
+            list-style: none;
+        }
+
+        .carousel ol li{
+            float: left;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.5);
+
+            /* 变为圆形 */
+            border-radius: 50%;
+            margin-right: 10px;
+
+        }
+        .carousel ol li.current{
+            background-color: gold;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="carousel">
+        <!-- <img src="images/0.jpg" alt=""> -->
+        <div class="pic"></div>
+        <a href="#" class="leftbtn btn">&lt;</a>
+        <a href="#" class="rightbtn btn">&gt;</a>
+        <ol>
+            <li></li>
+            <li class="current"></li>
+            <li></li>
+            <li></li>
+        </ol>
+    </div>
+</body>
+</html>

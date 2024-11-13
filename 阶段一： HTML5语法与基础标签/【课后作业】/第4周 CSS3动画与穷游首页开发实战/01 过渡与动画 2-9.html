@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0px;
+            padding: 0px;
+        }
+        .box{
+            width: 300px;
+            height: 240px;
+            margin-top: 100px;
+            margin-left: 100px;
+            /*隐藏*/
+            overflow: hidden;    
+            position: relative;
+        }
+        .box .info{
+            position: absolute;
+            left: 0px;
+            bottom: -30px;
+            width: 300px;
+            height: 30px;
+            background: #000;
+            color:white;
+            font-size: 16px;
+            line-height: 30px;
+            text-align: center;
+
+            opacity: 0;
+            transition:opacity 1s ease 0s;     /*这里写all容易引起效率问题，尽量写改变的变量*/
+        }
+        .box:hover p{                 /*这里注意逻辑关系，box:hover的时候，p改变了。样式表作用于p元素*/
+            opacity:0.6;
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <img src="./duck.png" alt="">
+        <p class="info">这是一只小黄鸭</p>
+    </div>
+</body>
+</html>

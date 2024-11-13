@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // 判断水仙花数
+    // ​每个数位的数字立方和是它本身
+    // ​1^3 + 5^3 + 3^3 = 153     水仙花数
+    // ​n 对它拆位
+    // ​1）数学方法
+    // ​    ​%100 %10
+    // ​2）字符串方法
+    // ​    ​charAt( );
+
+        // ================数学方法===================
+
+        var n = Number(prompt("请输入一个三位数："));
+        if(!isNaN(n) && n>=100 && n<= 999){
+            // 数学方法，位数取整
+            var a = Math.floor( n / 100 );         //向下取整
+            var b = Math.floor( n / 10 % 10 );     //取十位数上的值   
+            var c = Math.floor( n % 10 );          //个位数取整
+            
+            //水仙花数的判断条件
+            if(Math.pow(a,3) + Math.pow(b,3) + Math.pow(c,3) == n){
+                alert("这是一个水仙花数！");
+            }else{
+                alert("这不是一个水仙花数字！");
+            }
+        }else{
+            alert("请输入一个3位数");
+        }
+
+        // ================= 字符串方法 ==================
+
+        var n =Number(prompt("请输入一个三位数："));
+        if( !isNaN(n) && n >= 100 && n <= 999 ){           //   “<” 、“=” 中间不能有空格
+            
+            var n_str = n.toString();      //转为字符串
+
+            var a = Number(n_str.charAt(0));       //选取字符串第一个数字，并且转为number类型
+            var b = Number(n_str.charAt(1));
+            var c = Number(n_str.charAt(2));
+            
+            if(Math.pow(a,3) + Math.pow(b,3) + Math.pow(c,3) == n){
+                alert("这是个水仙花数字！");
+            }else{
+                alert("这不是水仙花数字！");
+            }
+        }else{
+            alert("请重新输入数字："); 
+        }
+
+
+    </script>
+
+
+</head>
+<body>
+    
+</body>
+</html>

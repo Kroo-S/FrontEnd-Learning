@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //=================== 四舍五入 =====================
+        // Math.round(); 方法
+
+        console.log(Math.round(3.49));     //3
+        console.log(Math.round(3.51));     //4
+
+        //================ 最大值最小值 ===================
+
+        //max,min中的数字只能罗列
+        console.log(Math.max(6,2,3,8));    //8
+        console.log(Math.min(1,6,9,5));    //1
+
+        //用数组形式，需要用到apply
+        var arr=[3,6,9,2];
+        var max = Math.max.apply(null,arr);  //apply可以将数组变成零散值
+        console.log(max);     //9
+
+        //=================== 随机数 Math.random(); ===================
+        
+        //生成[a，b]之间的整数：
+        parseInt(Math.random()*(b-a+1))+a;
+        
+        
+
+    </script>
+</body>
+</html>

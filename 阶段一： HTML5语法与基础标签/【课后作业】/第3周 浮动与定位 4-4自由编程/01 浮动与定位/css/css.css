@@ -1,0 +1,378 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.header{
+    background-color: #07cbc9;
+    height: 80px;
+}
+.header .header-main{
+    width: 1200px;
+    margin: 0 auto;
+}
+.header .header-main .logo{
+    padding-top: 16px;
+    height: 48px;
+    width: 260px;
+    float: left;
+}
+.header .header-main .logo h1{
+    height: 48px;
+    width: 260px;
+}
+.header .header-main .nav{
+    float: right;
+    /*Q1:这里导航栏的宽度如何确定？*/
+    
+}
+.header .header-main .nav ul{
+    /* Q2:如何确定每个按钮的宽度？ */
+    height: 80px;
+    margin: 0 auto;
+ 
+}
+.header .header-main .nav ul li{
+    float: left;
+    text-align: center;
+    font-size: 16px;
+    
+    /*
+        Q3:这里是否可以将每个选项的margin-left和right设置成10，最终达到两者之间的距离是20的效果。
+        是否CSS设置的样式可以有多种方式，只要效果达到即可？
+    */
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 80px;
+}
+.header .header-main .nav ul li a{
+    color:white;
+    display: inline-block;
+    padding: 0 10px;   /*a标签盒子里面的内容要用padding撑起来，hover的时候才能有空隙。margin会有塌陷现象。*/
+    
+}
+.header .header-main .nav ul li a:hover{
+    background-color: rgb(0, 173, 165);
+}
+
+/*============================== 4-6banner区域 ⬇ ================================*/
+.banner{
+    width: 100%;
+    height: 600px;
+    position: relative;
+}
+.banner .pic {
+    width: 100%;
+    height: 600px;
+}
+.banner .pic img{    /*为什么图片的属性只写在在父亲上面（上层.pic）会无效？非要写在img上面才行？    A:父亲只是一个空盒子，不是图片*/
+    width: 100%;
+    height: 600px;
+}
+.banner .mask{
+    position: absolute; /*遮罩层，在banner中居中显示*/
+    width: 100%;
+    height: 600px;
+    top: 0px;
+    left:0px;
+    background-color: rgba(000, 000, 000, 0.1);
+}
+.banner .form{
+    width: 504px;
+    height: 350;
+    position: absolute;
+    top: 100px;    /*离上边框距离100px*/
+    left:50%;
+    margin-left: -252px;
+    text-align: center;
+}
+.banner .form input{         
+    width: 504px;
+    height: 40px;
+    border:1px solid #808080;
+    margin-bottom: 20px;
+    background:rgba(255, 255, 255, 0);      
+    color:#808080;   
+}
+.banner .form input:last-child{
+    margin-bottom: 0px;
+}
+.banner .form textarea{
+    width: 504px;
+    height: 110px;
+    border:1px solid #808080;
+    margin-bottom: 20px;
+    background:rgba(255, 255, 255, 0);
+    color:#808080;
+}
+.banner .form .submitform{     /*Q：这里如何通过textalign:center实现按钮居中啊？*/
+    width: 200px;
+    height: 40px;
+    
+    /* display: block;
+    margin: 0 auto; */
+
+    color:#808080;       
+}
+/*============================== 4-8 about区域 ⬇ ================================*/
+.about .about_top{
+    margin:30px 0;
+}
+.about .about_top .h2title{
+    font-size: 32px;
+    text-align: center;
+    
+    /*padding: 0 50%;*/    /*Q1:这里居中这样写（使用padding或者margin）可以吗？h2为块级元素，上下间距为0，左右50%间距。但貌似文字还是不居中*/
+                
+}
+.about .about_top .line{
+    width: 60px;
+    height: 3px;
+    background: #07cbc9;
+    margin:10px auto;   
+}
+.about .about_top p{
+    text-align: center;
+    color:gray;
+    font-size: 14px;
+}
+.about .about_bottom{
+                    
+    width:1200px;   
+    height: 464px;
+    position:relative;
+    margin:0 auto;      /*下面的盒子水平居中*/
+    
+}
+.about .about_bottom .aboutleft{
+    position: absolute;
+    top: 0px;
+    left:0px;
+    width: 340px;
+}
+.about .about_bottom .aboutleft h3{
+    text-align: left;
+}
+.about .about_bottom .aboutleft .p_btn{
+    margin:20px 0; /*与h3标题的距离*/
+    width: 300px;
+    font-size: 18px;
+    padding: 20px;
+    border: 1px solid gray;
+    background: rgba(255, 255, 255, 0.5);
+}
+.about .about_bottom .aboutleft .p_btn button{
+    width: 140px;
+    height: 40px;
+    background: #000;
+    color:#fff;
+    text-align: center;
+    line-height: 40px;
+    border: none;
+    margin-top:20px;
+}
+.about .about_bottom .aboutmid{
+    width: 650px;
+    height: 435px;
+    margin:0 auto;  /*Q2：这里为什么不能用text-align:center来居中*/
+}
+.about .about_bottom .aboutmid img{
+    width: 650px;
+    height: 435px;
+}
+.about .about_bottom .aboutright{
+    position: absolute;
+    top:0px;
+    right:0px;
+    width: 260px;
+}
+.about .about_bottom .aboutright .student{
+    width: 260px;
+    text-align: center;
+    padding: 40px;
+    margin-bottom: 30px;
+    border: 1px solid #07cbc9;
+}
+.about .about_bottom .aboutright .student h3{
+    font-size: 28px;
+    font-weight: bold;
+           
+}
+.about .about_bottom .aboutright .student .line{
+    width: 60px;
+    height: 3px;
+    background: #07cbc9;
+    margin: 10px auto;
+}
+.about .about_bottom .aboutright .faculty{
+    width: 260px;
+    text-align: center;
+    padding: 40px;
+    border: 1px solid #07cbc9;
+}
+.about .about_bottom .aboutright .faculty h3{
+    font-size: 28px;
+    font-weight: bold;
+}
+.about .about_bottom .aboutright .faculty .line{
+    width: 60px;
+    height: 3px;
+    background: #07cbc9;
+    margin: 10px auto;
+}
+
+
+/*============================== 4-10 Word_Pic 图文区域 ⬇ ================================*/
+.Word_Pic{
+    width: 100%;
+    margin:0 auto;
+}
+.Word_Pic .Word_Pic_1{
+   overflow: hidden;
+}
+.Word_Pic .Word_Pic_2{
+    overflow: hidden;
+}
+.Word_Pic .pic{
+    float: left;
+    width: 25%;
+    height: 380px;       /*Q1:这里可以不设置高吗？*/
+}
+.Word_Pic .pic img{       /*Q2:图片这里的显示效果有点问题，视窗缩小70%以下的时候，图片右侧有空*/
+    display: block;
+    width: 100%;
+}
+.Word_Pic .words{
+    float: left;
+    width: 25%;
+    height: 380px;
+    background: #07cbc9;
+    position: relative;
+}
+.Word_Pic .words h3{
+    font-size: 24px;
+    color: white;
+    padding:20px 0 20px 20px;
+}
+.Word_Pic .words .p1{
+    padding: 10px 20px;
+    color: white;
+    font-size: 16px;
+}
+.Word_Pic .words .p2{
+    padding: 10px 20px;
+    color: gray;
+    font-size: 14px;
+}
+.Word_Pic .words button{    /*Q3：button是行内块元素吗？行内元素可以设置宽高的就是行内块吧*/
+    display:block;
+    width: 138px;
+    height: 40px;
+    background: #000;
+    color: white;
+    line-height: 40px;
+    text-align: center;
+    border: none;
+    margin:0 auto;
+    margin-top: 20px;
+}
+
+/*这里是三角形的位置*/
+.Word_Pic .words .triangle1{     /*左边三角形*/
+    
+     /*居中对齐*/
+    position:absolute;
+    left: -40px;
+    top: 50%;
+    margin-top: -20px;      
+    
+    /* 三角形 */
+    width: 0px;
+    height: 0px;
+    border:20px solid transparent;
+    border-right-color:#07cbc9;
+    
+}
+.Word_Pic .words .triangle2{     /*右边三角形*/
+    
+    /*居中对齐*/
+   position:absolute;
+   right: -40px;
+   top: 50%;
+   margin-top: -20px;      
+   
+   /* 三角形 */
+   width: 0px;
+   height: 0px;
+   border:20px solid transparent;
+   border-left-color:#07cbc9;
+   
+}
+
+
+
+/*============================== 4-11 gallery区域 ⬇ ================================*/
+.gallery{
+    overflow: hidden;
+}
+.gallery .gallery_top{
+    margin-top: 40px;
+}
+.gallery .gallery_top h1{
+    font-size: 32px;
+    text-align: center;
+}
+.gallery .gallery_top .line{
+    width: 60px;
+    height: 3px;
+    background: #07cbc9;
+    margin:10px auto;  
+}
+.gallery .gallery_top p{
+    text-align: center;
+    color:gray;
+    font-size: 14px;
+}
+.gallery .gallery_bottom{
+    width: 1200px;
+    height: 653px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.gallery .gallery_bottom dl{
+    float: left;
+    position: relative;    
+    margin-bottom: 30px;
+    margin-right:40px;
+}
+.gallery .gallery_bottom dl dt{
+    width: 360px;
+    height: 240px;
+}
+.gallery .gallery_bottom dl dd{
+    width: 360px;
+    height: 50px;
+    background: #000;
+    position: relative;
+    left: 0px;
+    bottom: 0px;
+    line-height: 50px;
+}
+.gallery .gallery_bottom dl dd span{
+    padding-left: 20px;
+    color: white;
+}
+
+/*============================== 4-11 footer区域 ⬇ ================================*/
+.footer{
+    background: #07cbc9;
+    height: 80px;
+}
+.footer p{
+    text-align: center;
+    font-size: 20px;
+    line-height: 80px;
+    color: white;
+}

@@ -1,0 +1,16 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+/* 去掉所有ul和ol的小圆点 */
+ul, ol{
+    list-style: none;
+}
+/* 去掉所有超级链接的下划线 */
+a{
+    text-decoration: none;
+}
+/* 使用继承性，给body标签设置字体 */
+body{
+    font: normal 14px/25px "微软雅黑";
+}

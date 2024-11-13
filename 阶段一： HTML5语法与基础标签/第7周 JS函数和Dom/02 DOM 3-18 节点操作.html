@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //============== 改变元素节点的HTML属性 ===============
+        var oPic = document.getElementById('pic');
+        var olink = document.getElementById('link');
+
+        oPic.src = 'images/2.jpg';
+        oLink.href = 'http://www.imooc.com';
+        oLink.innerText = '去慕课网';
+        
+        //======= input 里面更改属性值 
+        oLink.name = " ";
+        oLink.value = " ";   //更改输入的文本内容
+
+        //============== 改变元素节点HTML的属性 ================
+        //不符合w3c的要用 setAttribute() 和 getAttribute() 来使用
+        
+        var box = document.getElementById('box');
+        box.setAttribute('data-n',10);         //data-n是自定义属性值
+
+        var n = box.getAttribute('data-n');
+        alert(n);
+
+
+        //================ className属性 ================
+        // 注意：：
+        // 1. 用className设置的时候，会替换属性值，而不是追加属性值。
+        // 2. 多个类属性值的时候，也会被替换成一个属性值。
+
+
+        //1. 设置属性值
+        var myDiv = document.getElementById('myDiv');
+              //设置class的属性值
+        myDiv.className = "fixBox";
+
+        //2. 获取class属性值
+        var myDiv = document.getElementById('myDiv');
+        console.log(myDiv.className);
+
+
+    </script>
+
+</body>
+</html>

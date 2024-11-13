@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        //随机一个数字，2-99
+        var answer = parseInt(Math.random()*(99-2+1)+2);       //随机数公式
+
+        var min = 1;        //初始最小值
+        var max = 100;      //初始最大值
+        
+        // 为了不断询问，此时需要不停执行一个死循环。用while(true)来执行。        
+        while(true){
+
+            //询问用户猜测的数字
+            var n = prompt("请猜测数字：" + min + "~" + max);
+
+            //验证数字是否在区间内：
+            if(n>=max && n<=min){
+                alert("您输入的数字不在区间内！请重新输入");
+
+                // 不在区间内，之间放弃当前循环，开启下一步循环。
+                continue;     //continue后面没有括号！！！
+            }
+
+            //判断用户数字和随机数的关系
+            if(n > answer){
+                alert("猜大了！");
+                max = n;
+            }
+            else if(n<answer){
+                alert("猜小了！");
+                min = n;
+            }
+            else{
+                alert("Bingo!");
+                break;         //结束循环语句
+            }
+        }
+
+        // do-while来写   do后面没有括号，while()后面没有大括号
+            // do{
+            //     var n = prompt("请猜测数字：" + min + "~" + max);
+
+            //     //验证数字是否在区间内：
+            //     if(n>=max && n<=min){
+            //         alert("您输入的数字不在区间内！请重新输入");
+
+            //         // 不在区间内，之间放弃当前循环，开启下一步循环。
+            //         continue;     //continue后面没有括号！！！
+            //     }
+
+            //     //判断用户数字和随机数的关系
+            //     if(n > answer){
+            //         alert("猜大了！");
+            //         max = n;
+            //     }
+            //     else if(n<answer){
+            //         alert("猜小了！");
+            //         min = n;
+            //     }
+            // }while(n!=answer);
+            // alert("Bingo!");
+
+        
+
+
+
+
+    </script>
+
+</head>
+<body>
+    
+</body>
+</html>

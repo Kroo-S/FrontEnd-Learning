@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        //================= 全局变量是window的属性 =================
+        //多个js文件之间是共享全局作用域的
+
+        var a = 3;
+        console.log(window.a == a);   //true;
+        
+        //hasOwnProperty() 方法会返回一个布尔值，表示对象自身属性中是否具有指定的属性
+        //var a=3；这样声明的全局变量其实是挂载到window对象上了
+        //window.hasOwnProperty('a')返回值为true
+        //代表a在window对象上 
+
+        console.log(window.hasOwnProperty('a'));      //true;
+        console.log(window.a);         //3
+
+        //================== 内置函数普遍是window的方法 =================
+        //setInterval()、alert() 这些方法本质上都是window对象的方法
+
+        console.log(window.alert == alert);                //true
+        console.log(window.setInterval == setInterval);    //true
+
+        console.log(window.hasOwnProperty('setInterval'));    //true
+
+        window.setInterval(function(){           // 方法都是window对象的内置方法
+            window.console.log('你好');
+        },1000);
+
+
+        //==================== 窗口尺寸的相关属性 ===================
+        console.log('窗户内宽（包含滚动条）',window.innerWidth);
+        console.log('窗户外宽',window.outerWidth);     
+        console.log('窗户内宽（不含滚动条）',document.documentElement.clientWidth);
+
+        // innerHeight: 浏览器窗口的内容区域的高度，包含水平滚动条
+        // innerWidth: 浏览器窗口的内容区域的宽度，包含垂直滚动条
+        // outerHeight：浏览器窗口的外部高度
+        // outerWidth：浏览器窗口的外部宽度  （外面有一些投影的部分）
+
+        // 获得不包含滚动条的窗口宽度，要用：
+        // document.documentElement.clientWidth;
+
+
+        //====================== resize事件 ========================
+
+        // 在窗口大小改变之后，就会触发resize事件，
+        // 可以使用window.onresize或者window.addEventListener('resize');
+        // 来绑定事件处理函数
+
+        //监听窗口改变尺寸事件
+        window.onresize = function(){
+            var root = document.documentElement;
+            console.log('窗口改变尺寸了',root.clientWidth,root.clientHeight);
+        }
+
+
+        //======================== 已卷动高度 =====================
+        // window.scrollY: 表示在垂直方向已滚动的像素值（是只读的）
+        // document.documentElement.scrollTop: 表示卷动高度（不是只读的）
+
+        console.log(window.scrollY);
+        console.log(document.document.documentElement.scrollY);
+
+
+        //======================== scroll事件 =======================
+        //在窗口被卷动之后，就会触发scroll事件，
+        // 可以使用window.onscroll或者window.addEventListener('scroll')
+        // 来绑定事件处理函数
+
+        // eg:
+        // body{
+        //     height:5000px;
+        // }
+            window.onscroll = function(){
+                console.log('窗口卷动了',window.scrollY);
+            };
+
+
+    </script>
+</body>
+</html>

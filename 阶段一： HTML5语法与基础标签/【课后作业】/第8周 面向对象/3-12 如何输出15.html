@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function obj1(){
+            //console.log(this);
+            document.write(this.a + this.b);
+        }
+        var obj2 = {
+            a:12,
+            b:3,
+            fn:function(){
+                //obj1();
+                obj1.call(this,this.a,this.b);
+                //obj1.app;y(this,[this.a,this.b]);
+            }
+        }
+        obj2.fn();
+    </script>
+</body>
+</html>

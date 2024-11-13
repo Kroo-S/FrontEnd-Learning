@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>边框</title>
+    <style>
+        /*补充代码*/
+        *{
+            margin:0;
+            padding:0;
+        }
+        .box .bd1{
+            width:0px;
+            height:10px;   /*三角形有一点点不尖*/
+            border:60px solid transparent;
+            border-left:60px solid red;
+            border-radius:50px;
+        }
+        .box .bd2{ 
+            position:absolute;
+            left:0;
+            top:0;
+            
+            width:0px;
+            height:10px;
+            border:60px solid transparent;
+            border-right:60px solid red;
+            border-radius:50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="bd1"></div>
+        <div class="bd2"></div>
+    </div>
+</body>
+
+</html>

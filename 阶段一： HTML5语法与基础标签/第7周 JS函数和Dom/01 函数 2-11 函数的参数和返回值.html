@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //计算a-b之间的整数和
+        function calcSumFromAtoB(a,b){
+            for(var i=a,sum = 0;i<=b;i++){
+                sum+=i;
+            }
+            console.log('从'+a+'到'+b+'的所有整数和是：'+ sum);
+        }
+
+        calcSumFromAtoB(3,7);
+
+
+        //============== argument 是一个类数组对象，实际参数可以有多个 ============
+        
+        function fun1(){
+            console.log(arguments);         //arguments是一个内置数组对象
+            console.log(arguments[0]);       //实际参数组成的数组的第一个数据
+            console.log(arguments[1]);
+        }
+
+        fun1(11,22,33,44);      //arguments将实际参数组成了数组[11，22，33，44]；
+
+        function fun(){
+            var sum = 0;
+            for(var i=0;i<arguments.length;i++){
+                sum+=arguments[i];
+            }
+            console.log("所有的参数和是："+sum);
+        }
+
+        fun(33,44,55,66);
+        fun(-3,6);
+
+        //=========================== 函数的返回值 ==========================
+        //return表示函数的返回值
+
+
+        //1. 有返回值，需要用变量来接收
+        function sum(a,b){
+            return a+b;        //函数的返回值
+        }
+        var result = sum(3,5);     //返回值要用一个变量来接受
+
+
+        //2. 无返回值，需要在函数内部写出
+        function sum(a,b){
+            var result = a+b;
+            console.log('两个数字的和：'+sum);
+        }
+        sum(2,3);
+
+        //=================== 函数的返回值，可以当成一个普通值 =================
+        function sum(a,b){
+            return a+b;
+        }
+        var result = sum(3,4) * sum(2,6);  
+        var result = sum(3, sum(5,6));
+        
+        //==============遇见return语句，则退出函数，return后面的内容不会生效===============
+        function fun(){
+            console.log('A');
+            return 'B';
+            console.log('C');        //'C'不生效，因为前面有return语句。
+        }
+        console.log(1);           //1
+        var char = fun();       
+        console.log(char);        //'A' \ 'B'    return之后，'C'不生效
+        console.log(2);           //2
+
+        //=========== 遇见return退出函数，结合if语句就不用写分支了 =============
+        function checkEven(n){
+            if(n%2==0){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        //if后面的大括号可以省略，返回结果只会有一个，以上等价于：
+
+        function checkEven(n){
+            if(n%2==0)return true;
+            return false;
+        }
+
+        var result = checkEven(6);     //f返回值要用变量接收
+        console.log(result);      //true
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //===========================寻找喇叭花数===========================
+        //每一位数字阶乘之和等于它本身： abc = a! + b! + c!;
+
+
+        //计算一个数字的阶乘
+        function factorial(n){     //n表示是几位数
+            //累乘器
+            var result = 1;
+            for(var i=1;i<=n;i++){
+                result *= i;
+            }
+            return result;
+        }
+
+        //穷举法，从100到999寻找喇叭花数
+        for(var i=100;i<=999;i++){
+            var i_str = i.toString();    //将number类型转换成字符串类型
+            //abc分别表示百位、十位、个位
+            var a = Number(i_str[0]);
+            var b = Number(i_str[1]);
+            var c = Number(i_str[2]);
+            
+            //根据喇叭花的条件来判断
+            if(factorial(a)+factorial(b)+factorial(c) == i){
+                console.log(i);
+            }
+        }
+
+
+        //======================JavaScript内置sort()函数=========================
+        //a、b分别表示数组中靠前和靠后的项，如果交换他们的位置，则返回任意正数；否则返回负数
+        //最后的结果是从小到大 ：[11，22，33，55]
+
+        var arr = [33,22,55,11];
+        arr.sort(function(a,b){
+            if(a>b){
+                return 1;
+            }else {
+                return -1;
+            }
+        });
+
+        //排序，函数是JS中的一等公民，它可以当作参数传入另一个函数
+
+        arr.sort(function(a,b){
+            return b-a;       //正数就换位置，负数就不换
+        });
+
+        console.log(arr);
+
+
+        var arr = [1,4,3,5,6,2];
+
+        arr.sort(function(x,y){
+            return y-x;           //[6,5,4,3,2,1]  y-x是降序排序
+        }); 
+
+        arr.sort(function(x,y){
+            return x-y;           //[1,2,3,4,5,6]   x-y是升序排序
+        });  
+    </script>
+</body>
+</html>

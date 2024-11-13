@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        <p>我是原本的段落0</p>
+        <p>我是原本的段落0</p>
+        <p>我是原本的段落0</p>
+    </div>
+
+    <script>
+
+
+        //=================== 节点的创建 ===================
+        
+        // 父节点.appendChild(孤儿节点);
+        // 父节点.insertBefore(孤儿节点，标杆节点);
+
+        var oBox = document.getElementById('box');
+        var oPs = oBox.getElementsByTagName('p');//获取节点的数组
+
+        //创建孤儿节点
+        var oP = document.createElement('p');
+        //设置内部文字
+        oP.innerText = '我是新来的';
+
+        //上树
+        //oBox.appendChild(oP);   在末尾添加
+
+        oBox.insertBefore(oP,oPs[0]);   //oPs[0] 在第一个节点之前插入
+
+
+        //============== 请动态创建一个20行12列的表格 ==============
+        var mytable = document.getElementById('mytable');
+        for(var i=0;i<20;i++){
+            var tr = document.createElement('tr');
+            for(var j=0;j<12;j++){
+                //创建了新的td标签
+                var td = document.createElement('td');
+                //让tr追加td标签
+                tr.appendChild(td);
+            }
+            //让mytable追加tr标签
+            mytable.appendChild(tr);
+        }
+
+
+        //======================= 制作99乘法表 ======================
+        var mytable = document.getElementById('mytable');
+        for(var i=1;i<=9;i++){
+            var tr = document.createElement('tr');
+            for(var j=1;j<=i;j++){     //j<=i  表示第几行就几个格子
+                
+                //创建了新的td标签
+                var td = document.createElement('td');
+                
+                //设置td内部的文字
+                td.innerText = i+'乘'+j+'='+(i*j);
+                //让tr追加td标签
+                tr.appendChild(td);
+            }
+            //让mytable追加tr标签
+            mytable.appendChild(tr);
+        }
+
+
+        //======================= 移动节点 ======================
+       
+        // 文档结构：
+        // <div id="box1">
+        //     <p id=para> 123 </p>
+        // </div>
+        // </div id="box2">
+        
+        // </div>
+
+        var box1 = document.getElementById('box1');
+        var box2 = document.getElementById('box2');
+        var para = document.getElementById('para');
+        var ps_inbox2 = box2.getElelmentsByTagName('p');
+
+        box2.appendChild(para);   //在box2后面增加节点para
+        box2.insertBefore(para, ps_inbox2[0]);
+
+        //==================== 节点删除 ====================
+
+        // 节点删除只能用父亲节点来删除：
+        // 父节点.removeChild(子节点)
+
+        var box = document.getElementById('box');
+        var the_first_p = box.getElementsByTagName('p')[0];
+
+        box.removeChild(the_first_p);
+
+
+        //================= 克隆节点 ==================
+        
+        // <div id="box1">
+        //     <ul>
+        //         <li>牛奶</li>
+        //         <li>咖啡</li>
+        //         <li>可乐</li>
+        //     </ul>    
+        // </div>
+        // <div id="box2"></div>
+
+        var box1 = document.getElementById('box1');
+        var box2 = document.getElementById('box2');
+        var theul = box1.getElementsByTagName('ul');     //ul是数组，
+        
+        //克隆节点
+        var new_ul = theul[0].cloneNode(true);   
+        //浅克隆：false表示只克隆ul,不会可能它的子元素
+        //深克隆：true表示也克隆子元素
+        
+        box2.appendChild(new_ul);
+
+
+
+    </script>
+</body>
+</html>

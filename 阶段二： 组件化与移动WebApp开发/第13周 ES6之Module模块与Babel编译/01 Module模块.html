@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //=============================== Module是什么 ================================
+        //1. 什么是模块
+        //模块：一个一个的局部作用域的代码块
+
+        //2. 什么是模块系统
+        // 模块系统需要解决的主要问题：
+        // 1）模块化的问题
+        // 2）消除全局变量
+        // 3）管理加载顺序
+
+        //RequireJS  seaJS
+        //ES Module
+
+
+        //============================== Module的基本用法 ==============================
+        // 1. 使用Module模块化之前的例子
+
+        //1）导出：
+        export default BaseSlider;
+
+        //2)导入
+        import BaseSlider from './base.js';
+
+        // 2. 使用script标签加载模块
+        // console.log(Slider);
+        // <script src='./index.js' type='module'>
+
+        //一个文件就是一个模块
+
+        //只要你会用到import或export，在使用script标签加载的时候，就要加上type='Module'
+
+        // 3. 分析Module解决问题
+        // 1）模块化的问题
+        // 2）消除全局变量
+        // 3）管理加载顺序
+
+        //=========================== Module的两种导出和导入 ==========================
+
+        //====================   export default 和对应的import   =====================
+
+        // 1. 认识导出和导入
+        // 导出的东西可以被导入(import),并访问到
+        // 被导入的代码都会执行一遍，也仅会执行一遍
+        //import './module.js'
+        //import './module.js'
+        //import './module.js'
+        //这里导入多少个都只会执行一次module.js里面的函数
+
+        // 2. 基本用法
+        // 可以随便起名
+
+        import age from './module.js';
+        console.log(age);
+
+        //一个模块只能有一个export default
+
+        //================================= export和对应的import ================================
+
+        //1. 基本用法
+        //export 声明或语句
+        //export const age = 18;
+        //export {age}
+
+        //不能随意命名
+        import { age } from './module.js';
+        console.log(age);
+
+        //2. 多个导出
+        //1)function
+        export function fun() { }  //这里不能写匿名函数
+        import { fn } from './module.js';
+
+        //2）class
+        export class className { };     //记住导出的这里都是函数声明或语句
+        import { className } from './module.js';      //匿名也不行
+
+        //3）统一导出\导入
+        export { fn, className, age };
+        import { fu, className, age } from './module.js'
+
+
+        //3. 导出导入时起别名
+        export { fn as func, className, age };
+        import { func, className, age } from './module.js';
+        //导入的时候起别名：
+        import { func, className as Person, age } from './module.js';
+        console.log(Person);    //class className {}
+
+
+        //4. 整体导入
+        import * as obj from './module.js';
+
+
+        //5. 同时导入
+        //导出部分：
+        export { fn as func, className, age };
+        export default 18;
+
+        //导入部分,分两次：
+        import { func, age, className } from './module.js'
+        import age2 from './module.js';
+        console.log(age2);
+
+        //导入部分，一次性导入：
+        import age2, { func, age, className } from './module.js';
+        //注意这里age2在前，是因为先导出的export default，所以要先写对应的import age2
+
+
+        //================================= Module的注意事项 ==================================
+        //1. 模块顶层的this指向
+        //模块中，顶层的this指向undefined
+        import './module.js';
+
+        //scr='./module.js' type='module'   模块方式加载，this指向局部作用域 undefined
+        //src='./module.js'     直接引入，this指向全局作用域 window
+
+        //判断是否以模块方式加载：
+        if (typeof this !== 'undefined') {            //判断this指向是否是undefined
+            throw new Error('请使用模块方式加载！');
+        }
+
+
+        //2. import 和 import()
+        //import 命令具有提升效果，会提升到整个模块的头部，率先执行
+        console.log('沙发');
+        console.log('电脑');
+        import './module.js';
+        //上面的输出结果是：undefined(module.js里面的结果)   '沙发'   '电脑'
+        //是不会按照顺序执行，不会是‘沙发’、‘电脑’、‘undefined’
+        //因为：import执行的时候，代码还没执行
+
+        if (PC) {
+            import 'pc.js';
+        } else if (Mobile) {
+            import 'mobile.js';
+        }
+        //此时会报错，因为import执行的时候，代码if还没执行
+
+
+        //所以要换成import()  不过有兼容性的问题
+        //import()返回的是一个Promise对象，后面可以调用then等内容
+        if (PC) {
+            import('pc.js').then().catch();
+        } else if (Mobile) {
+            import('mobile.js').then().catch();
+        }
+
+        //3. 导入和导出的复合写法
+        //复合写法导出的，无法在当前模块中使用
+        export { age } from './module.js';
+        console.log(age);   //报错
+
+        //等价于
+        import { age } from './module.js';
+        export { age } from './module.js';
+        //当前模块相当于中转站
+
+
+
+    </script>
+</body>
+
+</html>

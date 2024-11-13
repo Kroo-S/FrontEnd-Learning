@@ -1,0 +1,66 @@
+<!Doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>空间移动</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .box {
+        width: 200px;
+        height: 200px;
+        margin: 200px auto;
+        perspective: 300px;
+        position: relative;
+
+        /*perspective属性值，作用在父亲元素上，才对子元素有效果*/
+        perspective:200px;
+        perspective-origin: 50% 100%;
+    }
+
+    .box p {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 200px;
+        height: 200px;
+    } 
+    
+    /*
+    ！！！序号选择器，注意记住！！！
+    p:first-child()
+    p:last-child()
+    p:nth-child()
+    p:nth-of-type()
+    p:nth-last-child()
+    p:nth-last-of-type()
+    */
+    
+    
+    .box p:nth-child(1){
+        background-color:rgba(255,0,0,0.5);
+        transform:translateZ(0px) rotateX(80deg);
+    }
+    .box p:nth-child(2){
+        background-color:rgba(0,255,0,0.5);
+        transform:translateY(50px) rotateX(80deg);
+        
+    }
+    .box p:nth-child(3){
+        background-color:rgba(0,09,255,0.5);
+        transform:translateY(100px) rotateX(80deg);
+    }
+    /* 补充代码 */
+</style>
+</head>
+<body>
+<div class="box">
+    <p></p>
+    <p></p>
+    <p></p>
+</div>
+</body>
+</html>

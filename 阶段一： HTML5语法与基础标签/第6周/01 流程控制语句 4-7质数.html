@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //寻找100以内的质数
+
+        //外层循环，穷举法，循环所有的数字
+        outer:for(var i=2;i<=100;i++){
+            //寻找约数，要从2开始。因为要找到除1以外的约数，就是质数。
+            for(var j=2;j<=i;j++){     //约数总是小于等于本身
+                if(i % j==0){
+                    //如果i能被j整除，j能整除i，则不符合质数的特点，循环跳过；
+                    //continue表示跳过这个数字，开始下个循环。但循环的是自己所在额for
+                    //在外层加上label(单词可以变)，则表示continue之后执行外层循环，内层循环不执行。
+
+
+                    continue outer;
+                }
+            }
+            document.write(i);    //质数在外层循环输出。
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    <style>
+        div{
+            width: 200px;
+            height: 200px;
+            background-color: #eee;
+        }
+    </style>
+<body>
+    <div id="box"></div>
+    <script>
+        //====================== 事件监听 =====================
+        //================== 1. 鼠标
+        // onclick                     点击
+        // ondblclick                  双击
+        // onmousedown                 按下
+        // onmouseup                   按下之后松开
+        // onmousemove                 在对象上移动
+        // onmouseenter/onmouseover    鼠标进入
+        // onmouseleave/onmouseout     鼠标移出
+        
+        var oBox = document.getElementById('box');
+        oBox.onclick = function(){
+            console.log('我是onclick');
+        }
+
+
+        //=================== 2. 键盘
+        // onkeypress  键被按下
+        // onkeydown   键被按下，可以监听到退格键和功能键
+        // onkeyup     按下之后松开
+
+
+        //=================== 3. 表单事件监听
+        // onchange   当用户改变域的内容
+        // oninput    当正在输入
+        // onfocus    当某元素获得焦点（比如tab或鼠标点击）
+        // onblur     当某元素失去焦点
+        // onsubmit   当表单被提交
+        // onreset    当表单被重置
+        
+        // <form id="myform">
+        //     <p>姓名：
+        //         <input type="text" name="nameField">
+        //     </p>
+        //     <p>年龄：
+        //         <input type="text" name="ageField">
+        //     </p>
+        // </form>
+  
+        var myform = document.getElementById('myform');
+        var nameField = myform.nameField;
+        var ageField = myform.ageField;
+
+        nameField.onchange = function(){
+            console.log('你正在修改姓名');
+        }
+        nameField.oninput = function(){
+            console.log('你正在输入姓名');
+        }
+        nameField.onfocus = function(){
+            console.log('姓名框已经得到了焦点');
+        }
+        nameField.onblur = function(){
+            console.log('姓名框已经失去了焦点');
+        }
+        nameField.onsubmit = function(){
+            console.log('你正在尝试提交表单');
+        }
+
+        //==================== 4. 页面事件监听 =================
+
+        // onload      当页面或图像被完成加载
+        // onunload    当用户退出页面
+
+    </script>
+
+
+
+
+</body>
+</html>

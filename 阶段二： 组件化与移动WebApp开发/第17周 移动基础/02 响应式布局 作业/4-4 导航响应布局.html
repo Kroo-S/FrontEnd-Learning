@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/grid.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .header-container {
+            background-color: #fff;
+            border-bottom: 1px solid #dadada;
+        }
+        .header-logo-container,
+        .header-btn-container,
+        .header-nav-container {
+            height: 64px;
+        }
+        .header-btn-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        /*nav*/
+        .nav-container {
+            overflow: hidden;
+            position: relative;
+            top: -1px;
+            height: 0;
+            border-bottom: 1px solid #dadada;
+            transition: height 0.5s;
+        }
+        .nav-container-extended {
+            top: 0;
+            height: 201px;
+        }
+
+        /*btn-toggle*/
+        .btn-toggle {
+            padding: 10px;
+            background-color: transparent;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-toggle:hover {
+            background-color: #f9f9f9;
+        }
+        .btn-toggle:hover .btn-toggle-bar {
+            background-color: #1428a0;
+        }
+        .btn-toggle-bar {
+            display: block;
+            width: 24px;
+            height: 4px;
+            background-color: #363636;
+            border-radius: 2px;
+        }
+        .btn-toggle-bar + .btn-toggle-bar {
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header-container">
+        <div class="container">
+            <div class="row">
+                <!-- btn按钮部分 -->
+                <div class="header-btn-container col-4 d-md-none">
+                    <button type="button" class="btn-toggle" id="btn-toggle">
+                        <span class="btn-toggle-bar"></span>
+                        <span class="btn-toggle-bar"></span>
+                        <span class="btn-toggle-bar"></span>
+                    </button>
+                </div>
+
+                <!-- 宽屏导航部分 -->
+                <div class="header-nav-container col-md-9 d-none d-md-block">
+                    <ul class="header-nav">
+                        <li class="header-nav-item">
+                            <a href="###" class="header-nav-link">首页</a>
+                        </li>
+                        <li class="header-nav-item">
+                            <a href="###" class="header-nav-link">关于</a>
+                        </li>
+                        <li class="header-nav-item">
+                            <a href="###" class="header-nav-link">商业合作</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- logo部分 -->
+                <div class="header-logo-container col-8 col-md-3">
+                    <a href="#" class="header-logo">
+                        <img src="./img/logo.png" alt="">
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </header>
+</body>
+</html>

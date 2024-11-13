@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // ==================== 函数的上下文 this =================
+        // 函数的上下文由调用方式决定
+        // 同一函数，不同形式的调用，函数上下文不一样
+
+        // 1. 对象打点调用，函数中的this表示这个打点的对象
+        //     xiaoming.sayHello();
+
+        // 2. 圆括号直接调用函数，函数中的this指window对象
+        // var sayHello = xiaoming.sayHello;
+        // sayHello();
+
+
+        //情景1: 当对象中的函数只定义，不调用的时候。结果是不知道！
+        var obj = {
+            a: 1,
+            b: 2,
+            fn: function () {
+                console.log(this.a + this.b);
+            }
+        };
+
+        //情景2: 对象打点调用函数得到具体结果
+        var obj = {
+            a: 1,
+            b: 2,
+            fn: function () {
+                console.log(this.a + this.b);
+                console.log(this === obj);       //true  表示上下文this是这个对象
+            }
+        };
+        obj.fn();       //3     fn()就是undefined   fn()在对象外部没有定义
+
+        //情景3: 将函数赋值给新的变量，此时的this指的是window
+        var obj = {
+            a: 1,
+            b: 2,
+            fn: function () {
+                console.log(this.a + this.b);
+                console.log(this === window)         //true  
+                //true  此时的this是window对象。window对象的属性是全局变量
+            }
+        };
+
+        // 1)
+        var func = obj.fn;    //将对象中的函数 提炼给新变量
+        func();              //NaN
+
+        // 2) a,b 是全局变量，所以会得到 a+b=16
+        var a = 6;
+        var b = 10;
+
+        var func = obj.fn;
+        func();        //16
+
+
+        //======================== 上下文规则 =====================
+
+        //一、规则1: 对象打点调用它的方法函数，则函数的上下文是这个打点的对象
+        obj1.fn();
+
+        //二、规则2:圆括号直接调用函数，则函数的上下文是window对象
+        var func = obj1.fn();
+        func();
+
+        //三、规则3:数组（类数组对象）枚举出函数进行调用，
+        // 上下文是这个数组（类数组对象）
+        arr[1]();
+
+        // eg1:
+        var arr = ['A', 'B', 'C', function () {
+            console.log(this[0]);
+        }];
+        arr[3]();         //输出 A
+
+
+        //eg2:类数组对象    
+        // function fun(){
+        //     console.log(arguments[1]);   输出22
+        // }
+        // fun(11,22,33);
+
+        function fun() {
+            arguments[3]();
+        }
+        fun('A', 'B', 'C', function () {
+            console.log(this[1]);
+        });
+
+        //四、规则4: 立即可执行函数IIFE，上下文是window对象
+        (function () { })();
+
+        // eg: 
+        var a = 1;
+        var obj = {
+            a: 2,
+            fun: (function () {
+                var a = this.a;
+                return function () {
+                    console.log(a + this.a);      //这里的this.a是闭包关系，指向的obj里面的a
+                }
+            })()
+        };
+        obj.fun();        //输出3
+
+        //五、规则5:定时器、延时器调用函数，上下文是widnow对象
+        setInterval(函数, 时间);
+        setTimeout(函数, 时间);
+
+        //六、事件处理函数的上下文是绑定事件的DOM元素
+        DOM.onclick = function () { };
+
+        // eg:
+        function setColorToRed() {
+            //备份上下文
+            var self = this;
+            //后面box.onclick的时候，this指向box。此时存储this为self，则还是指向box
+            //下面再用 self.style 就是 box.style
+
+            setTimeout(function () {
+                self.style.backgroundColor = 'red';
+            }, 2000);
+        }
+
+        var box1 = document.getElementById('box1');
+        var box2 = document.getElementById('box2');
+        var box3 = document.getElementById('box3');
+
+        box1.onclick = setColorToRed;
+        box2.onclick = setColorToRed;
+        box3.onclick = setColorToRed;
+
+
+        //================== call apply 两种方法 =========================
+
+        //call、apply可以用来指定函数的上下文
+
+        // 函数.call(上下文);
+        // 函数.apply(上下文);
+
+        function sum() {
+            alert(this.c + this.m + this.e);
+        };
+        var xiaoming = {
+            c: 100,
+            m: 90,
+            n: 80
+        };
+
+        sum.call(xiaoming);    //指定上下文xiaoming
+        sum.apply(xiaoming);
+
+        //===================== call apply的区别 ===================
+
+        function sum(b1,b2) {
+            alert(this.c + this.m + this.e + b1 + b2);
+        };
+        var xiaoming = {
+            c: 100,
+            m: 90,
+            n: 80
+        };
+        sum.call(xiaoming, 3, 5);          //call要用逗号罗列参数
+        sum.apply(xiaoming, [3, 5]);       //apply要把参数写到数组中
+
+
+        //================= 到底用call还是用apply？=================
+
+        function fun1() {
+            fun2.apply(this, arguments);
+            //this的上下文是fun1
+            //因为这里用的arguments是类数组对象，所以要用fun.apply
+        }
+        function fun2(a, b) {
+            alert(a + b);
+        }
+        fun1(11, 22);
+
+
+        //=================== 上下文规则总结 ===================
+
+            //        规则              上下文
+
+            //     对象.函数()            对象
+            //        函数()             window
+            //     数组[下标]()           数组
+            //        IIFE              window
+            //        定时器             window
+            //    DOM事件处理函数       绑定DOM的元素
+            //     call和apply          任意指定
+            //     用new调用函数       秘密创建出的对象
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <h1> <!--Q1:这里的logo需要用h1来明确语义吗？-->
+                <img src="./images/logo.png" alt="网站logo">
+            </h1>
+        </div>
+        <div class="nav">
+            <ul>
+                <li>HOME</li>
+                <li>ABOUT</li>
+                <li>GALLERY</li>
+                <li>FACULTY</li>
+                <li>EVENTS</li>
+                <li>CONTACT</li>
+            </ul>
+        </div>
+    </div>
+    <div class="banner">
+        <div class="pic">banner图片</div>
+        <div class="mask">banner遮罩层</div>
+        <div class="form">
+            <form action="some.php" method="post">
+                <input type="text" placeholder="your Name">
+                <input type="text" placeholder="your Phone">
+                <input type="email" placeholder="yourEmail">  <!--Q1:这里的“type=email”是否正确？-->
+
+                <!--Q2:textare里面的“name”，“id”是什么意思-->
+                <textarea name="comment" id="" cols="30" rows="5" placeholder="Write your comment here"></textarea>
+                
+                <br>   <!--Q3:这里的换行是用br，还是下方的submit用p包裹？submit能否换成button-->
+                <input type="submit" value="SEND ME MASSAGE">
+
+            </form>
+        </div>
+    </div>
+    <div class="about">
+        <div class="about_top"> About上半部分  <!--Q2:这里的命名方式是否可以，能否命名为“AboutTop”-->
+            <h2>ABOUT</h2>
+            <div class="line"></div>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting<br> 
+                industry. Lorem Ipsum has been the industry's standard dummy <br>
+                text ever since the 1500s.
+            </p>
+        </div>
+        <div class="about_bottom">About下半部分 <!--Q4:about下半部分 能否用左中右3个部分来表示？-->
+            <div class="aboutleft">
+                <h3>A WORD ABOUT US</h3>
+                <p>Praesent dignissim viverra est, sed <br>
+                    bibendum ligula congue non. Sed <br>
+                    ac nisl et felis gravida commodo? <br>
+                    Suspendisse eget ullamcorper <br>
+                    ipsum. Suspendisse diam amet.<br>
+                </p>
+                <button>EXPLORE</button>  <!--Q3:这里的按钮标签是否这样书写，“EXPLORE”需要添加"<a>"标签吗？-->
+            </div>
+            <div class="aboutmid">
+                <img src="./images/bb3.jpg" alt="about的图片">
+            </div>
+            <div class="aboutright">
+                <div class="student">
+                    <h3>7000</h3>
+                    <div class="line">分割线</div>
+                    <p>student</p>
+                </div>
+                <div class="faculty">
+                    <h3>600</h3>
+                    <div class="line">分割线</div>
+                    <p>faculty</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="Word_Pic">
+        <div class="Word_Pic_1">
+            <div class="pic">
+                <img src="./images/b1.jpg" alt="pic1">
+            </div>
+            <div class="words">
+                <h3>Library</h3>
+                <p>
+                    Lorem Ipsum is simply dummy text of the printing <br>
+                    and typesetting industry <br>
+                </p>
+                <p>Lorem Ipsum has been the industry's standard dummy text ever  <br>
+                    since the 1500s, when an unknown printer took a galley of type <br>
+                    and scrambled it to make a type specimen book.<br>
+                </p>
+                <button>EXPLORE</button>
+            </div>
+            <div class="pic">
+                <img src="./images/b2.jpg" alt="pic1">
+            </div>
+            <div class="words">
+                <h3>Library</h3>
+                <p>
+                    Lorem Ipsum is simply dummy text of the printing <br>
+                    and typesetting industry <br>
+                </p>
+                <p>Lorem Ipsum has been the industry's standard dummy text ever  <br>
+                    since the 1500s, when an unknown printer took a galley of type <br>
+                    and scrambled it to make a type specimen book.<br>
+                </p>
+                <button>EXPLORE</button>
+            </div>
+        </div>
+        <div class="Word_Pic_2">
+            <div class="words">
+                <h3>Library</h3>
+                <p>
+                    Lorem Ipsum is simply dummy text of the printing <br>
+                    and typesetting industry <br>
+                </p>
+                <p>Lorem Ipsum has been the industry's standard dummy text ever  <br>
+                    since the 1500s, when an unknown printer took a galley of type <br>
+                    and scrambled it to make a type specimen book.<br>
+                </p>
+                <button>EXPLORE</button>
+            </div>
+            <div class="pic">
+                <img src="./images/b3.jpg" alt="pic1">
+            </div>
+            <div class="words">
+                <h3>Library</h3>
+                <p>
+                    Lorem Ipsum is simply dummy text of the printing <br>
+                    and typesetting industry <br>
+                </p>
+                <p>Lorem Ipsum has been the industry's standard dummy text ever  <br>
+                    since the 1500s, when an unknown printer took a galley of type <br>
+                    and scrambled it to make a type specimen book.<br>
+                </p>
+                <button>EXPLORE</button>
+            </div>
+            <div class="pic">
+                <img src="./images/b4.jpg" alt="pic1">
+            </div>
+        </div>
+
+    </div>
+    <div class="gallery">
+        <div class="gallery_top">
+            <h1>GALLERY</h1>
+            <div class="line"></div>
+            <p>xxxxxxx</p>
+        </div>
+        <div class="gallery_bottom">
+            <dl>
+                <dt><img src="./images/03-01.jpg" alt="Science Lab"></dt>  <!--Q5:这里dt用文字，dd用图片是否更加能够准备的符合语义？-->
+                <dd>Science Lab</dd>
+            </dl>
+            <dl>
+                <dt><img src="./images/03-02.jpg" alt="Indoor Stadium"></dt>
+                <dd>Indoor Stadium</dd>
+            </dl>
+            <dl>
+                <dt><img src="./images/03-03.jpg" alt="Transportation"></dt>
+                <dd>Transportation</dd>
+            </dl>
+            <dl>
+                <dt><img src="./images/03-04.jpg" alt="Kids Room"></dt>
+                <dd>Kids Room</dd>
+            </dl>
+            <dl>
+                <dt><img src="./images/03-05.jpg" alt="Meditation Classes"></dt>
+                <dd>Meditation Classes</dd>
+            </dl>
+            <dl>
+                <dt><img src="./images/03-06.jpg" alt="Kids Play Ground"></dt>
+                <dd>Kids Play Ground</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy;2021imooc京ICP666号</p>
+    </div>
+</body>
+</html>

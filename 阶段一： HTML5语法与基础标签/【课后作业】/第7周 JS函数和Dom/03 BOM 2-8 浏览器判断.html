@@ -1,0 +1,30 @@
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>userAgent</title>
+    </head>
+    <body>
+       <input type="button" value="点击获取浏览器信息" id="browser">
+       <script type="text/javascript">
+           //补充代码
+        
+        //注释：indexOf() 方法对大小写敏感！
+        //注释：如果要检索的字符串值没有出现，则该方法返回 -1。
+           var oBro = document.getElementById('browser');
+           oBro.onclick = function(){
+               var jug = navigator.userAgent;
+               var result;
+               if(jug.indexOf('MSIE')!=-1){
+                   result = 'IE浏览器';
+               }else if(jug.indexOf('Firefox')!=-1){
+                   result = '火狐浏览器';
+               }else if(jug.indexOf('Chrome')!=-1){
+                   result = '谷歌浏览器 ';
+               }
+               document.write(result); 
+           }; 
+           
+           
+       </script>
+    </body>
+</html> 

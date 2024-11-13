@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1. let和const是什么
+        //     声明变量或声明常量
+        //     var 声明变量
+        //     let 代替var 声明变量
+
+        // 2. let和const的用法，和var一样
+
+        var username = "Alex";
+        let age = 18;
+        const sex = 'male';
+
+        // var、let声明的就是变量，变量一旦初始化后，还可以重新赋值
+        // const声明的是常量，常量一旦初始化，就不能重新赋值，否则报错
+
+
+        //======================== const ========================
+
+        // const就是为了那些一旦初始化就不希望重新赋值的情况设计的
+
+        // 一、const的注意事项
+        //     1. 使用const声明常量，一旦声明，就必须立即初始化，不能留到以后再初始化。
+            const gender = 'male';
+
+            // 1.1 const声明的常量，允许在不重新赋值的情况下修改它的值
+            //     基本数据类型，无法修改
+                const gender = 'male';
+                sex = 'female';
+
+            // 1.2 引用数据类型
+                const person = {username:'Alex'};
+                person.username = 'ZhangSan';
+
+            // 1.3 什么时候用const，什么时候用let
+            //     用const可以避免遗漏错误    
+
+
+        //==================== let const var 的区别 ====================
+
+        // 1. 重复声明
+        //     已经存在的变量或常量，又声明了一遍
+        //     var允许重复声明，let、const不允许
+
+            function func(a){
+                let a = 1;
+            }
+            func();           //报错
+
+        // 2. 变量提升
+            var a;
+            console.log(a);    //undefined
+            a = 1;
+            console.log(a);    // 1
+
+            // let、const不存在变量提升，养成良好的习惯，先声明后使用
+            console.log(a);           //报错   let const变量不提升
+            let a = 1;          
+            
+        //3. 暂时性死区   
+        //  只要作用域存在let、const，
+        //  它们所声明的变量或常量就自动“绑定”这个区域，不再受外部作用域影响
+        //  先声明后使用的话，就不会出现死区的问题
+
+
+            let a = 2;
+            let b = 1;
+            function func(){
+                console.log(b);      // 1    b查找外部作用域的值
+                console.log(a);      // 报错   因为要先声明
+                let a = 3;
+            }
+            func();
+
+        // 4. window对象的属性和方法
+        //     全局作用域中，var声明的变量，通过function声明的函数，
+        //     会自动变成window对象的属性和方法，let、const不会
+
+            // var\function 例子：
+
+            var age = 18;
+            function add(){};
+            console.log(window.age);            //18
+            console.log(window.add === add);    //true
+
+            // let\const例子：
+            let age = 18;
+            const add = function(){};
+            console.log(window.age);            //undefined
+            console.log(window.add === add);    //false 
+
+
+        // 5. 块级作用域
+
+        //     var没有块级作用域
+        for(var i =0;i<3;i++){
+            console.log(i);
+        }
+        console.log(i);      // 2    
+
+        // let\const有块级作用域
+        for(let i = 0;i<3;i++){   //i=i+1  所以用let
+            console.log(i);       //3
+        }
+        console.log(i);       
+        //报错  因为块级作用域让i只在for循环内部
+        // 全局中没有定义i
+
+
+        // 作用域链:
+            // 分为：全局作用域、函数作用域、块级作用域
+            // 查找方向：内层作用域 -> 外层作用域 -> 全局作用域
+
+        function func(){
+            for(let i=0;i<3;i++){
+                console.log(i);     //0，1，2
+            }
+        }
+        func();       
+        console.log(i);      // 报错
+
+
+        // 块级作用域种类：
+        // 对象和函数都不属于块级作用域
+
+    
+        {}
+        for(){};
+        while(){}
+        do{}while()
+        if(){}
+        switch(){}
+
+        function(){}
+        const Person = {
+            getAge:function(){};
+        }
+
+        //================== let、const的应用 ===============
+              
+        // <button class="btn">0</button>
+        // <button class="btn">1</button>
+        // <button class="btn">2</button>
+        
+        //1. var
+        var btns = document.querySelectorAll('.btn');
+
+        for(var i =0;i<btn.length;i++){
+            btn[i].addEventListener('click',function(){
+                console.log(i);       //此时函数作用域没有，会向外层去寻找。找到i=3；
+            },false);
+        }
+
+        //2. 利用闭包   见可见3-12 let和const的应用
+        var btns = document.querySelectorAll('.btn');
+
+        for(var i=0;i<btns.length;i++){
+            (function(index){
+                btn[index].addEventListener('click',function(){
+                console.log(index);     //此时利用的闭包。 
+            },false);
+            })(i);
+        }
+
+        //3、let\const原理
+        let btns = document.querySelectorAll('.btn');
+
+        for(let i =0;i<btn.length;i++){
+            btn[i].addEventListener('click',function(){
+                console.log(i);       //此时函数作用域没有，会向外层去寻找。找到i=3；
+            },false);
+        }
+    </script>
+</body>
+</html>

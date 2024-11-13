@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+//============================== Iterator ===========================
+        // 1. Iterator的作用
+        // Iterator：遍历器（迭代器）
+        // for()
+        // [1,2].forEach
+        // new Set().forEach
+
+        //Iterator也是用来遍历的
+
+        //2. 寻找Iterator
+        console.log(Iterator);
+
+        console.log([1,2][Symbol.Iterator]());   
+        //数组的一个方法是Symbol.iterator，合法标识符，所以这里要用方括号调用方法
+        //加（）执行方法，得到一个数组Iterator的对象：Array Iterator{}
+
+        //获取Iterator这个对象：
+        const it = [1,2][Symbol.iterator]();
+        console.log(it);    //Array Iterator{}
+
+        //3. 使用Iterator
+        const it = [1,2][Symbol.iterator]();
+        //调用next()方法，遍历数组
+        console.log(it.next());   //{value:1,done:false}  遍历得到1，遍历没结束
+        console.log(it.next());   //{value:2,done:false}  遍历得到2，遍历没结束
+        console.log(it.next());   //{value:undefined,done:true}  遍历未得到，遍历结束
+        console.log(it.next());   //{value:undefined,done:true}  遍历未得到，遍历结束
+
+        //it：可遍历对象（可迭代对象）
+        //Symbol:iterator 可遍历对象的生成方法。生成遍历的对象，方便调用方法
+
+        //4. 什么是Iterator  是个过程
+        //Symbol.iterator(可遍历对象的生成方法) -> it(可遍历对象) -> it.next() -> ... -> 直到done为true
+
+
+        //=============================== Iterator解惑 =================================
+
+        // 1. 为什么需要Iterator遍历器
+        // 遍历数组：for循环和forEach方法
+        // 遍历对象：for in 循环
+
+        //Iterator遍历器是一个统一的遍历方式
+
+        
+        //2. 如何更方便的使用Iterator
+        //Symbol.iterator->it->next()
+
+        //我们一般不会直接使用Iterator，会使用封装好的for...of方法
+
+
+        //============================== for...of ==============================
+        //1. 认识for...of
+
+        const arr = [1,2,3];
+        const it = arr[Symbol.iterator]();
+        //1）之前遍历方式：
+        console.log(it.next());   
+        console.log(it.next());
+
+        //2）用while循环遍历
+        let next = it.next();
+        console.log(next);      //{value:1,done:false}
+        
+        while(!next.done){
+            next = it.next();   //这里要继续next()一下
+            console.log(next);    
+        }
+
+        //3）上面封装成for...of方法
+        for(const item of arr){
+            console.log(item);
+        }
+
+        //for...of循环只会遍历出那些done为false时，对应的value值
+
+        //2. 与break、continue一起使用
+        const arr = [1,2,3];
+        for(const item of arr){
+            if(item === 2){
+                //break;     得到1
+                continue;    //得到1，3
+            }
+            console.log(item);
+        }
+
+        //3. 在for...of中取得数组的索引   利用数组的keys()方法
+        console.log(arr.keys());    //Array Iterator{}  也是个可遍历对象，是索引的可遍历对象
+        for(const key of arr.keys()){
+            console.log(key);       //0,1,2   遍历出索引值
+        }
+
+        for(const value of arr.values()){
+            console.log(value);     //1,2,3   遍历出具体值
+        }
+
+        //同时遍历出值和索引 entries()
+        for(const entries of arr.entries()){
+            console.log(entries);      //(2)[0,1]   0是索引，1是值
+        }
+
+        //解构赋值之后：
+        for(const[index,value] of arr.entries()){    //此处的[index,value]解构赋值对应的是entries中的[]
+            console.log(index,value);       //0 1
+        };
+
+
+    //=========================== 原生可遍历和非原生可遍历 =============================    
+        // 1. 什么是可遍历
+        // 只要有Symbol.iterator方法，并且这个方法可以生成可遍历对象，就是可遍历的
+
+        //只要可遍历，就可以使用for...of循环来统一遍历
+
+        //2. 原生可遍历的有哪些
+        //数组
+        //字符串
+        //Set
+        //Map
+        //arguments
+        //Nodelist
+
+        //3. 非原生可遍历的有哪些
+        //对象字面量或者Object声明的对象
+        const person = {sex:'male',age:18};
+        console.log(person[Symbol.iterator]());
+
+        for(const item of person){
+
+        }
+        //for in 
+
+
+        //======================== 使用Iterator的场合 =====================
+        
+        //1. 数组的展开运算符
+        console.log(...[1,2,3]);
+        console.log(1,2,3);
+        console.log(...'str');
+        console.log(...new Sst([1,2,3]));
+
+        //2. 数组的解构赋值
+        const [a,b] = [1,2];
+        const [a,b] = [...[1,2]];     
+        const [a,b] = 'hi';
+        const [a,b] = [...'hi'];
+        const [a,b] = new Set([3,6]);   //3,6
+        const [a,b] = [...new Set([3,4])];   //3,6
+        console.log(a,b);
+
+        //3. Set和Map的构造函数
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //=============== 什么是原型 prototype ================
+        // 构造函数的prototype有用，普通函数的没用
+        // ！！！构造函数的prototype属性是它的实例的原型
+        function People(name, age, sex) {
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+        }
+
+        //实例化    
+        var xiaoming = new People('小明', 12, '男');
+        //测试三者的关系是否存在
+        console.log(xiaoming.__proto__ === people.prototype);    //true
+
+        // People构造函数  ----> prototype ----> People.prototype
+        // People构造函数  ----> new ----> xiaoming 
+        // xiaom ---->  __proto__  ----> People.prototype
+
+
+        //======================= 原型链查找 ======================
+
+        function People(name, age, sex) {
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+        }
+
+        //往原型上添加nationality这个属性
+        People.prototype.nationality = '中国';
+
+        //实例化
+        var xiaoming = new People('小明', 12, '男');
+        var tom = new People('汤姆', 10, '男');
+        tom.nationality = '美国';
+
+        console.log(xiaoming.nationality);       //中国
+        console.log(xiaoming);
+
+        console.log(tom.nationality);        //美国    覆盖了原型属性
+
+        //========= hasOwnProperty()  ==========
+        //是否自己真实拥有，而不是在原型上有
+
+        console.log(xiaoming.hasOwnProperty('name'));               //true
+        console.log(xiaoming.hasOwnProperty('age'));                //true
+        console.log(xiaoming.hasOwnProperty('sex'));                //true
+        console.log(xiaoming.hasOwnProperty('nationality'));        //false
+
+        //========== in  检查某个属性或方法能否被访问，不一定是自己的 =========
+        console.log('name' in xiaoming);                //true
+        console.log('age' in xiaoming);                 //true
+        console.log('sex' in xiaoming);                 //true
+        console.log('nationality' in xiaoming);        //true
+
+
+        //=============== 在prototype上面添加方法 =================
+
+        //把方法写在原型上，实例之间不会相互影响
+
+        function People(name, age, sex) {
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+        }
+        People.prototype.sayHello = function () {
+            console.log('你好，我是：' + this.name + '我今年' + this.age + '岁了');
+        }
+        People.prototype.growup = function () {
+            this.age++;
+        }
+
+        var xiaoming = new People('小明', 12, '男');
+        var xiaohong = new People('小红', 11, '女');
+
+        console.log(xiaoming.sayHello === xiaohong.sayHello);
+
+        xiaoming.sayHello();
+        xiaohong.sayHello();
+
+        xiaoming.growup();
+        xiaoming.growup();
+        xiaoming.growup();
+        xiaoming.growup();
+
+        xiaoming.sayHello();      //16      12+1+1+1+1
+        xiaohong.sayHello();      //11      不变
+
+
+        //=================== 原型链的终点 object.prototype() ==================
+
+        // People构造函数  ----> prototype ----> People.prototype
+        // Object  ----> prototype ----> Object.prototype
+        // People.prototype ---->  __proto__  ----> Object.prototype
+
+
+        function People(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        var xiaoming = new People('小明', 12);
+
+        console.log(xiaoming.__proto__.__proto__ === Object.prototype);   //true
+        console.log(Object.prototype.__proto__);                          //null
+
+        console.log(Object.prototype.hasOwnProperty('hasOwnProperty'));  //true
+        console.log(Object.prototype.hasOwnProperty('toString'));        //true
+
+        //================ 数组原型链终点也是Object.prototype
+
+        var arr = [344, 45, 34, 23];
+
+        console.log(arr.__proto__ === Array.prototype);     //true
+        console.log(arr.__proto__.__proto__ === Object.prototype);    //true
+        console.log(Array.prototype.hasOwnProperty('push'));         //true
+        console.log(Array.prototype.hasOwnProperty('splice'));       //true
+
+
+        //========================== 继承 ========================
+        //student.prototype = new People();   
+        //父类People的实例 等于 子类student的原型prototype
+
+        //父类，人类
+        function People(name, age, sex) {
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+        }
+        People.prototype.sayHello = function () {
+            console.log('你好，我是' + this.name + '我今年' + this.age + '岁了');
+        };
+        People.prototype.sleep = function () {
+            console.log(this.name + '开始睡觉，zzzzzz');
+        };
+
+        //子类，学生类
+        function Student(name, age, sex, shool, studentNumber) {
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+            this.school = school;
+            this.studentNumber = studentNumber;
+        }
+
+        //关键语句，实现继承
+        //子类student的原型prototype 等于 父类People的实例 
+
+        Student.prototype = new People();
+
+        Student.prototype.study = function () {
+            console.log(this.name + '正在学习');
+        };
+        Student.prototype.exam = function () {
+            console.log(this.exam + '正在考试，加油！');
+        };
+
+        //重写、复写（override）父类的sayHello
+        Student.prototype.sayHello = function(){
+            console.log('敬礼！我是'+this.name+'我今年'+this.age+'岁了');
+        }
+
+        //实例化
+        var hanmeimei = new Student('韩梅梅',9,'女','慕课小学',1000);
+
+        hanmeimei.study();
+        hanmeimei.sayHello();
+        hanmeimei.sleep();
+
+        var laozhang = new People('老张',66,'男');
+        laozhang.sayHello();
+
+
+
+    </script>
+</body>
+
+</html>

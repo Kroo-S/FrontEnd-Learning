@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        //===================== 模板字符串 =====================
+        //模板字符串和一般字符串的区别：
+        
+        const person = {
+            username:'Alex',
+            age:18,
+            sex:'male'
+        };
+
+        //一般字符串
+        const info = 
+        '我的名字是：' + person.username +
+        '性别:' + person.sex +
+        '今年' + person.age +
+        '岁了';
+        console.log(info);
+
+        //模板字符串
+        //mac 的反引号就在数字1的左边，但是你需要按住option(alt)键并且在英文状态下即可。
+        const info = `我的名字是：${person.username},性别：${person.sex},今年${person.age}岁了`;
+        console.log(info);
+
+        //===============模板字符串注意事项
+
+        //1、输出多行字符串
+            //一般字符串：
+            const info = '第一行\n第二行';
+            console.log(info);
+
+            //模板字符串：
+            const info = `第一行
+第二行`;      //模板字符串中，所有的空格、换行或者缩进都会被保留在输出之中。注意上面是反引号
+             //所以这里换行要顶格写
+
+        //2、输出和\等特殊字符    利用转译字符
+            const info = `'`;      // '  单引号
+            const info = `\``;     // `  反引号  前面要用转义字符\
+            const info = `\\`;     // \  斜杠    前面要用转义字符\
+
+        //3、模板字符串的注入  ${}
+        const username = 'alex';
+        const person = {age:18,sex:'male'};
+        const getSex = function(sex){
+            return sex === 'male'?'男':'女';
+        };
+
+        //只要最终可以得出一个值的就可以通过${}注入到模板字符串中
+        const info = `${username},${person.age+2},${getSex(person.sex)}`;
+        console.log(info);
+
+        //======================= 模板字符串的应用
+        // <p>学生信息表</p>
+        // <ul id="list">
+        //   <li style="list-style: none;">信息加载中……</li>
+        // </ul>
+        const list = document.getElementById('list');
+
+        let html = '';
+
+        for (let i = 0; i < students.length; i++) {
+          html += `<li>我的名字是：${students[i].username},${students[i].sex},${students[i].age}</li>`;
+        }
+
+        // console.log(html);
+        list.innerHTML = html;
+
+
+
+        //=========================== 箭头函数 ===========================
+
+        //================== 一、认识箭头函数
+        const add = (x,y) => {
+            return x+y;
+        };
+        console.log(add(1,1));
+
+        //2、箭头函数的结构
+        //const/let 函数名 = 参数 => 函数体
+
+        //3、如何将一般函数改写成箭头函数
+        //声明形式
+        function add(){}
+
+        //声明形式->函数表达式形式
+        const add = () => {};
+
+        //================= 二、箭头函数注意事项
+        
+        //1. 单个参数   是可以省略圆括号的
+        const add = (x) => {return x+1;};
+        //可以变成：
+        const add = x => {
+            return x+1;
+        }
+
+        //2. 无参数或多个参数的时候，不能省略圆括号
+        
+        //无参数：
+        const add = () => {
+            return 1+1;
+        };
+
+        //多个参数
+        const add = (x,y) =>{
+            return x+y;
+        };
+
+        //3. 单行函数体
+        //单行函数体可以同时省略{}和return
+        const add = (x,y) => {return x+y;};
+        //可以变为：
+        const add = (x,y) => x+y;
+
+        //4. 多行函数体
+        //多行函数体不能简化
+        const add = (x,y) => {const sum = x+y; return x+y;}; 
+
+        //5. 特殊情况    单行函数体是个对象
+        const add = (x,y) => {
+            return{
+                value:x+y    //对象中没有分号，只有逗号,
+            };
+        };
+        //{}像函数，所以要在对象{}外面加个()，让浏览器认为不是函数。
+        const add = () => ({
+            value:x+y
+        });
+
+        //单行数组可以省略
+        const add = (x,y) => [x+y];
+
+
+    </script>
+</body>
+</html>

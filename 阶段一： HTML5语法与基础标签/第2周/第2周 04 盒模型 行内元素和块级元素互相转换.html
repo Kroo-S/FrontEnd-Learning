@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .djjr{
+
+            display: block;
+            /* 转为块级元素 ⬆️ */
+            
+            width: 200px;
+            height: 60px;
+            background-color: orange;
+            color: white;
+            text-align: center;
+            line-height: 60px;
+            text-decoration: none;
+            /* 圆角 */
+            border-radius: 8px;
+            
+        }
+        .djjr:hover{
+            background-color: blue;
+        }
+        span{
+            /* 转为行内块 */
+            display: inline-block;   /*在行内，但保持块级元素的属性*/
+            background-color:green;
+            padding: 8px 20px;
+            margin-top: 30px;
+            color:white;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+    <a href="" class="djjr">点击进入</a>
+
+    <div>
+        <span>我是span</span>
+        <span>我是span</span>
+        <span>我是span</span>
+    </div>
+</body>
+</html>

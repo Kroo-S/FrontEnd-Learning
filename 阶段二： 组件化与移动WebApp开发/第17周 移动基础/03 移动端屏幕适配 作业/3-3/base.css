@@ -1,0 +1,44 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-size:12px;
+    color:#5d655b;
+}
+
+/* a,input的fontsize不会继承body的fontsize，所以要重新写一下 */
+a{
+    font-size:12px;
+    color:#686868;
+    text-decoration: none;
+}
+input{
+    font-size: 12px;
+    border: none;     /*去除border边框*/
+    background:none;
+}
+
+/* 解决dpr的问题 */
+
+[data-dpr="2"]body,
+[data-dpr="2"]a,
+[data-dpr="2"]input{
+    font-size: 24px;
+}
+
+[data-dpr="3"]body,
+[data-dpr="3"]a,
+[data-dpr="3"]input{
+    font-size: 36px;
+}
+
+li{
+    list-style: none;
+}
+img{
+    vertical-align: top;
+    border: none;
+    width: 100%;
+}

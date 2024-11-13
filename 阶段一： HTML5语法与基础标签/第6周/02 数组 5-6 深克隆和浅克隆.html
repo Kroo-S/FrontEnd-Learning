@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        //     ！！！！！！实现克隆，让两者的内存地址不同 ！！！！！！
+
+        var arr1 = [1,2,3,4,[6,9,4]];
+
+        //结果数组
+        var result = [];
+
+        //遍历原数组中的每一项，把遍历的项推入结果数组中   进行克隆
+        for(var i=0;i<arr1.length;i++){
+            result.push(arr1[i]);
+        }
+
+        console.log(result);
+        console.log(result == arr1);            //期望false
+        // 因为引用类型比较的时候，==比较的是内存地址   false表示内层地址不同，成功克隆。
+         
+        console.log(result[4] == arr1[4]);     //true
+        //藕断丝连    克隆的是arr1[4]的内存地址，也就是指针。
+  
+    </script>
+
+
+</body>
+</html>

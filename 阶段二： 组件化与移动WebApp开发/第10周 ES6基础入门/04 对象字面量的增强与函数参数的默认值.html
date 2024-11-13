@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //===================== 对象字面量的增强 =======================
+
+        // 1. 对象字面量是什么
+        // 实例化构造函数生成对象
+        const person = new Object();
+        person.age = 18;
+        person.speak = function(){};
+
+        //对象字面量
+        const person={
+            age:18,
+            speak:function(){}
+        };
+
+        // 2. 属性的简介表示法
+        // 键名和变量或常量名一样的时候，可以只用写一个
+        const age=18;
+        const person = {
+            //'age'= age;  //属性名'age'是字符串,age是常量
+            age
+        };
+        console.log(person);     //{age:18}
+
+        //3. 方法的简介表示法
+        //方法可以省略冒号和function关键字
+        const person={
+            //speak:function(){};
+            speak(){}    //简写
+        };
+        console.log(person);  //{speak:f}  是个方法函数
+        
+        //4. 方括号语法
+        //1)方括号语法可以写在对象字面量中
+
+        const prop = 'age';
+        const person = {
+            [prop]:18
+        };
+        console.log(person);
+        
+        //2)方括号中可以放什么
+        //${}  类似
+        //[值或通过计算可以得到值的（表达式）]
+        const prop = 'age';
+        const func = () => 'age2';
+        const person = {
+            [prop]:18,        //age:18
+            [func()]:18,      //age2:18
+            ['sex']:'male',   //sex:'male'
+            ['s'+'ex']:'male' //sex:'male'
+        };
+        console.log(person);
+
+        //3)方括号语法和点语法的区别
+        //点语法是方括号语法的特殊形式
+
+        const person = {};
+        //person.age 等价于 person['age'];  
+
+
+        //============================= 点语法和方括号语法的区别
+        //详细见网站笔记
+        //======================== 规范
+        
+        //1. 点语法：点号要求后面的写法是合法的标识符
+        //2. 方括号语法：括号之间的值可以是任何表达式
+
+        //======================== 区别：
+        
+        // 1.  属性名是合法的标识符时，使用点语法和方括号语法都可以；
+        //     属性名不是合法标识符时，只能用方括号语法
+
+        const obj = {
+            "age": 2,
+            "8i":"imooc"
+        }
+        // age是合法标识符，点语法和方括号语法都可以访问
+        console.log(obj.age) // 2
+        console.log(obj['age']) // 2
+        //8i不属于合法的标识符，使用点语法访问属性会报错
+        // console.log(obj.8i)  // 报错  为了方便看到其他结果，所以将这句代码注释了，可以自己打开注释测试下代码效果
+        // 不符合语法标识符的属性，可以使用方括号语法访问
+        console.log(obj['8i'])// imooc
+
+        //2. 使用变量或者常量保存属性名时，只能使用方括号语法，不能使用点语法
+
+        const obj = {
+            "age": 2,
+            "8i": "imooc"
+        }
+        // 定义一个常量property，值为age
+        const property = "age"
+        // 当属性为变量或常量时，必须通过方括号语法，即：obj[property]，使用property保存的值age，所以等价于obj.age这种写法
+        console.log(obj[property]) // 2
+        // 当属性为变量或常量时，如果通过点语法，会将property看做字符串，表示访问obj对象下的property属性，而不是访问obj下的age属性，而obj对象中没有property属性，所以返回结果为undefined
+        console.log(obj.property) // undefined
+
+
+
+//====================================== 函数参数的默认值 =====================================
+
+        //1. 认识函数参数默认值
+        //   调用函数的时候传参了，就用传递的参数；
+        //   如果没有传参，就用默认值
+
+            multiply(2,1);
+            multiply(2);
+
+        //2. 函数参数默认值的基本用法
+        const mutiply = (x,y) => {
+            if(typeof y === 'undefined'){
+                y = 1; 
+            }
+            return x * y;
+        };
+
+        //简化：
+        const multiply = (x,y=1) => x*y;
+        console.log(multiply(2,3));       //6
+        console.log(multiply(2));         //2   x=2,y=1
+
+        //============================ 函数参数默认值的注意事项
+        
+        // 1. 默认值的生效条件
+        // 不传参数，或者明确的传递undefined作为参数，只有这两种情况下，默认值才会生效
+
+        const multiply = (x,y=1) => x*y;
+        console.log(multiply(2,0));     //0
+        console.log(multiply(2,null));    //0   null不严格等于undefined，number(null)=0
+        console.log(multiply(2,undefined));  //2   此时y取默认值1，2*1 = 2              2*undefined = NaN
+        console.log(multiply(2));    //2    y:undefined,所以取默认值y=1
+
+        // 2. 默认值表达式
+        // 如果默认值是表达式，默认表达式是惰性求值
+
+        // 3. 设置默认值的小技巧
+        // 函数参数的默认值，最好从参数列表的右边开始设置
+
+        const multiply = (x=1,y) => x*y;
+        console.log(multiply(undefined,2));  //很麻烦
+        //不如：
+        const multiply = (x,y=1) => x*y;
+        console.log(multiply(2));    //2 
+        
+
+        //============================= 函数参数默认值的应用
+        
+        //1. 接收很多参数的时候，下面的这种写法就会很麻烦
+        const logUser = (username,age,sex) => console.log(username,age,sex);
+        //给默认值：
+        const logUser = (username='ZhangSan',age=0,sex='male') => console.log(username,age,sex);
+        logUser('Alex',18,'male');  
+        logUser();    //输出默认值 : ‘ZhangSan’ 0 'male'
+    
+        //2. 接收一个对象作为参数
+        const logUser = option => console.log(options.username,options.age,username.sex);
+        //因为上面的参数是option对象，所以下面括号里面的参数也要是对象
+        
+        //利用对象的解构赋值，将options去掉
+        const logUser = ({username,age,sex})=> console.log(username,age,sex);
+        
+        //解构赋值，提供默认值
+        const logUser = ({username='zhangsan',age=0,sex='male'}) => console.log(username,age,sex);
+        logUser({username:'alex'});  //alex，0，male
+        //这里就相当于对象的解构赋值：
+        //{username:'zhangsan',age=0,sex='male'} = {username:'alex'}
+        //所以输出  alex，0，male
+        //注意：=是给默认值，：是属性值。这里不能用：。
+        logUser({});    //zhangsan 0 male   都是默认值
+        logUser();     //此时还是会报错，username没有定义
+        //什么参数都没有，此时相当于logUser(undefined)  
+        //等价于对象解构赋值：{username:'zhangsan',age=0,sex='male'} = undefined
+        //所以报错
+
+        //如果想让logUser()取到默认值不报错，则要{username:...} = {}即可
+        const logUser = ({username='zhangsan',age=0,sex='male'}) =>...;
+        //等价于：
+        const logUser = (options) =>...;
+        //只要给options一个默认值就可以了
+        //即给函数参数添加默认值：
+        const logUser = (options={}) =>...;
+        //======》
+        const logUser = ({username='zhangsan',age=0,sex='male'} = {})    
+        => console.log(username,age,sex);
+        //给个空对象的默认值，之间不传参数的时候，不会报错了。
+        logUser();  //此时取到的就是默认值： zhangsan 0 male
+
+
+
+
+
+        logUser({
+            username:'alex',
+            age:18,
+            sex:'male'
+        });
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

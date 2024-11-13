@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+ 
+ //============================= 初识Cookie ==============================
+
+        // 1. Cookie是什么
+        // Cookie全称HTTP Cookie，简称Cookie
+        // 是浏览器存储数据的一种方式
+        // 因为存储在用户本地，而不是存储在服务器上，是本地存储
+        // 一般会自动随着浏览器每次请求发送到服务器端
+    
+        // 2. Cookie有什么用
+        // 利用Cookie跟踪统计用户访问该网站的习惯
+        // 比如什么时间访问，访问了哪些页面，在每个网页的停留时间等
+
+        // 3. 在浏览器中操作Cookie
+        // 不要在Cookie中保存密码等敏感信息
+
+
+//=========================== Cookie的基本用法 ===========================
+
+        // 1. 写入Cookie
+        document.cookie = 'username=zs';
+        document.cookie = 'age=18';
+
+        // 不能一起设置，只能一个个设置
+        document.cookie = 'username=zs; age=18'
+
+        // 2. 读取Cookie
+        console.log(document.cookie);
+
+        // 读取的是一个由名值对构成的字符串，每个名值对之间由“;”（一个分号一个空格）隔开
+        // username=zs; age=18
+
+//============================= Cookie的属性 =========================
+
+        // 1. Cookie的名称（name）和值（value）
+        // 最重要的两个属性，创建Cookie时必须填写，其他属性可以使用默认值
+
+        // Cookie的名称或值如果包含非英文字母，则写入时候需要使用encodeURIComponent()编码，
+        // 读取时候使用decodeURIComponent()编码
+
+        // eg:
+        document.cookie = 'username=alex';
+        document.cookie = `username=${encodeURIComponent('张三')}`;    //模版字符串 
+        document.cookie = `${encodeURIComponent('用户名')}=${encodeURIComponent('张三')}`;
+
+        // 一般名称使用英文字母，不要用中文，值可以用中文，但是要编码
+
+
+        // 2. 失效（到期）时间
+        // 对于失效的Cookie，会被浏览器清除
+        // 如果没有设置失效（到期）时间，这样的Cookie称为会话Cookie
+        // 它存在内存中，当会话结束，也就是浏览器关闭时，Cookie消失
+
+        document.cookie = 'username=alex';
+
+        // 想长时间存在，设置Expires 或 Max-Age
+        // expires，值为Date类型
+        document.cookie = `username=alex; expires=${new Date('2100-1-01 00:00:00')}`;   //2100结束
+
+        // max-age
+        // 值为数字，表示当前时间 + 多少秒后过期，单位是秒
+        document.cookie = 'username=alex; max-age=5';
+        // 30天：
+        document.cookie = `username=alex; max-age=${24*3600*30}`;
+
+        // 如果max-age的值是0或负数，则Cookie会被删除
+        document.cookie = 'username=alex';
+        document.cookie = 'username=alex; max-age=0';
+        document.cookie = 'username=alex; max-age=-1';
+
+
+        // 3. Domain域
+        // Domain限定了访问Cookie的范围（不同域名）
+
+        // 使用JS只能读写当前域或父域的Cookie，无法读写其他域的Cookie
+        // document.cookie='username=alex; domain=www.imooc.com';
+
+        // www.imooc.com     m.imooc.com 当前域
+        // 父域： .imooc.com
+
+        // 4. Path路径
+        // Path限定了访问Cookie的范围（同一域名下）
+
+        // 使用JS只能读写当前路径和上级路径的Cookie，无法读写下级路径的Cookie
+        document.cookie = 'username=alex; path=/course/list';
+        document.cookie = 'username=alex; path=/1.Cookie/';
+
+        // 当Name、Domain、Path这3个字段都相同的时候，才是同一个Cookie
+
+
+
+        // 5. HttpOnly
+        // 设置了HttpOnly属性的Cookie不能通过JS去访问
+
+        // 6. Secure 安全标志
+        // Secure限定了只有在使用了https而不是http的情况下才可以发送给服务器
+
+
+        // => Domain、Path、Secure都要满足条件，还不能过期的Cookie才能随着请求发送到服务器端
+
+
+
+//=============================== Cookie的封装 ================================   
+
+//===================== html中 ===================
+        
+        //<script type='module'>
+
+        import {set,get,remove} from './cookie.js';
+        
+        // 1. 使用封装的set方法
+        set('username','alex');
+        set('username','zs');
+        set('age',18);
+        set('用户名','张三');
+
+        set('sex','male',{
+            maxAge:30*24*3600
+        });
+
+
+        // 2. 使用封装的get方法
+        console.log(get('username'));   //zs
+        console.log(get('age'));        //18
+        console.log(get('用户名'));      //张三
+        console.log(get('sex'));        //male
+
+
+        // 3. 使用封装的删除remove方法
+        remove('username');
+        remove('用户名');
+
+
+//================== cookie.js中 ==================
+        
+        // 1. 写入Cookie，set方法
+        const set = (name,value,{maxAge,domain,path,secure}={}) => {  //前面的空对象是默认值
+            let cookieText = `${encodeURIComponent(name)}=${encodeURIComponent(value)}`;  //键值对
+
+            if(typeof maxAge === 'number'){  
+                cookieText += `; max-age=${maxAge}`;    //分号后面有空格
+            }
+
+            if(domain){         //有domain就传入domain
+                cookieText += `; domain=${domain}`;
+            }
+
+            if(path){
+                cookieText += `; path=${path}`;
+            }
+
+            if(secure){
+                cookieText += `; secure`;
+            }
+
+            document.cookie = cookieText;
+        }
+
+        // 2. 通过name获取cookie的值  get('username');
+
+        //  其中：
+            'username=alex; age=18; sex=male'
+        //  变成数组：
+            ["username=alex","age=18","sex=male"]
+        //  遍历上面数组的时候变成：
+            ["username","alex"]
+            
+        const get = name => {
+            name = `${encodeURIComponent(name)}`;
+
+            const cookies = document.cookie.split('; ');  //分号空格为标准来拆分属性进入数组
+
+            //遍历数组
+            for(const item of cookies){ 
+                const [cookieName,cookieValue] = item.split('=');   //让数组变成键值对的形式
+
+                if(cookieName === name){
+                    return decodeURIComponent(cookieValue);   //读取编码后的name值
+                }
+            }
+            //什么都没获取到，于是返回undefined
+            return;
+        };
+
+
+        // 3. 根据name、domain和path删除cookie，只根据name无法删除
+        const remove=(name,{domain,path}={})=>{   //空对象{}是默认值，避免报错
+            set(name,'',{domain,path,maxAge:-1});    //maxAge:-1  就是删除
+        };
+        
+        //导出方法
+        export {set,get,remove};    
+
+
+//===================== 使用封装好的Cookie实现网址语言切换 ==================
+        // <button id='cn'>中文</button>
+        // <button id='en'>英文</button>
+
+        const cnBtn = document.getElementById('cn');
+        const enBtn = document.getElementById('en');
+
+        cnBtn.addEventListener('click',()=>{
+            set('language','cn',{
+                maxAge:30*24*3600
+            });
+            window.location = './4.html'      //强制刷新
+        },false);
+
+        enBtn.addEventListener('click',()=>{
+            set('language','en',{
+                maxAge:30*24*3600
+            });
+            window.location = './4.html'      //强制刷新
+        },false);
+
+
+//========================= Cookie的注意事项 ========================
+
+        // 1. 前后端都可以创建Cookie
+
+        // 2. Cookie有数量限制
+        // 每个域名下的Cookie数量有限
+
+        // 当超过单个域名限制之后，再设置Cookie，浏览器就会清除以前设置的Cookie
+
+        // 3. Cookie有大小限制
+        // 每个Cookie的存储容量很小，最多只有4kB左右
+
+
+
+//========================= 初识localStorage ========================
+
+        // 1. localStorage是什么
+        // localStorage也是一种浏览器存储数据的方式（本地存储），它只是存储在本地，不会发送到服务器
+
+        // 单个域名下的localStorage总大小有限制
+
+        // 2. 在浏览器中操作localStorage
+
+        // 3. localStorage的基本用法
+        console.log(localStorage);      //Storage{length:0}
+        // localStorage也是一个键值对的形式，和Set、Map很像
+
+        // 1) 存数据 setItem()
+        localStorage.setItem('username','alex');
+        localStorage.setItem('username','zs');
+        localStorage.setItem('age',18);
+        localStorage.setItem('sex','male');
+
+        // length长度属性
+        console.log(localStorage.length);       //3   zs覆盖了alex
+
+        // 2) 获取数据 getItem()
+        console.log(localStorage.getItem('username'));  //zs
+        console.log(localStorage.getItem('age'));   //18
+        console.log(localStorage.getItem('sex'));   //male
+
+        // 获取不存在的返回null
+        console.log(localStorage.getItem('name'));
+        
+        
+        // 3) 删除数据 removeItem()
+        localStorage.removeItem('username');
+        localStorage.removeItem('age');
+
+        // 删除不存在的key，不报错
+        localStorage.removeItem('name');
+
+        console.log(localStorage);      //Storage{sex:'male',length:1}
+
+        // 4) 一键清除 clear()
+        localStorage.clear();
+        console.log(localStorage);      //Storage{length:0}
+
+
+
+        // 4. 使用 localStorage 实现自动填充
+
+        // <form id='login' action="https://www.imooc.com" method="post">
+        //     <input type='text' name='username' />
+        //     <input type='password' name='password' />
+        //     <input type='submit' id='btn' value='登陆' />
+        // </form>
+
+        const loginForm = document.getElementById('login');
+        const btn = document.getElementById('btn');
+
+        const username = localStorage.getItem('username');  //第一次没有，提交之后才有，保存到本地
+        if(username){   //如果传入了username
+
+            loginForm.username.value = username;    
+            //提交之后就有了，这时候赋值username给value，输入框显示默认值。实现自动填充。
+
+        }
+
+        btn.addEventListener('click',e=>{
+            e.preventDefault();     //点击是默认提交的，这里要阻止默认提交，先对数据进行判断
+
+            //数据验证  
+            
+            //loginForm.username.value;  就是输入框输入的值  
+            localStorage.setItem('username',loginForm.username.value);      //设置属性值
+
+            loginForm.submit();     //手动的提交一下，form有一个默认的submit()方法
+
+        },false);
+    
+
+
+//============================== localStorage 的注意事项 =============================
+        
+        // 1. localStorage的存储期限
+
+        // localStorage 是持久化的本地存储，
+        // 除非手动清除（比如通过js删除，或者清除浏览器缓存），否则数据永远不会过期的
+
+        // sessionStorage
+        // 当会话结束（比如关闭浏览器）的时候，sessionsStorage 中的数据会被清空
+        sessionStorage.setItem('username','alex');
+        sessionStorage.getItem('username');
+        sessionsStorage.removeItem('username');
+        sessionsStorage.clear();
+
+
+        // 2. localStorage 的键和值的类型
+        // localStorage 存储的键和值只能是字符串的数据类型
+        // 不是字符串类型，也会先转化成字符串类型再存进去
+
+        localStorage.setItem({},18);    
+        // 没写字符串的情况下,在浏览器中对应的键值对  key->[object Object]、18->18
+
+        // 一般里面用对象和数组的情况更多，详细在后面的课程中讲到：
+        // localStorage.setItem('students',[{},{}]);
+
+        console.log(
+            typeof localStorage.getItem('[object Object]'),     //获取它的值的数据类型
+            localStorage.getItem('[object Object]')             //打印它的值（18）本身
+            );      //string 18   最后输出字符串数据类型  18
+
+        // 对象转化成字符串：
+        console.log({}.toString());     //[object Object] 
+
+
+        // 3. 不同域名下能否共用localStorage
+        // 不用的域名是不能共用localStorage的
+
+        // 4. localStorage的兼容性
+        // IE7及以下版本不支持localStorage，IE8开始支持
+        
+        // https://caniuse.com  查看localStorage兼容性的问题
+
+
+
+
+    </script>
+</body>
+</html>

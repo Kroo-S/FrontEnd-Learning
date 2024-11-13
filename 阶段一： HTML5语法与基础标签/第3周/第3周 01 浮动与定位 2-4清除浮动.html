@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 清除浮动的方法：
+            1. overflow:hidden
+               让内部有浮动的父盒子形成BFC，它就能关闭内部的浮动
+            2. clear:both; 
+                给【后面一个】父盒子设置"clear:both",
+            3. 使用“::after”伪类，给每个盒子添加一个子元素，并设置clear：both；
+            4. 在两个父亲盒子直接隔一个墙div，div设置clear：both。
+            
+            */
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        /* 方法一：让内部有浮动的盒子【都】形成BFC */
+        div{
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        /* 方法二：给后面一个父亲盒子设置clearboth，清除上面一个盒子对其的浮动影响 */
+        .box2{
+            clear: both;
+            margin-top: 20px;   /*这里不会生效是因为前面一个父亲盒子【没有形成BFC】，是不会有高度的；后面一个盒子去踹前面一个没有高度的盒子，是不会有效果的。所以不建议这样使用。尽量形成BFC。*/
+        }
+        /* 方法三：使用“::after”伪类，给【每个父亲盒子】添加一个子元素，并设置clear：both； */
+        .clearfix{
+            content: "";
+            clear:both;
+            /*转化为块级元素*/
+            display: block;
+        }
+        /* 方法四：在两个父亲盒子直接隔一个墙div，div设置clear：both。 */
+
+        p{
+            float: left;
+            width: 100px;
+            height: 100px;
+            background-color: orange;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <p></p>
+        <p></p>
+    </div>
+    <div class="box2">
+        <p></p>
+        <p></p>
+    </div>
+</body>
+</html>

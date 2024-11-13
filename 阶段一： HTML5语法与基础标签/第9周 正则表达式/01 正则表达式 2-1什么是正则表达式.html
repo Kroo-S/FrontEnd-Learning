@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //定义正则表达式
+
+        //这个正则表达式表示一个形式：m开头，n结尾，中间是6位数字
+
+        var regexp = /^m\d{6}n&/;
+                                       //console.log之后：
+        var str1 = 'm123456n';            //true  
+        var str2 = 'm1234567n';           //false 
+        var str3 = 'm123b56n';            //flase
+        var str4 = '123456';              //false
+        
+
+        //================== 创建正则表达式方法1 ================
+
+        //两者是引用类型值，==之后，不相等
+        var regexp1 = /^\d{6}$/;
+        var regexp2 = new RegExp('^\\d{6}$');     //因为这里是引号，所以要有两个\\
+
+        var str = '555666';
+
+        console.log(regexp1.test(str));       //true
+        console.log(regexp2.text(str));       //true
+        
+        //两者是引用类型值，==之后，不相等
+        console.log(typeof regexp1);          //object   
+        console.log(typeof regexp2);          //object
+
+
+        //================== 元字符 ==================
+
+        //题目1 : 某快递公司运单号形式是这样的：123-45667-890，请使用正则表达式检查某字符串是否符合此格式
+        
+        //正则表达式
+        var regexp1 = /^\d\d\d-\d\d\d\d-\d\d\d$/;
+        //待测试的字符串
+        var str1 = '444-5555-000';
+        console.log(regexp1.test(str1));    
+
+        //题目2 : 某产品的验证密钥形形式是：xxx-xxxx-xxx,其中x表示字母数字或者下划线，
+        //请使用正则表达式检查某字符串是否符合此格式
+
+        //正则表达式
+        var regexp2 = /^\w\w\w-\w\w\w\w-\w\w\w&/;
+
+        //待测试的字符串
+        var str2 = 'abc-__ab-12$';
+        console.log(regexp2.test(str2));
+
+        // ================== 字符的转义 ==================
+
+        /^.$/       //检查字符串是不是任意字符
+        /^\.$/      //检查字符串是不是一个点
+        /^\\$/      //检查字符串是不是一个反斜杠
+
+        //任何符合前面加个反斜杠\  则后面的表示它本身的意思
+
+        //题目3 ： 某产品批号形式为123.45^67#89，请使用正则表达式检查某字符串是否符合此格式
+       
+        var regexp3 = /^\d\d\d\.\d\d\^\d\d\#\d\d$/;    
+        //任何符合前面加个反斜杠\  则后面的表示它本身的意思
+
+        //待测试的字符串
+        var str3 = '666.66^66#66';
+        console.log(regexp3.test(str3));   
+
+        //====================== 空格表示 ========================
+
+        var regexp = /\s/;     
+        var regexp = new RegExp('\\s');     // ''单引号内要用转义字符，所以用\\
+
+
+        //=================== 方括号表示法 ====================
+            //学好字符串
+            var str = 'y4444555';
+
+            //用正则表达式检查
+
+            //eg：某学校的学号规定：第1位上字母，b表示本科生，y表示研究生，后面是7位数字，用正则表示为：
+
+            console.log(/^[yb]\d{7}$/.test(str)); 
+            //[yb]表示第一位要么是y要么是b；{7}是量词表示有7位数字  
+
+
+        //=========== 题目1 : 请验证字符串是否是5位字母，大小写均可 ============
+        var str2 = 'abcde';
+        console.log(/^[a-zA-Z]{5}$/.test(str2));     //true
+
+        //============ 题目2 ： 请验证某字符串是否是5位，且仅由小写字母、点构成
+        var str4 = 'mnp..';
+        var str5 = 'mnp.#';
+
+        console.log(/^[a-z\.]{5}$/.test(str4));
+        console.log(/^[a-z\.]{5}$/.test(str5));
+
+        //=========== 题目3 ： 请验证某字符串是否是4位小写字母，且最后一位不能是m字母 =========
+        var str6 = 'abcd';
+        var str7 = 'abcm';
+        var str8 = 'ab1c';
+
+        console.log(/^[a-z]{3}[a-ln-z]$/.test(str6));
+        console.log(/^[a-z]{3}[a-ln-z]$/.test(str7));
+        console.log(/^[a-z]{3}[a-ln-z]$/.test(str8));
+
+
+        //==================== 量词 ======================
+        // *       匹配前一个表达式0次惑多次。等价于{0}
+        // +       匹配前一个表达式1次或者多次。等价于{1,}
+        // ?       匹配前一个表达式0次或者1次。等价于{0,1}
+        // {n}     n是一个正整数，匹配了前面一个字符刚好出现了n次
+        // {n,}    n是一个正整数，匹配前一个字符至少出现了n次
+        // {n,m}   n和m都是整数。匹配前面的字符至少n次，最多m次
+
+
+        //题目1 ：请验证字符串是否符合手机号码的规则：11位数字，并且肯定以1开头
+
+        var str1 = '12345678966';
+        var str2 = '13866688891';
+        var str3 = '38123456789';
+        var regexp1 = /^1\d{10}$/;    //1开头，后10位都是数字
+        console.log(regexp1.test(str1));    //true
+        console.log(regexp1.test(str2));    //true
+        console.log(regexp1.test(str3));    //false
+
+        //题目2时：请验证某字符串是否这样：以字母开头，中间是任意位数字（最少1位）构成，并以字母结尾
+        var str4 = 'a123456678b';
+        var str5 = 'abcd';
+        var str6 = 'a1b';
+
+        var regexp2 = /^[a-zA-Z]\d+[a-zA-Z]$/;  //这里的\d+表示至少出现了一位数字
+        console.log(regexp2.test(str4));    //true
+        console.log(regexp2.test(str5));    //false
+        console.log(regexp2.test(str6));    //true
+
+        //题目3 ： 请验证某字符串是否符合网址规则：以www开头，中间位是任意位的字符，最后以.com结尾
+        var str7 = 'www.imooc.com';
+        var str8 = 'www.sina.com.cn';
+        var str9 = 'www.news.cn';
+        var regexp3 = /^www\.\w+\.com(\.cn)?$/;
+
+        console.log(regexp3.test(str7));
+        console.log(regexp3.test(str8));
+        console.log(regexp3.test(str9));
+
+        //================== 修饰符 ===================
+
+        var re = /m/gi;
+        var re = new RegExp('m','gi');
+
+
+        //===================== 正则表达式相关方法 ====================
+            // 1. test()方法
+            // 2. exec()方法：在一个指定字符串中执行一个搜索匹配查找，返回一个结果数组或null
+        
+        //exec()方法
+
+        var str = 'abc123def456ghi789';
+        var regexp = /\d+/;     // + 表示尽可能多的匹配
+        var result;
+        while(result = regexp.exec(str)){
+            console.log(result[0]);
+        }
+
+
+
+        //======================= 字符串相关方法 =========================
+
+        // search()     在字符串中根据正则表达式进行查找匹配，
+        //              返回首次匹配到的位置索引，测试不到则返回-1
+
+        // match()      在字符串中根据正则表达式进行查找匹配，
+        //              返回一个数组，找不到就返回null
+
+        // replace()    使用替换字符串替换掉匹配到的子字符串，
+        //              可以使用正则表达式
+
+        // split()      分割字符串为数组，可以使用正则表达式
+
+
+        // ==================== 正则表达式应用 ===================
+        
+            //中文正则表达式：^[\u4E00-\u9FA5]{2,4}$
+            
+        
+
+
+
+    </script>
+</body>
+</html>

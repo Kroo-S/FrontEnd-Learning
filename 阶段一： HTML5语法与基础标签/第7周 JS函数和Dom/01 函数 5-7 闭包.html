@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //================== 闭包 ===================
+
+        //1. 创建函数就会有闭包。写 嵌套函数 和 return 是为了方便显示闭包的特性。
+        //2. 闭包的功能 ：记忆性、模拟私有变量。
+
+        //创建一个函数
+        function fun(){
+            //定义局部变量
+            var name = '慕课网';
+            //返回一个局部函数     
+            //这里运行fun()会返回一个函数，下面的var inn = fun(),就是把函数赋值给了inn；
+            
+            return function(){
+                alert(name);
+            };
+        }
+
+        //调用外部函数，就能得到内部函数，用变量inn来接收。
+        var inn = fun();
+        //定义一个全局变量
+        var name = 'ABC';
+        //执行inn函数，就相当于在fun函数的外部，执行了内部函数
+        inn();           // 输出‘慕课网’    不会输出‘ABC’
+
+
+        //======================= 闭包的记忆性 =======================
+
+        //eg：创建体温检测函数checkTemp(),检测体温是否合格。不同小区有不同的温度合格标准。
+
+        //也叫高阶函数，或偏函数
+        function createCheckTemp(standardTemp){
+            function checkTemp(n){
+                if(n <= standardTemp){
+                    alert("你的体温正常");
+                }else{
+                    alert("你的提问偏高");
+                }
+            }
+            return  checkTemp;
+        }
+        //闭包的记性性：
+
+        //上面return一个函数checkTemp，将它赋值给新的函数checkTemp_A
+        //创建一个checkTemp函数，它以37.1度为标准线
+        var checkTemp_A = createCheckTemp(37.1);
+        //再创建一个checkTemp函数，它以37.3为标准线
+        var checkTemp_B = createCheckTemp(37.3);
+
+        checkTemp_A(37.2);      //偏高
+        checkTemp_A(37.0);      //正常
+
+        checkTemp_B(37.2);      //正常
+
+
+        //===================== 闭包的私有变量 ===================
+
+        //封装一个函数，这个函数的功能就是私有化变量
+        function fun(){
+            //定义一个局部变量
+            var a = 0;
+
+            //return一个对象，对象里面包含了a的加和乘的方法。
+            return{
+                getA:function(){
+                    return a;
+                },
+                add:function(){
+                    a++;
+                },
+                pow:function(){
+                    a*=2;
+                }
+            };
+        }
+
+        var obj = fun(); //return了一个对象。
+
+        //如果想在fun函数外面使用变量a，唯一的方法就是调用getA()方法
+        console.log(obj.getA());   
+
+
+        //================= 闭包的面试题 ==================
+        function addCount(){
+            var count = 0;
+            return function(){
+                count = count+1;
+                console.log(count);
+            };
+        }
+        var fun1 = addCount();
+        var fun2 = addCount();
+
+        //fun1和fun2形成了两个单独的闭包，互相不影响
+
+        fun1();         //1
+        fun2();         //1
+        fun2();         //2
+        fun1();         //2      
+
+        // ====================== IIFE : (function(){})() ======================
+        // 不能直接在后面加括号调用，这种是错误的：function(){}();
+        // 应该先括号括起来，然后再调用。
+
+        //====================  1. 作用1 : 为变量赋值
+        
+        var age = 42;
+        var sex = '女';
+        var title = (function(){
+            if(age<18){
+                return '小朋友';
+            }else{
+                if(sex == '男'){
+                    return '先生';
+                }else{
+                    return '女士';
+                }
+            }
+        })();
+
+        alert(title);
+
+        //====================  2. 作用2 : 将 全局变量 变为 局部变量
+
+        var arr = [];
+        for(var i=0;i<5;i++){
+            arr.push(function(){
+                
+                alert(i);        
+                //变量i是全局变量，所有函数都共享内存中的同一个变量i
+
+            });
+        }
+
+        //此时得到的每项是function(){alert(i);}。因为i在for前面是全局变量，所以每一项都是5。
+        
+        // 因为i变量在for循环语句中被定义，其作用域是全局，所以i为全局变量。for循环结束后，i的值变为5，
+        // 当执行arr数组中的函数时，此时arr数组中的所有函数都会共享内存中的同一个全局变量i，
+        // 所以arr数组中的函数执行结果都会弹出5。
+
+        arr[2]();       //弹出5  
+        arr[0]();       //5
+        arr[1]();       //5     带括号是要执行每项的函数
+
+
+
+        //IIFE更改，是全局变量变为局部变量：
+
+        var arr = [];
+        for(var i=0;i<5;i++){
+            (function(i){             //此时的i变成了局部变量，形式参数相当于var i
+                arr.push(function(){
+                    alert(i);
+                });
+            })(i);
+        }
+        arr[2]();       //弹出2
+
+        (function(i){
+            arr.push(function(){alert(i);});
+        })(i);
+
+    </script>
+</body>
+</html>

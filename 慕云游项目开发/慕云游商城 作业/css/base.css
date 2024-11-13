@@ -1,0 +1,67 @@
+@font-face {
+    font-family:"PingFangSCRegular" ;
+    src: url(../fonts/PingFangSCRegular.ttf)format("truetype");
+}
+
+@font-face {
+    font-family: 'iconfont';
+    src: url('../fonts/iconfont.ttf?t=1639197604747') format('truetype');  /*这里的路径要写对*/
+  }
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+body{
+    font-family: "PingFangSCRegular";
+}
+
+/*公共样式*/
+.clearfix{
+    overflow: hidden;
+}
+
+.clearfix::after{
+
+    /*
+    .sss:after { 
+        content:'';
+        display:block;
+        clear:both;
+        width:0;
+        height:0; 
+    }
+    1. after 的意思是再.sss内部的最后加入为元素:after，
+    2. 首先要显示伪元素，所以display:block，
+    3. 然后为伪元素加入空内容，以便伪元素中不会有内容显示在页面中，所以， content:""；
+    4. 最后，要清除浮动，clear:both。
+    */
+
+    content:"";
+    display: block;
+    clear: both;
+    overflow: hidden;
+}
+
+.center-wrap{
+    /* 中间内容区域居中 */
+    width:1200px;  /*具体宽度具体测量*/   
+    margin: 0px auto;
+}
+
+.tac{
+    /*文字居中*/
+    text-align: center;
+}
+
+.db{
+    display: block;
+}
+
+.dib{
+    display: inline-block;
+}

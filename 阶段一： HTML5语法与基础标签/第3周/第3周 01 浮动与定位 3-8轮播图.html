@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        .carousel{
+            width: 650px;
+            height: 360px;
+            border: 1px solid #000;
+            margin: 40px auto;
+            background-color: green;
+            position: relative;
+        }
+        .carousel .btn{
+            /* 给a标签设置定位属性，脱离了标准文档流，就可以设置宽高了。【即绝对定位的元素可以设置宽高】。 */
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #000; 
+
+            /* 这里的左右按钮都居中对齐，是共性，放在btn里面，特性放在下面单独的leftbtn，rightbtn里面 */
+            top: 50%;
+            margin-top: -20px;   /*负的高度的一半*/
+
+            /* 圆形 */
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            background-color: rgba(255, 255, 255, 0.5);
+            font-family: consolas;
+            font-size: 24px;
+            /* 鼠标小手 */
+            cursor: pointer;
+        }
+        .carousel .btn:hover{
+            background-color: orange;
+            color:white;
+        }
+
+        .carousel .leftbtn{
+            left: 10px;
+        }
+        .carousel .rightbtn{
+            right: 10px;
+        }
+    </style>
+
+
+</head>
+<body>
+    <!-- 轮播图carousel -->
+    <div class="carousel">
+        <img src="" alt="">
+        <a href="#" class="leftbtn btn">&lt;</a>
+        <a href="#" class="rightbtn btn">&gt;</a>
+        <ol>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ol>
+    </div>
+</body>
+</html>

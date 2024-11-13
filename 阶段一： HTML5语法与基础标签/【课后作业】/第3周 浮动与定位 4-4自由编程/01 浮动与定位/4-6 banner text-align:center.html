@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .banner{
+            width: 100%;
+            height: 600px;
+            position: relative;
+        }
+        .banner .pic {
+            width: 100%;
+            height: 600px;
+        }
+        .banner .pic img{    /*为什么图片的属性只写在在父亲上面（上层.pic）会无效？非要写在img上面才行？    A:父亲只是一个空盒子，不是图片*/
+            width: 100%;
+            height: 600px;
+        }
+        .banner .mask{
+            position: absolute; /*遮罩层，在banner中居中显示*/
+            width: 100%;
+            height: 600px;
+            top: 0px;
+            left:0px;
+            background-color: rgba(000, 000, 000, 0.1);
+        }
+        .banner .form{
+            width: 504px;
+            height: 350;
+            position: absolute;
+            top: 100px;    /*离上边框距离100px*/
+            left:50%;
+            margin-left: -252px;
+            text-align: center;    
+        }
+        .banner .form input{         
+            width: 504px;
+            height: 40px;
+            border:1px solid #808080;
+            margin-bottom: 20px;
+            background:rgba(255, 255, 255, 0);         
+        }
+        .banner .form textarea{
+            width: 504px;
+            height: 110px;
+            border:1px solid #808080;
+            margin-bottom: 20px;
+            background:rgba(255, 255, 255, 0);
+            color:#808080;
+        }
+        .banner .form .submitform{     /*Q：这里如何通过textalign:center实现按钮居中啊？*/
+            width: 200px;
+            height: 40px;
+            display:block;        /*块元素才能使用margin:0 auto;实现居中，input是inline-block元素，所以需要先转化为块元素*/
+            margin:0 auto;  
+            color:#808080;       
+        }
+    </style>
+</head>
+<body>
+    <!-- banner区域 -->
+    <div class="banner">
+        <div class="pic">
+            <img src="./images/banner3.jpg" alt="">
+        </div>
+        <div class="mask"></div>
+        <div class="form">
+            <form action="#" method="post">
+                <input type="text" placeholder="your Name" class="nameform">
+                <input type="text" placeholder="your Phone" class="phoneform">
+                <input type="email" placeholder="yourEmail" class="emailform">  
+                
+                
+                <!--Q1:这里的“type=email”是否正确？-->
+
+                <!--Q2:textare里面的“name”，“id”是什么意思-->
+                <textarea name="comment" id="" cols="30" rows="5" placeholder="Write your comment here" class="textareaform">
+                    xxxxxxx
+                </textarea>
+
+                <input type="submit" value="SEND ME MASSAGE" class="submitform">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

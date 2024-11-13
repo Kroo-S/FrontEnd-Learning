@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+        //==================== typeof()的数值 =================
+            // Numbers
+            typeof 37 === 'number';
+            typeof 3.14 === 'number';
+            typeof Math.LN2 === 'number';
+            typeof Infinity === 'number';
+            typeof NaN === 'number'; // 尽管NaN是"Not-A-Number"的缩写
+            typeof Number(1) === 'number'; // 但不要使用这种形式!
+            
+            // Strings
+            typeof "" === 'string';
+            typeof "bla" === 'string';
+            typeof (typeof 1) === 'string'; // typeof总是返回一个字符串 typeof 1 返回 'number'
+            typeof String("abc") === 'string'; // 但不要使用这种形式!
+            
+            // Booleans
+            typeof true === 'boolean';
+            typeof false === 'boolean';
+            typeof Boolean(true) === 'boolean'; // 但不要使用这种形式!
+            
+            // Symbols
+            typeof Symbol() === 'symbol';
+            typeof Symbol('foo') === 'symbol';
+            typeof Symbol.iterator === 'symbol';
+            
+            // Undefined
+            typeof undefined === 'undefined';
+            typeof declaredButUndefinedVariable === 'undefined';
+            typeof undeclaredVariable === 'undefined'; 
+            
+            // Objects
+            typeof {a:1} === 'object';
+            typeof null; //object
+            
+            // 使用Array.isArray 或者 Object.prototype.toString.call
+            // 区分数组,普通对象
+            typeof [1, 2, 4] === 'object';
+            
+            typeof new Date() === 'object';
+            
+            // 下面的容易令人迷惑，不要使用！
+            typeof new Boolean(true) === 'object';
+            typeof new Number(1) === 'object';
+            typeof new String("abc") === 'object';
+            
+            // 函数
+            typeof function(){} === 'function';
+            typeof class C{} === 'function'
+            typeof Math.sin === 'function';
+            typeof new Function() === 'function';
+
+
+        // ====================  string数据类型的方法  ====================
+           
+        // 方法：
+            // 1、charAt();           得到指定位置字符
+            // 2、subString();        提取子串
+            // 3、substr();           提取子串
+            // 4、slice();            提取子串
+            // 5、toUpperCase();      将字符串变为大写
+            // 6、toLowerCase();      将字符串变为小写
+            // 7、indexOf();          检索字符串
+
+        一、charAt()
+
+            'abcdef'.charAt(0)       //a    第一个从0开始计算
+            'abcdef'.charAt(5)       //f
+            'abcdef'.charAt(6)       //''   超出长度，得到空字符串
+        
+        二、substring(a,b)       从a开始到b结束，但不包含b       不能有负数
+            
+            'abcdefg'.substring(0,3);      //'abc'      从0开始到3结束，选取0-2
+            'abcdefg'.substring(2,5);      //'cde'
+            'abcdefg'.substring(2);        //'cdefg'    从2开始一直延伸到最后的一位
+            'abcdefg'.substring(5,2);      //'cde'      (2,5)和(5,2)结果相同，因为a，b顺序可变
+        
+        三、substr(a,b)       从a开始选择长度为b的字符串
+
+            'abcdefg'.substr(0,2);         //'ab'          从a开始选2个位置，为ab；
+            'abcdefg'.substr(2,3);         //'cde'     
+            'abcdefg'.substring(2,2);      //''           从2开始到2结束，为空字符串    
+            'abcdefg'.substr(2);           //'cdefg'     从2开始到结尾
+            'abcdefg'.substr(-2);          //'fg'        从倒数第2个开始到结尾。注意倒数第一个是-1，不是-0。0在第一位。
+
+        四、slice(a,b)       和string一样，从a开始到b结束，但不包含b。    a,b可以是负数，但a,b要按顺序书写
+
+            'abcdefg'.slice(2,5);          //'cde'      从2开始到5结束，但不包含5
+            'abcdefg'.slice(5,2);          //''     顺序不能变，得到空字符串    string顺序可变
+            'abcdefg'.slice(-5,-2);         //'cde'      可以为负数   string里面不能有负数
+ 
+        五、toUpperCase();       大写
+
+            'abc'.toUpperCase();       //'ABC'
+        
+        六、toLowerCase();       小写
+
+            'ABC'.toLowerCase();        //'abc'
+
+        七、indexOf();    字符首次出现的位置
+
+            'abcdeb'.indexOf('b');        //1
+            'abcdeb'.indexOf('de');       //3
+            'abcdeb'.indexOf('m');        //-1      检索没有出现，值为-1
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

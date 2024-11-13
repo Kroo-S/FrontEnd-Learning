@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    //=============================== Class是什么 =================================
+
+        // 1. 认识Class
+        // 人类：类
+        // 具体的人：实例、对象
+
+        //类可以看做是对象的模板，用一个类可以创建出许多不同的对象
+
+        //2. Class的基本用法
+        //类名一般首字母大写
+        class Person {}
+        // class Person(){} ❌
+        // class Person{}; ❌  可以不加，这里加分号相当于分号前面是个空语句
+        // function func(){};   ❌
+
+        class Person{
+            //实例化时执行构造方法，所以必须有构造方法，但可以不写出来
+            constructor(){
+                console.log('实例化时执行构造方法');
+                this.name = name;
+                this.age = age;
+
+
+                //一般在构造方法中定义属性，方法不在构造方法中定义
+                this.speak = () => {};
+            }
+
+            //speak:function(){};       这是对象的写法，是错误的
+            
+            //各实例共享的方法
+            speak(){
+                console.log('speak');
+            };
+        }
+        //const p = new Person();
+        const zs = new Person('ZS',18);     //张三
+        const ls = new Person('LS',28);     //李四
+        
+        console.log(zs.name);
+        console.log(zs.age);
+        console.log(zs.speak);      //  ()=>{}
+
+        zs.speak()      //调用对象的方法
+
+        console.log(ls.name);   
+        console.log(ls.age);
+        console.log(ls.speak);
+
+        console.log(zs.speak === ls.speak);     //false   
+
+        //3. Class与构造函数
+        class Person{
+            constructor(name,age){
+                this.name = name;
+                this.age = age;
+
+                //this.speak = () = {};
+            }
+            speak(){
+                console.log('speak');
+            }
+            //run(){}   这里在类中添加run，本质上就等于在外面的prototype上添加run
+            //建议所有的方法都写在类中，不要写在prototype上
+        }
+        Person.prototype.run = function(){};
+        console.log(typeof Person);     //function  类的类型本质上还是一个函数类型
+        //底层还是构造函数的一套逻辑，原型链上
+        console.log(Person.prototype.speak);    //f  speak
+
+
+        //对比下构造函数的方法：
+        function Person(name,age){
+            this.name = name;
+            this.age = age;
+
+            //this.speak = () => {};
+        }
+
+        Person.prototype.speak = function(){};
+
+    //========================= Class的两种定义形式 =============================    
+
+    //1. 声明形式
+    class Person{
+        constructor(){}
+        speak(){}
+    }
+
+    //2. 表达式形式
+
+    //构造函数：
+    function Person(){}
+    const Person = function(){};   //匿名的函数赋值给一个变量
+
+    //匿名的class赋值给常量或者变量
+    const Person = class{
+        constructor(){
+            console.log('constructor');
+        }
+        speak(){}
+    };
+    new Person();   //实例化一下
+
+    //立即执行的匿名函数
+    (function(){
+        console.log('func');
+    })();
+
+    //立即执行的匿名类
+    new(class{
+        constructor(){
+            console.log('constructor');
+        }
+        speak(){}
+    })();
+    // 上面立即执行的类相当于：new Person();
+    //Person = class{}
+
+
+//========================= 实例属性、静态方法和静态属性 ============================
+    
+    //1. 实例属性
+    //方法就是值为函数的特殊属性
+
+    class Person{
+
+        age = 18;       //前面不要有this，const等   这里都是实例的属性，和constructor里面的加this的一样
+        sex = 'male';
+        getSex = function(){    //值为函数的特殊属性
+            return this.sex;    
+        };
+        constructor(name){
+            this.name = name;   //在构造函数中要有this
+            this.sex = sex;
+            //this.age = 18;
+        }
+        speak(){    //实例对象的方法
+            //this.age = 18;      //在其他函数中也要有this，来表示是谁调用的这个变量
+            console.log('speak');
+            console.log(this);      //Person{name:''}  这里的this是指向实例对象p的
+        }
+
+        static speak(){         //名字相同但不会冲突，这个是静态方法
+            console.log('人类可以说话！');
+            console.log(this);          //class Person{}   指向的是Person这个类本身
+        }
+    }
+
+    Person.speak = function(){      
+        
+        //static也可以写成一般函数，不能写箭头函数，因为箭头函数this指向外部
+        console.log('人类可以说话');
+        console.log(this);
+
+    };
+
+    const p = new Person('Alex');
+    console.log(p.name);    //Alex
+
+    //2. 静态方法
+
+    //之前的方法是实例的方法：
+    const p = new Person('Alex');
+    p.speak();
+
+    //现在是静态方法：
+    Person.speak();    //Person调用的，所以上面的this指向这里的Person
+
+
+    // 3. 静态属性
+    // 类的属性
+
+    class Person{
+        constructor(name){
+            this.name = name;
+        }
+        //只是提案，有兼容性问题，还未通过
+        static version = '1.0';
+
+        //直接用静态方法返回静态属性即可：
+        static getVersion(){
+            return '1.0';
+        }
+
+    }
+    //实例访问：
+    const p = new Person('Alex');
+    console.log(p.name);    //Alex   
+
+    console.log(Person.getVersion());   //用方法返回属性
+
+
+//============================= 私有属性和方法 =============================
+    // 1. 为什么需要私有属性和方法？
+    // 一般情况下，类的属性和方法都是公开的
+    // 公有的属性和方法可以被外界修改，造成意想不到的结果
+    class Person{
+        constructor(name){
+            this.name = name;
+        }
+        speak(){
+            console.log('speak');
+        }
+        getName(){
+            return this.name;
+        }
+    }
+
+    const p = new Person('Alex');
+    console.log(p.name);
+
+    //这里p.name会修改name的值
+    p.name = 'zs';  //不想在外面通过实例.name来访问，就在类中间用方法返回一个name的值即可
+
+    // 2. 模拟私有属性和方法
+    // 1）_开头表示私有（下划线开头表示私有）
+    class Person{
+        constructor(name){
+            this._name = name;      //_name约定俗成表示私有属性，还是可以访问到的
+        }
+
+        //_speak(){}    私有方法同理加下划线
+        speak(){
+            console.log('speak');
+        }
+        getName(){
+            return this._name;
+        }
+    }
+    const p = new Person('Alex');
+    //console.log(p.name);    
+    //这样就访问不到私有的name了，但还是能过访问_name。这里只是作为一种约定俗成的形式
+    console.log(p.getName());   //提供一个访问的接口
+    p.name = 'zd'   //无效   此时就无法改变name的值
+
+    //2）将私有属性和方法移出类（私有非常强烈）
+    (function(){            //立即执行函数，是将代码写在一个模块中
+        let name = '';
+        class Person{
+            constructor(username){
+                //this.name = name;   这里是实例的name
+                name = username;
+            }
+            speak(){
+                console.log('speak');
+            }
+            getName(){
+                return name;
+            }
+        }
+        window.Person = Person;
+    })();
+
+    (function(){
+        const p = new Person('Alex');
+        console.log(p.name);
+        console.log(p.getName());   //只能通过方法来获取name的值
+    })();
+
+
+//================================= extends 继承=================================
+
+    //1. 子类继承父类
+    class Person{
+        constructor(name,sex){
+            this.name = name;
+            this.sex = sex;
+
+            this.say = function(){
+                console.log('say');
+            };    //每次实例都会创建一份
+        }
+        speak(){
+            console.log('speak');
+        }   //共享的方法
+        static speak(){
+            console.log('static speak');
+        }        //静态方法，是类的方法
+    }
+    Person.version = '1.0';
+
+    class Programmer extends Person{
+        constructor(name,sex){      //所有的类都要有构造方法
+            //super表示父类的构造方法，要调用父类的构造方法
+            super(name,sex);
+        }
+    }
+    const zs = new Programmer('zs','男');
+    console.log(zs.name);   //zs
+    console.log(zs.sex);    //男    
+    zs.say();               //say
+    zs.speak();             //speak
+    Programmer.speak();     //static speak
+    console.log(Programmer.version);    //1.0
+
+
+    //2. 改写继承的属性和方法
+    class Programmer extends Person{
+        constructor(name,sex,feature){      //所有的类都要有构造方法
+            //super表示父类的构造方法，要调用父类的构造方法
+
+            //this.feature = feature ❌
+
+            //this操作不能放在super前面
+            super(name,sex);
+            this.feature = feature;     //直接添加实例的属性
+
+        }
+
+        //不同名就不覆盖
+        hi(){
+            console.log('hi');
+        }
+
+        //同名覆盖
+        speak(){
+            console.log('Programmer speak');
+        }
+        static speak(){
+            console.log('Programmer static speak');
+        }
+
+    }
+    Programmer.version = '2.0';
+
+    const zs = new Programmer('zs','男','务实');
+    console.log(zs.name);   //zs
+    console.log(zs.sex);    //男    
+    zs.say();               //say
+    zs.speak();             //Programmer speak
+    Programmer.speak();     //Programmer static speak
+    console.log(Programmer.version);    //2.0
+
+
+
+//================================== super =================================
+    // 1. 作为函数调用
+    // 代表父类的构造方法，只能用在子类的构造方法中，用在其他地方就会报错
+    // super虽然代表了父类的构造方法，但内部的this指向子类的实例
+    class Person{
+        constructor(name){
+        this.name = name;
+
+        console.log(this);
+        }
+    }
+    class Programmer extends Person{
+        constructor(name,sex){
+            super(name,sex);
+        }
+        // hi(){super()};    报错，super不期望在构造方法之外使用
+
+    }
+    new Programmer();   //指向Programmer()实例化之后的对象
+    new Person();       //指向Person()实例化之后的对象
+
+
+    // 2. 作为对象使用
+    // 1）在构造方法中使用 + 一般方法中使用
+    //super代表父类的原型对象Person.prototype
+    //所以定义在父类实例上的方法或属性，是无法通过super调用的
+    //通过super调用父类的方法时，方法内部的this指向当前的子类实例
+
+    class Person{
+        constructor(name){
+        this.name = name;
+
+        console.log(this);
+        }
+
+        speak(){    //父类的方法speak   
+            console.log('speak');
+            console.log(this);      //下面super调用的时候，指向Programmer子类
+        }
+
+        static speak(){
+            console.log('Person speak');
+            console.log(this);
+        }
+
+    }
+    class Programmer extends Person{
+        constructor(name,sex){
+            super(name,sex);
+
+            super.speak();      //调用父类的方法  在构造方法中的使用
+            super.name;     //undefined  name是实例的属性，super是prototype，是访问不到实例的
+        }
+        // hi(){super()};    报错，super不期望在构造方法之外使用
+
+        speak(){    //想覆盖父类的方法，但不完全覆盖   
+            super.speak();      //super在一般方法中使用
+            console.log('Programmer speak');
+        }
+
+    
+        //2）在静态方法中使用
+        //指向父类，而不是父类的原型对象prototype
+        //通过super调用父类的方法时，方法内部的this指向当前的子类，而不是子类的实例
+        static speak(){         //同名会覆盖，但不想完全覆盖，所以后面用到super
+            super.speak();      //即有父类    在静态方法中super指向的是父类，而不是prototype；这里调用父类的speak中的this，还是指向子类Programmer
+            console.log('Programmer speak');    //也有子类
+        }
+    }
+    new Programmer();   //指向Programmer()实例化之后的对象
+    new Person();       
+
+
+    //3. 注意事项
+    //使用super的时候，必须显示指定是作为函数还是作为对象使用的，否则会报错
+    class Person{
+        constructor(name){
+            this.name = name;
+        }
+        speak(){
+            console.log('speak');
+        }
+    }
+    class Programmer extends Person{
+        constructor(name,sex){
+            super(name,sex);
+
+            //console.log(super);  报错，不知道是函数还是对象
+            console.log(super());   //作为函数使用
+            console.log(super.speak);   //作为对象使用
+        }
+    }
+
+
+
+
+
+    </script>
+</body>
+</html>

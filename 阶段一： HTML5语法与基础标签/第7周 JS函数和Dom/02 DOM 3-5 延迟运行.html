@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+    //==================== document.getElementById() =================   
+        var box = document.getElementById('box1');
+        
+
+    //==================== 延迟运行 window.onload ====================
+        
+    //文档按照顺序执行，如果不写在html标签后面，就会失效，无法获取文档节点。
+    //所以要使用：给window对象添加onload事件监听。onload表示页面都加载完成了。
+        window.onload = function(){
+            var box1 = document.getElementById('box1');      //得到盒子1
+            var box2 = document.getElementById('box2');      //得到盒子2
+            console.log(box1);
+            console.log(box2);
+        };
+
+    //================== document.getElementsByTagName(); ==================
+        //注意TagName是Elements
+
+        var ps = document.getElementsByTagName('p');   //得到所有的p标签
+
+        var ps_inbox1 = box1.getElementsByTagName('p'); //box1中的p
+
+        console.log();
+
+    //================= getElementsByClassName() =================    
+        //获得类名的元素   注意是Elements
+        var haha = document.getElementsByClassName('haha');
+
+
+    //===================== querySelector()通过选择器得到元素 ======================
+
+        //只返回一个数值！！！
+        var the_p = document.querySelector('#box1 .spec');      //获得box1里面的spec元素
+
+    //======================= querySelectorAll() ========================
+        
+        //得到元素数组
+        var list_inlist1 = document.querySelectorAll('#list1 li');    //注意元素之间是空格
+        console.log(lis_inlist1);
+
+
+    //   ！！！！！！！！！！！！几者之间的不同！！！！！！！！！！！！！！
+
+    // 1. querySelector 的参数是 CSS选择器，“.lilei”、“#list”
+    // 2. getElementsByClassName 的参数是 类名
+    // 3. getElementsByTagName 的参数是 标签名
+
+    
+
+    </script>
+
+</head>
+<body>
+    <div id="box1">我是盒子1</div>
+    <div id="box2">我是盒子2</div>
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box1{
+            width: 202px;
+            height: 202px;
+            border:1px solid #000;
+            padding: 50px;
+        }
+        #box2{
+            width: 100px;
+            height: 100px;
+            border:1px solid #000;
+            padding: 50px;
+        }
+        #box3{
+            width: 100px;
+            height: 100px;
+            border:1px solid #000;
+        }
+    </style>
+
+
+</head>
+<body>
+    <div id="box1">
+        <div id="box2">
+            <div id="box3"></div>
+        </div>
+    </div>
+
+    <script>
+
+        //==================== 事件传播 ======================
+
+        // DOM 0级 事件监听：只能监听冒泡阶段
+        // DOM 2级 事件监听：捕获true，冒泡false
+
+        // 我们感觉事件的传播是由内到外的  box3～box1
+        // 实际上是有 捕获阶段 和 冒泡阶段
+        // onxxx这样写只能监听冒泡阶段
+        //addEventListener()方法  监听捕获阶段  true为捕获阶段，false为冒泡阶段
+
+        var oBox1 = document.getElementById('box1');
+        var oBox2 = document.getElementById('box2');
+        var oBox3 = document.getElementById('box3');
+
+        oBox1.onclick = function(){
+            console.log('我是box1的onclick');
+        }
+        oBox2.onclick = function(){
+            console.log('我是box2的onclick');
+        }
+        oBox3.onclick = function(){
+            console.log('我是box3的onclick');
+        }
+
+        //添加addEventListener()
+        //得到结果 ：外层顺序始终1-3
+                
+                // 我是box1的捕获阶段
+                // 我是box2的捕获阶段
+                // 我是box3的冒泡阶段
+                // 我是box3的捕获阶段
+                // 我是box2的冒泡阶段
+                // 我是box1的冒泡阶段
+
+        
+        oBox1.addEventListener('click',function(){
+            console.log('我是box1的捕获阶段');
+        },true);
+
+        oBox2.addEventListener('click',function(){
+            console.log('我是box2的捕获阶段');
+        },true);
+
+        //外层是捕获1-3顺序怎样都不变，内层3的捕获和冒泡，先写哪个哪个在前面。此时冒泡在前，显示冒泡
+        oBox3.addEventListener('click',function(){
+            console.log('我是box3的冒泡阶段');
+        },false);
+
+        oBox3.addEventListener('click',function(){
+            console.log('我是box3的捕获阶段');
+        },true);
+
+        oBox2.addEventListener('click',function(){
+            console.log('我是box2的冒泡阶段');
+        },false);
+
+        oBox1.addEventListener('click',function(){
+            console.log('我是box1的冒泡阶段');
+        },false);
+
+        //DOM 0级写法，后面的会覆盖前面的函数
+        oBox2.onclick = function(){
+            alert('A');
+        }
+        oBox2.onclick = function(){      //只弹出B
+            alert('B');
+        }
+
+        //DOM 2级写法   都会弹出       先弹出C，再弹出B
+        oBox2.addEventListener('click',function(){
+            alert('C');
+        },false);
+
+        oBox2.addEventListener('click',function(){
+            alert('D');
+        },false);
+        
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

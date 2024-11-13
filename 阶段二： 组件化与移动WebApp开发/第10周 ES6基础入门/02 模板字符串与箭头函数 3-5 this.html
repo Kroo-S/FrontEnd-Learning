@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    //====================== this 指向 ======================
+
+    //只有在函数调用的时候，this指向才确定，不调用的时候，不知道指向谁。
+    //this指向和函数在哪儿调用没关系，只和谁在调用有关    
+
+    //1. 全局作用域中的this指向window
+    console.log(this);    //window  
+
+    //2. 一般函数（非箭头函数）中的this指向
+
+    'use strict'  //严格模式
+    function add(){
+        console.log(this);      //不知道谁在调用
+    }
+    
+    add();         //undefined->window(非严格模式下转换)  严格模式下是undefined
+    window.add();  //window调用
+
+    const calc = {add:add};
+    calc.add();   //这里就是calc在调用
+
+    const adder = calc.add;   //将calc的add方法传给变量adder
+    adder();     //此时根据上下文规则2   非严格模式下是window，严格模式下是undefined
+
+    //================== 复习常见this指向问题
+    
+    //onclick 事件
+    document.onclick = function(){
+        console.log(this);
+    };
+    document.onclick();    //document调用
+
+    //构造函数,this指向实例化的对象
+    function Person(username){
+        this.username = username;
+        console.log(this);        //this指向下文实例化的p
+    };
+
+    const p = new Person('Alex');
+
+
+
+    //======================== 箭头函数的this指向 =======================
+    //1. 箭头函数中的this指向
+    //箭头函数没有自己的this，会向外层作用域寻找指向
+
+    const calc = {   //calc是个对象，所以没有作用域
+        add:()=>{    
+            console.log(this);  
+            //这里的this指向函数，然而箭头函数没有自己的this，所以往上找作用域
+        }
+    };
+    calc.add();      //window   calc不是函数，没有作用域   
+
+    //2. 练习
+    const calc = {
+        add:function(){
+            //this在这个作用域
+            const adder=()=>{
+                console.log(this);
+            };
+            adder();
+        }
+    };
+    //要想里面的执行，就要调用方法
+    calc.add();   
+    //this是箭头函数中的，所以要往上找作用域；外层作用域是add的方法，this指向add函数的作用域
+    //calc.add()是calc调用的，所以这里的this指向calc对象。
+
+    const addFn = calc.add;    //赋值方法，不是调用
+    addFn();     //没有具体的调用对象，所以是undefined->window
+
+    
+    //======================== 不适用箭头函数的地方 =======================
+    
+    //1. 作为构造函数
+    //箭头函数没有this，而构造函数最重要的功能就是实例化对象，需要返回
+    const Person = () => {};
+    new Person();
+
+    //2. 需要this指向调用对象的时候
+    document.onclick = function(){
+        console.log(this);
+    };
+    document.addEventListener('click',function(){
+        console.log(this);
+    },false);
+    
+    document.addEventListener('click',()=>{
+        console.log(this);  
+        //箭头函数没有自己的this
+    },false);
+
+    //3. 需要使用arguments的时候
+    //箭头函数中没有arguments
+    function add(){
+        console.log(arguments);
+    };
+    add(1,2,3,4,5);
+
+    const add = () => console.log(arguments);
+    add();    //报错，因为箭头函数arguments没有this
+    //可以利用剩余参数来解决
+
+
+    //===================== 箭头函数的应用 =====================
+    
+    // <button id='btn'>开始</button>
+    // <span id='result'>0</span>
+    const btn = document.getElementById('btn');
+    const result = document.getElementById('result');
+
+    const timer = {    //timer是个对象
+        time:0,
+        start:function(){
+            //这里的this才会指向start，所以解决方法如下：
+            //这里用变量存储this，后续使用变量存储的this，就可以了。
+            // var that = this;
+            // var self = this;
+
+            btn.addEventListener('click',function(){
+                //往上级找作用域，这个function是函数有作用域
+                //这里的this指向btn
+                
+                setInterval(function(){
+                    //console.log(this);
+
+                    //这里的this没有任何调用，根据上下文规则，
+                    //这里的this指向：undefined->window
+                    this.time++;      
+                    
+                    //that.time++;   这里用上面存储的this，this就会指向start
+                    result.innerHTML = this.time;
+                },1000);
+            },false);
+        },
+    }
+    timer.start();  //调用方法开始执行
+
+    //=============== 用箭头函数解决
+        //因为箭头函数自身没有this，所以这个this会不断向外层寻找
+        //利用这点就可以将this指向最外层的start方法
+        //都改成箭头函数即可
+
+    const timer = {
+        time:0,
+        start:function(){
+            //步骤3. 箭头函数的this指向这里的start。这里不是箭头函数，是普通函数，所以有this。
+
+            btn.addEventListener('click',()=>{
+                //步骤2. 这里依然没有this，往上找
+                
+                setInterval(()=>{
+                    //步骤1. 箭头函数没有this，这里会向上找
+                    
+                    this.time++;
+                    result.innerHTML = this.time;
+                },1000);
+            },false);
+        }
+    }
+
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // ======================== 数组去重 ========================
+        var arr = [1,1,1,2,2,3,3,3,2,2,1,1];
+
+        //先定义一个空数组,结果数组
+        var result = [];
+
+        //遍历数组
+        for(var i;i<arr.length;i++){
+            //遍历检测是否在数组中，不在就push推入，用includes来检测
+            if(!result.includes(arr[i])){
+                result.push(arr[i]);
+            }
+        }
+        document.write(result);
+
+
+       // ====================== 随机样本 ======================
+
+        var arr = [1,2,3,4,5,6,7,8];
+        var result = [];
+        for(var i=0;i<3;i++){
+            //随机选择一项的下标，数组的下标：0～arr.length-1;
+            //random中[a，b]区间的随机数是：parseInt(Math.random()*(b-a+1)+a);
+            var n = parseInt(Math.random()*arr.length);
+            //把这项推入结果数组
+            result.push(arr[n]);
+            //删除这项，防止被随机到
+            arr.splice(n,1);
+        }
+        document.write(result);
+
+    </script>
+</body>
+</html>

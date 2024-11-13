@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        /* 在此处补充代码*/
+
+/* 一、页头部分 */ 
+
+        /*去除默认样式*/
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+
+        /* flex布局的标签 */
+        header, .logo, .nav, .login, .shopping{
+            display: flex;
+        }
+
+        /* header样式 */
+        header {
+            display: flex;
+            background-color: black;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        /* logo样式 */
+        .logo img{
+            width: 200px;
+        }
+
+        /* li样式 */
+        header .nav li{
+            color:white;
+            width: 100px;
+            line-height: 80px;
+            height: 80px;
+            text-align: center;
+        }
+
+        /* 登陆样式 */
+        header .login{
+            width: 100px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header .login input{
+            background-color: orange;   /* 背景颜色橙色 */
+            color: white;               /* 文字颜色白色 */
+            width:40px; 
+            height: 30px;
+            border: none;
+            border-radius: 2px;
+        }
+
+/* 二、主体内容部分 */
+
+        section, .section, .box, .shopping{
+            display: flex;
+        }
+
+        section{
+            flex-flow: row wrap;    /* 容器属性 */
+            /* 等价于：
+            flex-direction: row;
+            flex-wrap: wrap; */
+
+            justify-content: space-around;
+            align-items: center;
+
+        }
+
+        section .section{
+            /* 作为section的项目时候的属性: */
+            flex-basis:46%;
+            
+            /* 作为容器时候的属性 */
+            flex-direction: row;
+            justify-content: space-around;
+            align-items:center;
+
+            /* 样式 */
+            background-color: rgb(154, 240, 233);
+            border-radius: 10px;
+            padding:20px 0;
+            margin: 10px 0;
+        }
+
+        section .section .box{
+            /* idea：先布局再样式 */
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            height: 100%;
+        }
+
+        section .section .shopping{
+            /* 布局都在父亲容器属性中写了，这里不写项目属性了 */
+            background-color: orange;
+            color: white;
+            width: 100px;
+            border-radius: 5px;
+            justify-content: center;
+            
+        }
+
+        section .section .shopping .btn{
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+        }
+
+
+
+
+
+
+    </style>
+</head>
+
+<body>
+    <!-- 头部 -->
+    <header>
+        <div class="logo">
+            <img src="http://climg.mukewang.com/59197ab000014f1503000100.jpg" alt="">
+        </div>
+        <ul class="nav">
+            <li>课程</li>
+            <li>路径</li>
+            <li>猿问</li>
+            <li>手记</li>
+        </ul>
+        <div class="login">
+            <input type="button" value="登录">
+            <input type="button" value="注册">
+        </div>
+    </header>
+    <!-- 主体内容 -->
+    <section>
+        <div class="section">
+            <div class="box">
+                <p>《前端小白入门手册》</p>
+                <div>适用人群：没有任何前端基础的小白</div>
+                <div>费用：￥499</div>
+            </div>
+            <div class="shopping">
+                <div class="btn">加入购物车</div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="box">
+                <p>《HTML5月CSS3实现动态网页》</p>
+                <div>适用人群：有html和css基础的童鞋</div>
+                <div>费用：￥599</div>
+            </div>
+            <div class="shopping">
+                <div class="btn">加入购物车</div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="box">
+                <p>《HTML5月CSS3实现动态网页》</p>
+                <div>适用人群：有html和css基础的童鞋</div>
+                <div>费用：￥599</div>
+            </div>
+            <div class="shopping">
+                <div class="btn">加入购物车</div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="box">
+                <p>《HTML5月CSS3实现动态网页》</p>
+                <div>适用人群：有html和css基础的童鞋</div>
+                <div>费用：￥599</div>
+            </div>
+            <div class="shopping">
+                <div class="btn">加入购物车</div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

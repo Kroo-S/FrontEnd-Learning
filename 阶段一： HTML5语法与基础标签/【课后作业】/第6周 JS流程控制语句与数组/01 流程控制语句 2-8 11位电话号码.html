@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // ================= 01 =================
+
+        // var num = prompt("your number:");
+        // if(num.length == 11){
+        //     if(isNaN(num)){
+        //         alert("must be number");
+        //     }
+        //     else{
+        //         alert("号码正确");
+        //     }
+        // }else{
+        //     1111111111
+        // }
+
+
+        // ==================== 02 isNaN忽略了小数的影响 ===================
+        // var tel = prompt("请输入11位手机号码");
+        // if(tel.length == 11){
+        //     if(!isNaN(tel)){
+        //         alert("your number is" + tel);
+        //     }
+        //     else{
+        //         alert("请输入真正的number数字");
+        //     }
+        // }else{
+        //     alert("没有11位");
+        // }
+
+        // ======================= 03 parseInt() =====================
+
+        var tel = prompt("请输入您的11位手机号：");
+        var telInt = parseInt(tel);               //正整数
+        if(tel.length == 11){
+            if(!isNaN(tel) && telInt.toString().length == 11){            //是数字 且 没有小数
+                alert("your number is" + tel);
+            }
+            else{
+                alert("请输入真正的number数字");
+            }
+        }else{
+            alert("没有11位");
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
+
+

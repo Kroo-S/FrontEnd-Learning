@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+//============================= 初识Ajax ===============================
+
+        // 1. Ajax是什么？
+        // Ajax是Asynchronous Javascript and XML（异步Javascript和XML）的简写
+
+        // Ajax中的异步：可以异步地向服务器发送请求，在等待响应的过程中，
+        // 不会阻塞当前页面，浏览器可以做自己的事情，
+        // 直到成功获取响应后，浏览器才开始处理响应数据
+
+        // XML（可扩展标记语言）是前后端数据通信时传输数据的一种格式
+
+        // XML现在已经不怎么用了，现在比较常用的是JSON
+
+        // Ajax其实就是浏览器与服务器之间的一种异步通信方式
+
+        // 使用Ajax可以在不重新加载整个页面的情况下，对页面的某部分进行更新
+
+        // 1）慕课网的注册检测
+        // 2)慕课网的搜索提示
+
+
+        // 2. 搭建Ajax
+        // Ajax需要服务器环境，非服务器环境下，很多浏览器无法正常使用Ajax   
+
+        // Live Server
+
+        // windows phpStudy
+        // Mac MAMP
+
+
+//============================= Ajax的基本用法 =========================
+
+        // 1. XMLHttpRequest    是个构造函数
+        // console.log(Ajax);  //无法输出ajax的内容
+
+        // Ajax想要实现浏览器与服务器之间的异步通信，需要依靠XMLHttpRequest，它是一个构造函数
+
+        // 不论是XMLHttpRequest，还是Ajax，都没有和具体的某种数据格式绑定。除了XML，JSON的格式也可以
+
+        // 2. Ajax的使用步骤
+        //    1）创建xhr对象
+        const xhr = new XMLHttpRequest();    //实例化一个构造函数
+        
+        //    2) 准备发送请求
+        //    xhr.open(
+        //        'HTTP方法GET、POST、PUT、DELETE',
+        //        '地址 URL https://www.imooc.com/api/http/search/
+        //        suggest?words=js./index.html ./index.xml  ./inde.text',
+        //        true     //这里的true表示是异步请求
+        //    );
+
+        //调用open并不会真正的发送请求，而只是做好发送请求前的准备工作
+
+        // 3）发送请求
+        // 调用send()正式发送请求
+
+        // send()的参数是通过请求体携带的数据   GET只有请求头，没有请求体，所以下面写null；POST有请求体
+        // xhr.send(null);
+
+        // 4)监听事件，处理响应
+        // 当获取到响应后，会触发xhr对象的readystatechange事件，可以在该事件中对响应进行处理
+
+        // 不考虑兼容性的写法：
+        xhr.addEventListener('readystatechange',()=>{},false);
+
+        // 考虑兼容性的写法：
+        xhr.onreadystatechange = () => {
+            if(xhr.readyState !== 4) return;
+
+            //HTTP CODE
+            //获取到响应后，响应的内容会自动填充xhr对象的属性
+            //xhr.status:HTTP 200 404
+            //xhr.statusText:HTTP状态说明 OK Not Found
+            if((xhr.status>=200&xhr.status<300)||xhr.status===304){   //304表示使用的是缓存
+                
+                //console.log('正常使用响应数据');
+                console.log(xhr.responseText);
+            }else{
+                //......
+            }
+        };
+
+        // 注意事项：
+        
+        // readystatechange 事件也可以配合addEventListener使用，不过要注意，IE6～8不支持addEventListener
+
+        // 为了兼容性，readystatechange中不使用this，而是直接使用xhr
+
+        // 由于兼容性问题，readystatechange 最好放在open之前
+
+
+        // readystatechange事件监听 readyState这个状态的变化  
+        // 它的值从0～4，一共5个状态
+        // 0: 未初始化。 尚未调用open()
+        // 1: 启动。 已经调用open()，但尚未调用send()
+        // 2: 发送。 已经调用send(),但尚未收到响应
+        // 3: 接受。 已经接受部分数据
+        // 4: 完成。 已经接收到全部响应数据，而且已经可以在浏览器中使用了
+
+
+
+        // 3. 使用Ajax完成前后端通信
+        const url = 'https://www/imooc.com/api/http/search/suggest?words=js';
+
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = () => {
+            if(xhr.readyState!==4) return;
+            if((xhr.status>=200&&xhr.status<300)||xhr.status===304){
+                console.log(xhr.responseText);
+                console.log(typeof xhr.responseText);   //string
+            }
+        };
+
+        xhr.open('GET',url,true);
+        xhr.send(null);     //send通过请求体获取数据，GET没有请求体只有请求头
+
+
+//=============================== GET 请求 ===============================
+
+        // 1. 携带数据
+        // GET请求不能通过请求体携带数据，但可以通过请求头携带
+
+        const url =     //请求头传输还是有限制的，不会无限制传输下去
+        'https://www.imooc.com/api/http/search/suggest?words=js&username=alex';     
+        
+        const xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = () => {
+            if(xhr.readyState!==4) return;
+            if((xhr.status>=200&&xhr.status<300)||xhr.status===304){
+                console.log(xhr.responseText);
+                console.log(typeof xhr.responseText);   //string
+            }
+        };
+
+        xhr.open('GET',url,true);
+        xhr.send(null);
+
+        // xhr.send('sex=male');   //不会报错，但不会发送数据
+
+
+        // 2. 数据编码
+        // 如果携带的数据是非英文字母的话，比如说汉字，就需要编码之后再发送给后端，不然会造成乱码问题
+        // 可以使用encodeURLComponent()编码
+
+        const url =     
+        `https://www.imooc.com/api/http/search/suggest?words=${encodeURIComponent('前端')}`;    //模版字符串
+
+        
+//==================================== POST请求 ======================================
+        
+        // 1. 携带数据
+        // POST请求主要通过请求体携带数据，同时也可以通过请求头携带
+
+        const url = 'https://www.imooc.com/api/http/search/suggest?words=js';
+        const xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = () => {
+            if(xhr.readyState!==4) return;
+            if((xhr.status>=200&&xhr.status<300)||xhr.status===304){
+                console.log(xhr.responseText);
+                console.log(typeof xhr.responseText);   //string
+            }
+        };
+
+        xhr.open('POST',url,true);
+
+        // 如果想发送数据，直接写在send()的参数位置，一般是字符串
+        xhr.send('username=alex&age=18');   //同form表单传输数据的格式一样
+
+        // 不能直接传递对象，需要将对象转换成字符串的形式
+        xhr.send({
+            username:'alex',
+            age:18
+        });
+        //[object Object]   会自动转换成字符串的形式
+
+        // 2. 数据编码
+        xhr.send(`username=${encodeURIComponent('张三')}&age=18`);  //中文利用模版字符串
+
+
+//================================== 初识JSON ===================================
+
+        // 1. JSON是什么？
+        // Ajax发送和接收数据的一种格式
+
+        // XML： username=alex&age=18
+
+        // JSON:   把对象字符串化
+        //  {"code":200,"data":[{"word":"jsp"},{"word":"js"},{"word":"json"},{"word":"js \u5165\u95e8"},{"word":"jstl"}]}
+
+        // JSON全称是 Javascript Object Notation
+
+        // JSON信息很准确，XML里面有多余的标签信息
+
+
+        // 2. 为什么需要JSON
+        // JSON有3种形式，每种形式的写法都和JS中的数据类型很像，可以很轻松的和JS中的数据类型互相转换
+
+        // JS->JSON->PHP/Java      前端转换成后端看的懂的JSON，node.js看的懂js
+        // PHP/Java->JSON->JS      后端转换成前端看的懂的JSON
+
+
+//=============================== JSON的3种形式 =============================
+
+        // 1. 简单值形式     plain.json   
+        // .json 文件   里面写5，依然是字符串格式
+
+        // JSON 的简单值形式就对应着JS中的基础数据类型：数字、字符串、布尔值、null
+
+        xhr.open('GET','./plain.json',true);
+        xhr.send(null);
+
+        // 注意：
+        // 1）. JSON里面必须是双引号
+        // 2）. JSON里面不能有注释
+        // 3）. 不支持undefined，没有undefined的值
+
+
+
+        // 2. 对象形式   obj.json
+        // JSON 的对象形式就对应着JS中的对象
+
+        xhr.open('GET','./obj.json',true);
+
+        // JSON中的格式注意：   
+        //     1）JSON中对象的属性名必须用双引号，属性值如果是字符串也必须用双引号
+        //     2）JSON中只要涉及到字符串，就必须使用双引号
+        //     3）不支持undefined
+
+        // {
+        //     "name":"张三",
+        //     "age":18,
+        //     "hobby":["足球","乒乓球"], 
+        //     "family":{
+        //         "father":"张老大",
+        //         "mother":"李四"
+        //     }
+        // }
+
+     
+        
+        // 3. 数组形式     arr.json
+        // JSON的数组形式就对应着JS中的数组
+
+        // 注意：
+        //     1）数组中的字符串必须用双引号
+        //     2）JSON中只要涉及到字符串，就必须使用双引号
+        //     3）不支持undefined
+
+        [1,"hi",null]
+
+        // arr.json JSON中的格式：
+        // [
+        //     {
+        //         "id":1,
+        //         "username":"张三",
+        //         "comment":"666"
+        //     },
+        //     {
+        //         "id":2,
+        //         "username":"李四",
+        //         "comment":"999 6翻了"
+        //     }
+        // ]
+
+
+//================================== JSON的常用方法 ===============================
+
+            // 1. JSON.parse()
+            // JSON.parse()可以将JSON格式的字符串解析成JS中的对应值
+            // 一定要是合法的JSON字符串，否则会报错
+
+            console.log(JSON.parse(xhr.responseText));
+            console.log(JSON.parse(xhr.responseText).data);     //将数据获取了出来
+
+
+            // 2. JSON.stringify()
+            // JSON.stringify()可以将JS的基本数据类型、对象或者数组转换成JSON格式的字符串
+
+            console.log(
+                JSON.stringify({
+                    username:'alex',
+                    age:18
+                })
+            );          //{"username":"alex","age":18}
+            
+            xhr.send(   //POST发送数据的时候，就用stringify()
+                JSON.stringify({
+                    username:'alex',
+                    age:18
+                })
+            );
+
+            
+            // 3. 使用JSON.parse()和JSON.stringify() 封装localStorage
+
+            // 1) storage.js 中
+            
+            const storage = window.localStorage;   //将localStorage简写，方便
+            
+            // 设置
+            const set = (key,value) => {
+                storage.setItem(key,JSON.stringify(value));
+            };   
+
+            // 获取
+            const get = key => {
+                return JSON.parse(storage.getItem(key));
+            };
+
+            //删除
+            const remove = key => {
+                storage.removeItem(key);
+            };
+
+            //清空
+            const clear = () => {
+                storage.clear(key);
+            };
+
+            export {set,get,remove,clear};      //module模块导出
+
+
+            // 2) html 内部：
+            // <script type="module.js">  
+            //引入module： import {get, set, remove, clear} from './storage.js'
+
+            set('zs',{
+                name:'张三',
+                age:18
+            });
+            console.log(get('zs'));
+
+            remove('username');
+            clear();
+
+
+
+// ================================= 初识跨域 ==================================
+
+        // 1. 跨域是什么？
+
+        // 同域，不是跨域
+        const url = './index.html';
+        const url = 'https://www.imooc.com';
+
+        const xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = () => {
+            if(xhr.readyState!==4) return;
+            if((xhr.status>=200&&xhr.status<300)||xhr.status===304){
+                console.log(xhr.responseText);
+                // console.log(typeof xhr.responseText);   //string
+            }
+        };
+
+        xhr.open('GET',url,true);
+
+        // 第2个请求会报错，因为是跨域
+
+        // 向一个域发送请求，如果要请求的域和当前域是不同域，就叫跨域
+        // 不同域之间的请求，就是跨域请求
+
+
+        // 2.什么是不同域，什么是同域
+        // https（协议）://www.imooc.com（域名）:443（端口号）/course/list（路径）
+
+        // 协议、域名、端口号，任何一个不一样，就是不同域
+        // 与路径无关，路径一不一样无所谓
+
+        // 不同域
+        // https://www.imooc.com:443/course/list        443、80 默认值可以省略
+        // http://www.imooc.com:80/course/list
+
+        // http://www.imooc.com:80/course/list      
+        // http://m.imooc.com:80/course/list
+        // http://imooc.com:80/course/list
+
+        // 同域
+        // http://imooc.com:80
+        // http://imooc.com:80/course/list
+
+        // 3.跨域请求为什么会被阻止
+        // 阻止跨域请求，其实是浏览器本身的一种安全策略--同源策略
+
+        // 其他客户端或者服务器都不存在跨域被阻止的问题
+
+        // 4.跨域解决方案
+        // ① CORS 跨域资源共享
+        // ② JSONP
+
+        // 优先使用 CORS 跨域资源共享，如果浏览器不支持 CORS 的话，再使用 JSONP
+
+
+// ========================== CORSCORS跨域资源共享 ===========================
+
+        // 1. CORS是什么？
+
+        const url = 'https://www.imooc.com';    //无法跨域请求
+        const url = 'https://www.imooc.com/api/http/search/suggest?words=js';   //可以跨域请求，是因为后端设置的，跟前端无关
+
+        const xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = () => {
+            if(xhr.readyState!==4) return;
+            if((xhr.status>=200&&xhr.status<300)||xhr.status===304){
+                console.log(xhr.responseText);
+                console.log(typeof xhr.responseText);   //string
+            }
+        };
+
+        xhr.open('GET',url,true);
+
+        // Access-Control-Allow-Origin:*
+        // 表明允许所有的域名来跨域请求它，*是通配符，没有任务限制    上面的第二个url
+
+        // 只允许指定域名的跨域请求
+        // Access-Control-Allow-Origin：http://127.0.0.1:5500
+
+
+        // 2. 使用CORS跨域的过程
+        // 1）浏览器发送请求
+        // 2）后端在响应头中添加 Access-Control-Allow-Origin 头信息
+        // 3）浏览器接收到响应
+        // 4）如果是同域下的请求，浏览器不会额外做什么，这次前后端通信就圆满完成了
+        // 5）如果是跨域请求，浏览器会从响应头中查找是否允许跨域访问
+        // 6)如果允许跨域，通信圆满完成
+        // 7）如果没找到或不包含想要跨域的域名，就丢弃响应结果
+
+
+        // 3. CORS的兼容性
+        // IE10及以上版本的浏览器可以正常使用CORS
+
+        // JSONP
+
+        // www.caniuse.com   兼容性
+
+
+//  ================================= JSONP ====================================        
+
+        // 1.JSONP 的原理
+        // script 标签跨域不会被浏览器阻止
+        // JSONP 主要就是利用 script 标签，加载跨域文件
+
+        // 2.使用 JSONP 实现跨域
+        // 服务器端准备好 JSONP 接口
+        // https://www.imooc.com/api/http/jsonp?callback=handleResponse
+
+        // 手动加载 JSONP 接口或动态加载 JSONP 接口
+        const script = document.createElement('script');
+        script.src =
+            'https://www.imooc.com/api/http/jsonp?callback=handleResponse';
+        document.body.appendChild(script);
+
+        // 声明函数
+        const handleResponse = data => {
+            console.log(data);
+        };
+
+        // handleResponse({
+        //   code: 200,
+        //   data: [
+        //     {
+        //       word: 'jsp'
+        //     },
+        //     {
+        //       word: 'js'
+        //     },
+        //     {
+        //       word: 'json'
+        //     },
+        //     {
+        //       word: 'js 入门'
+        //     },
+        //     {
+        //       word: 'jstl'
+        //     }
+        //   ]
+        // });
+
+        // 优先使用 CORS，如果浏览器不支持 CORS 的话，再使用 JSONP
+       
+        // <script src="https://www.imooc.com/api/http/jsonp?callback=handleResponse">
+        // 相当于
+        // <script>
+        // handleResponse({
+        //     code: 200,
+        //     data: [
+        //     {
+        //         word: 'jsp'
+        //     },
+        //     {
+        //         word: 'js'
+        //     },
+        //     {
+        //         word: 'json'
+        //     },
+        //     {
+        //         word: 'js 入门'
+        //     },
+        //     {
+        //         word: 'jstl'
+        //     }
+        //     ]
+        // });
+
+
+// ============================ XHR的属性 =============================
+
+        // 1. responseType 和 response属性
+        const url = 'https://www.imooc.com';    //无法跨域请求
+        const url = 'https://www.imooc.com/api/http/search/suggest?words=js';   //可以跨域请求，是因为后端设置的，跟前端无关
+
+        const xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = () => {
+            if(xhr.readyState!==4) return;
+            if((xhr.status>=200&&xhr.status<300)||xhr.status===304){
+                
+                //文本形式的响应内容
+                console.log('responseText',xhr.responseText);
+                
+                // 也可以使用response属性 
+
+                console.log(JSON.parse(xhr.responseText));  
+            }
+        };
+
+        xhr.open('GET',url,true);
+
+        xhr.responseType = '';
+        xhr.responseType = 'text';
+        xhr.responseType = 'json';
+
+        xhr.send(null);
+
+      // IE6~9 不支持，IE10 开始支持
+
+      // 2.timeout 属性
+      // 设置请求的超时时间（单位 ms）
+        const url = 'https://www.imooc.com/api/http/search/suggest?words=js';
+        const xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState != 4) return;
+
+            if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+            console.log(xhr.response);
+            }
+        };
+
+        xhr.open('GET', url, true);
+
+        xhr.timeout = 10000;
+
+        xhr.send(null);
+
+        // IE6~7 不支持，IE8 开始支持
+
+        // 3.withCredentials 属性
+        // 指定使用 Ajax 发送请求时是否携带 Cookie
+
+        // 使用 Ajax 发送请求，默认情况下，同域时，会携带 Cookie；跨域时，不会
+        // xhr.withCredentials = true;
+        // 最终能否成功跨域携带 Cookie，还要看服务器同不同意
+
+        const url = 'https://www.imooc.com/api/http/search/suggest?words=js';
+        // const url = './index.html';
+
+        const xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState != 4) return;
+
+            if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+            console.log(xhr.response);
+            }
+        };
+
+        xhr.open('GET', url, true);
+
+        xhr.withCredentials = true;
+
+        xhr.send(null);
+
+      // IE6~9 不支持，IE10 开始支持
+
+
+//============================= XHR的方法 ==============================
+
+
+        // 1. abort()方法
+        // 终止当前请求
+        // 一般配合abort事件一起使用
+
+
+        const url = 'https://www.imooc.com/api/http/search/suggest?words=js';
+        const xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState != 4) return;
+
+            if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+            console.log(xhr.response);
+            }
+        };
+
+        xhr.open('GET', url, true);
+
+        xhr.send(null);
+        xhr.abort();        //要在send()发送之后终止；放发送send()前面无效。
+
+
+
+        // 2. setRequestHeader()
+        // 可以设置请求头信息
+        // xhr.setRequestHeader(头部字段的名称，头部字段的值)
+
+
+        const url = 'https://www.imooc.com/api/http/search/suggest?words=js';
+        const url = 'https://www.imooc.com/api/http/json/search/suggest?words=js';
+
+        const xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = () => {
+        if (xhr.readyState != 4) return;
+
+        if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+            console.log(xhr.response);
+        }
+        };
+        xhr.open('POST', url, true);
+
+        // 请求头中的 Content-Type 字段用来告诉服务器，浏览器发送的数据是什么格式的
+        // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+
+        // xhr.send(null);
+        // xhr.send('username=alex&age=18');
+        xhr.send(
+            JSON.stringify({
+                username: 'alex'
+            })
+        );
+
+// ================================ XHR的事件 ==================================
+
+
+            // 1.load 事件
+        // 响应数据可用时触发
+        // const url = 'https://www.imooc.com/api/http/search/suggest?words=js';
+        // const xhr = new XMLHttpRequest();
+
+        // // xhr.onload = () => {
+        // //   if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+        // //     console.log(xhr.response);
+        // //   }
+        // // };
+        // xhr.addEventListener(
+        //   'load',
+        //   () => {
+        //     if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+        //       console.log(xhr.response);
+        //     }
+        //   },
+        //   false
+        // );
+
+        // xhr.open('GET', url, true);
+
+        // xhr.send(null);
+
+        // IE6~8 不支持 load 事件
+
+        // 2.error 事件
+        // 请求发生错误时触发
+
+        // const url = 'https://www.imooc.com/api/http/search/suggest?words=js';
+        // const url = 'https://www.iimooc.com/api/http/search/suggest?words=js';
+        // const xhr = new XMLHttpRequest();
+
+        // xhr.addEventListener(
+        //   'load',
+        //   () => {
+        //     if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+        //       console.log(xhr.response);
+        //     }
+        //   },
+        //   false
+        // );
+        // xhr.addEventListener(
+        //   'error',
+        //   () => {
+        //     console.log('error');
+        //   },
+        //   false
+        // );
+
+        // xhr.open('GET', url, true);
+
+        // xhr.send(null);
+
+        // IE10 开始支持
+
+        // 3.abort 事件
+        // 调用 abort() 终止请求时触发
+        // const url = 'https://www.imooc.com/api/http/search/suggest?words=js';
+
+        // const xhr = new XMLHttpRequest();
+
+        // xhr.addEventListener(
+        //   'load',
+        //   () => {
+        //     if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+        //       console.log(xhr.response);
+        //     }
+        //   },
+        //   false
+        // );
+        // xhr.addEventListener(
+        //   'abort',
+        //   () => {
+        //     console.log('abort');
+        //   },
+        //   false
+        // );
+
+        // xhr.open('GET', url, true);
+
+        // xhr.send(null);
+
+        // xhr.abort();
+
+        // IE10 开始支持
+
+        // 4.timeout 事件
+        // 请求超时后触发
+        const url = 'https://www.imooc.com/api/http/search/suggest?words=js';
+
+        const xhr = new XMLHttpRequest();
+
+        xhr.addEventListener(
+        'load',
+        () => {
+            if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+            console.log(xhr.response);
+            }
+        },
+        false
+        );
+        xhr.addEventListener(
+        'timeout',
+        () => {
+            console.log('timeout');
+        },
+        false
+        );
+
+        xhr.open('GET', url, true);
+
+        xhr.timeout = 10;
+
+        xhr.send(null);
+
+        // IE8 开始支持
+
+
+// ============================== FormData ==============================
+        
+        // html中：
+        // <form
+        //     id="login"
+        //     action="https://www.imooc.com/api/http/search/suggest?words=js"
+        //     method="POST"
+        //     enctype="multipart/form-data"
+        //     >
+
+        //     <input type="text" name="username" placeholder="用户名" />
+        //     <input type="password" name="password" placeholder="密码" />
+        //     <input id="submit" type="submit" value="登录" />
+
+        // </form>
+
+
+        // 1. 使用Ajax提交表单
+        const login = document.getElementById('login');
+
+        // console.log(login.username);     
+        // console.log(login.password);     
+        const {username,password} = login;      //解构赋值，将username和password的值赋值
+        const btn = document.getElementById('submit');
+        const url = 'https://www.imooc.com/api/http/search/suggest?words=js';
+
+        btn.addEventListener(
+            'click',
+            e=>{
+                //阻止表单自动提交
+                e.preventDefault();
+
+                //表单数据验证
+
+                //发送 Ajax 请求
+                const xhr = new XMLHttpRequest();
+
+                xhr.addEventListener(
+                    'load',
+                    ()=>{
+                        if((xhr.status>=200 && xhr.status<300)||xhr.status === 304){
+                            console.log(xhr.response);
+                        }else{
+
+                        }
+                    },
+                    false);
+
+                xhr.open('POST',url,true);
+
+                //组装数据
+                // 1) 模版字符串赋值给data
+                const data = `username=${username.value}&password=${password.value}`;
+
+                xhr.setRequestHeader(
+                    'Content-Type',
+                    'application/x-www-form-urlencoded'
+                );  
+
+                // 2）FormData 可以用于发送表单数据
+                const data = new FormData(login);
+
+                // console.log(data);
+                // for(const item of data){       表单数据可以被遍历
+                //     console.log(item);
+                // }
+
+                // 不需要Content-Type的信息
+            
+                xhr.send(data);
+
+
+            },
+            false);
+
+
+            // 2. FormData 的基本用法
+
+            
+            // 1）通过HTML表单元素创建FormData对象
+            // const fd = new FormData(表单元素);
+            // xhr.send(fd);
+
+
+            // 2）通过 append() 方法添加数据
+            // const fd = new FormData(表单元素);
+            // fd.append('age', 18);
+            // fd.append('sex', 'male');
+            // xhr.send(fd);
+
+            // IE10 及以上可以支持
+
+
+// ========================== 封装Ajax =========================
+
+        // ================ ajax.js中：
+        
+
+        //引入工具函数
+        import { serialize,addURLData,serializeJSON } from './utils.js';
+
+
+        //引入defaults.js
+        import DEFAULTS from './defaults.js';
+
+        //Ajax类：
+        class Ajax{
+            constructor(url,options){  //不加this的话，url只是局部变量；加this是为了其他的方法也能获取
+                this.url=url; //其他方法可以通过this来获取url
+                this.options = Object.assign({},DEFAULTS,options);  //this.options是最终参数，options是用户参数
+            
+                //初始化
+                this.init();
+            }  
+
+            // 初始化
+            init(){
+                const xhr = new XMLHttpRequest();
+                this.xhr = xhr;
+
+                // 1. 绑定响应事件处理程序
+                this.bindEvents();
+
+                xhr.open(this.options.method,this.url + this.addParam(),true);
+
+                // 2. 设置responseType
+                this.setResponseType();
+
+                // 3. 设置跨域是否携带cookie
+                this.setCookie();
+
+                // 4. 设置超时
+                this.setTimeout();
+
+                // 5. 发送请求
+                xhr.send();
+
+            }
+
+            // 1. 绑定响应事件处理程序
+            bindEvents(){
+                const xhr = this.xhr;
+
+                const {success,httpCodeError,error,abort,timeout} = this.options;
+
+
+                // 1) load方法
+                xhr.addEventListener(
+                    'load',
+                    ()=>{
+                        if(this.ok()){   //(xhr.status>=200 && xhr.status<300)||xhr.status === 304
+                            // console.log(xhr.response);
+                            success(xhr.response,xhr);
+                        }else{
+                            httpCodeError(xhr.status,xhr);
+                        }
+                    },
+                    false);
+
+
+                // 2) error   当请求遇到错误时，将触发error事件
+                xhr.addEventListener(
+                    'error',
+                    ()=>{
+                        error(xhr);
+                    },
+                    false);
+
+
+                // 3) abort   
+                xhr.addEventListener(
+                    'abort',
+                    ()=>{
+                        abort(xhr);
+                    },
+                    false);
+
+
+                // 4) timeout
+                xhr.addEventListener(
+                    'timeout',
+                    ()=>{
+                        timeout(xhr);
+                    },
+                    false);
+            }
+
+
+            //ok()方法，检测响应的HTTP状态码是否正常
+            ok(){
+                const xhr = this.xhr;
+                return (xhr.status >= 200 && xhr.status < 300) || xhr.status === 304;   //将判断变成ok()方法
+            }
+
+            // 在地址上添加数据
+            addParam(){
+                const{params} = this.options;
+
+                if(!params) return '';
+
+                return addURLData(this.url,serialize(params));
+            }
+
+            // 2. 设置responseType
+            setResponseType(){
+                this.xhr.responseType = this.options.responseType;
+            }
+
+            // 3. 设置跨域是否携带cookie
+            setCookie(){
+                if(this.options.withCredentials){
+                    this.xhr.withCredentials = true;
+                }
+            }
+
+            // 4. 设置超时
+            setTimeout(){
+                const {timeoutTime} = this.options;
+
+                if(timeoutTime > 0){
+                    this.xhr.timeout = timeoutTime;
+                }
+            }
+
+            // 5. 发送请求
+            sendData(){
+                const xhr = this.xhr;
+
+                if(this.isSendData()){
+                    return xhr.send(null);
+                }
+
+                let resultData = null;
+                const {data} = this.options;
+
+
+                // 7. 发送FormData格式的数据
+                if(this.isFormData()){
+                    resultData = data;
+                }else if(this.isFormURLEncodedData()){
+                    // 是否是发送application/x-www-form-urlencoded格式的数据
+
+                    this.setContentType(CONTENT_TYPE_FORM_URLENCODED);
+                    resultData = serialize(data);
+                }else if(this.isJSONData){
+                    // 发送application/json格式的数据
+
+                    this.setContentType(CONTENT_TYPE_JSON);
+                    resultData = serializeJSON(data);
+                }else{
+                    //发送其他格式的数据
+
+                    this.setContentType();
+                    resultData = data;
+                }
+
+                xhr.send(resultData);
+            }
+
+            // 6. 是否需要使用send发送数据
+            isSendData(){
+                const {data,method} = this.options;
+
+                if(!data) return false;
+
+                if(method.toLowerCase() === HTTP_GET.toLowerCase()) return false;
+
+                return true;
+            }
+
+            // 7. 是否发送FormData格式的数据
+            isFormData(){
+                return this.options.data instanceof FormData;
+            }
+            // 是否发送application/x-www-form-urlencoded格式的数据
+            isFormURLEncodedData(){
+                return this.options.toLowerCase().includes(CONTENT_TYPE_FORM_URLENCODED);
+            }
+            // 是否发送application/json格式的数据
+            isJSONData(){
+                return this.options.toLowerCase().includes(CONTENT_TYPE_JSON);
+            }
+
+            // 设置Content-Type
+            setContentType(contentType = this.options.contentType){
+                if(!contentType) return;
+
+                this.xhr.setRequestHeader('Content-Type',contentType);
+            }
+
+            // 获取XHR对象
+            getXHR(){
+                return this.xhr;    
+            }
+
+        }
+
+
+        export default Ajax;
+
+        // ================= constants.js 常量
+        export const HTTP_GET = 'GET';
+        export const CONTENT_TYPE_FORM_URLENCODED = 'application/x-www-form-urlencoded';
+        export const CONTENT_TYPE_JSON = 'application/json';
+        
+
+        // ================= utils.js 工具函数
+
+        //工具函数
+
+        //数组序列化成urlencoded格式的字符串
+        const serialize = param => {
+            const results = [];
+
+            for(const [key,value] of Object.entries(param)){
+                results.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+            }
+
+            // ['username=alex','age=18'];
+            return results.join('&');
+        };
+        
+        
+        // 数据序列化成JSON格式的字符串
+        const serializeJSON = param => {
+            return JSON.stringify(param);
+        };
+
+
+        // 给URL添加参数     www.imooc.com?words=js&
+
+        const addURLData = (url,data) => {
+            if(!data) return '';
+
+            const mark = url.includes('?')?'&':'?';
+
+            return `${mark}${data}`;
+        };
+
+
+
+        export {serialize,addURLData,serializeJSON};
+
+
+
+        // ================= defaults.js中
+
+        // 默认参数
+
+        const DEFAULTS = {
+            method:'GET',
+            // GET传递参数的地方，默认是没有
+
+            // 请求头携带的数据
+            params:null,
+            // params:{     有参数的情况这样传输
+            //     username:'alex',
+            //     age:18
+            // }
+
+            // 请求体携带的数据
+            data:null,
+
+            // data:{     有参数的情况这样传输
+            //     username:'alex',
+            //     age:18
+            // }
+
+            // data:FormData 数据
+
+            contentType:CONTENT_TYPE_FORM_URLENCODED,
+            responseType:'',
+            timeoutTime:0,
+            withCredentials:false,
+
+            //方法：
+            success(){},
+            httpCodeError(){},
+            error(){},
+            abort(){},
+            timeout(){}
+
+        };
+
+        export default DEFAULTS;
+       
+
+        // ================= index.js中
+
+        import Ajax from './ajax.js';
+
+        // 功能最全的ajax函数
+        const ajax = (url,options) => {
+            return new Ajax(url,options).getXHR();
+        };
+
+        // get请求的方法
+        const get = (url,options) => {
+            return ajax(url,{...options,method:'GET'});
+        };
+
+        // JSON请求
+        const getJSON = (url,options) => {
+            return ajax(url,{...options,method:'GET',responseType:'json'});
+        };
+
+        // POST请求
+        const post = (url,options) => {
+            return ajax(url,{...options,method:'POST'});
+        };
+
+
+        export { ajax,get,getJSON,post };
+
+       
+        // ============================= html中去使用
+
+        // <script type="module">
+        import {ajax,get,getJSON,post} from './ajax/index.js';
+
+        const url = 'https://www.imooc.com/api/http/search/suggest?words=js';
+
+        const xhr = ajax(url,{
+            method:'POST',
+            params:{username:'alex'},
+            data:{
+                age:18
+            },
+            responseType:'json',
+            success(response){
+                console.log(response);
+            },
+            httpCodeError(err){
+                console.log('http code error',err);
+            },
+            error(xhr){
+                console.log('error',xhr);
+            },
+            abort(xhr){
+                console.log('abort',xhr);
+            },
+            timeout(xhr){
+                console.log('timeout',xhr);
+            }
+        });
+
+        xhr.abort();
+
+
+// ============================= 使用Promise改造封装好的Ajax =======================
+
+    // ================ index.js中        
+
+    import Ajax from './ajax.js';
+
+    // 功能最全的ajax函数
+    const ajax = (url,options) => {
+        // return new Ajax(url,options).getXHR();
+
+        let xhr;
+        const p = new Promise((resolve,reject)=>{
+            xhr = new Ajax(url,{
+                ...options,
+                ...{
+                    success(response){
+                        resolve(response);
+                    },
+                    httpCodeError(status){
+                        reject({
+                            type:1,
+                            text:`HTTP状态码异常：`
+                        });
+                    }
+                }
+            });
+        });
+
+    };
+
+
+
+    // get请求的方法
+    const get = (url,options) => {
+        return ajax(url,{...options,method:'GET'});
+    };
+
+    // JSON请求
+    const getJSON = (url,options) => {
+        return ajax(url,{...options,method:'GET',responseType:'json'});
+    };
+
+    // POST请求
+    const post = (url,options) => {
+        return ajax(url,{...options,method:'POST'});
+    };
+
+    export { ajax,get,getJSON,post };
+
+
+    
+
+    </script>
+</body>
+</html>

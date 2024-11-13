@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        // =======================  Number函数  =======================
+
+        字符串->数字 ：纯数字字符串转为数字，不纯的转为NaN
+        Number('123');         //123
+        Number('123.4');       //123.4
+        Number('123年');        //NaN   
+        Number('年');           //NaN    
+        Number('')             //0         
+
+        boolean->数字 ：true转为1，false转为0
+        Number(true);          // 1
+        Number(false);         // 0
+
+        undefined->数字：
+        
+        Number(undefined);      //NaN
+        Number(null);          //0
+        
+        
+        // =======================  parseInt函数  =======================
+        
+        parseInt是把字符串转为整数 ：自动截掉第一个非数字字符之后的所有字符
+        parseInt('3.14');              //3
+        parseInt('3.14是圆周率');       //3
+        parseInt('圆周率3.14');         //NaN      字符串不是数字开头，就是NaN
+        parseInt('3.99');              //3
+
+        //======================== parseFloat函数 ========================
+
+        parseFloat是把字符串转为浮点数 ：自动截掉第一个非数字字符之后的所有字符
+
+        parseFloat('12.66.88');      //12.66    自动截掉第一个非小数点，非数字之后的字符
+        parseFloat('12.66.哈哈.88');     //12.66
+        parseFloat('哈哈3.14');          //NaN
+        parseFloat(true);             //NaN       实际上是将true隐式转换为字符串‘true’，不成立所以是NaN
+        parseFloat(false);            //NaN       
+        parseInt(true);               //NaN
+        parseInt(false);              //NaN         
+        
+        
+        // ========================== 其他值转换为字符串 String() ==========================
+        都转换成对应的字符串
+         
+        String(NaN);           //"NaN"
+        String(Infinity);      //"Infinity"
+        String(null)           //"null"
+
+        // toString()的方法
+        String(true);       //"true"
+        true.toString();    //"true"             
+
+        6.toString();       // 报错
+        (6).toString();     // 6      底层代码，将6变成对象
+        var a = 6;
+        a.toString();       // 6
+
+        // ==========================  boolean() ==========================
+        
+        1. 数字转换为boolean
+
+        boolean(0);           //false
+        boolean(NaN);         //false
+        boolean(123);        //true
+        boolean(Infinity);     //true
+        boolean(-Infinity);    //true
+
+        2. 字符串转换布尔值
+
+        boolean('');         //false  空字符串转换为false
+        boolean('abc');      //true
+
+        3. undefined\null 转换为false
+        
+        boolean(undefined);     //false
+        boolean(null);          //false
+
+        // ========================= NaN ==========================
+        
+        isNaN(NaN);       // true
+        isNaN(undefined); // true
+        isNaN({});        // true
+
+        isNaN(true);      // false
+        isNaN(null);      // false
+        isNaN(37);        // false
+
+        // strings
+        isNaN("37");      // false: 可以被转换成数值37
+        isNaN("37.37");   // false: 可以被转换成数值37.37
+        isNaN("37,5");    // true
+        isNaN('123ABC');  // true:  parseInt("123ABC")的结果是 123, 但是Number("123ABC")结果是 NaN
+        isNaN("");        // false: 空字符串被转换成0
+        isNaN(" ");       // false: 包含空格的字符串被转换成0
+
+        // dates
+        isNaN(new Date());                // false
+        isNaN(new Date().toString());     // true
+
+        isNaN("blabla")   // true: "blabla"不能转换成数值
+                  // 转换成数值失败， 返回NaN
+
+    </script> 
+
+
+
+
+
+</head>
+<body>
+    
+</body>
+</html>

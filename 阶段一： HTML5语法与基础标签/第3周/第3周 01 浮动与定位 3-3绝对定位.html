@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 
+    
+    1. 绝对定位脱离标准文档流（后面的元素会填补它的位置）；相对定位不脱离标准文档流，后面的不会填补它的位置。
+    2. 脱离标准文档流的方法：
+        1）浮动 float；
+        2）绝对定位 position:absolute;
+        3) 固定定位
+    3. 绝对定位的参考盒子，“子绝父相”
+        祖先盒子中（不一定是浏览器）【最近的】拥有定位属性（absolute、relative）的为坐标轴
+    4. 绝对定位的盒子垂直居中：
+        position:absolute;
+        top:50%;
+        margin-top:-“自己盒子高度的一半” px;
+    5. 堆叠顺序z-index属性
+        没有单位的正整数，数值大的压住数值小的盒子 
+    6.  固定定位
+        以页面为参考，始终固定，没有子固父相的概念，脱离标准文档流
+    
+    -->
+    
+    <style>
+        .box1{
+            width:300px;
+            height:300px;
+            position:absolute;
+            background-color: orange;
+            top:100px;
+            left: 100px;
+            z-index: 666;
+        }
+        .box2{
+            width:300px;
+            height:300px;
+            position:absolute;
+            background-color:blue;
+            top:200px;
+            left: 200px;
+            z-index: 6;
+        }
+
+    </style>
+
+</head>
+<body>
+    <!-- z-index例子 -->　
+
+    <!-- 初始状态下（无index）box2压住box1，是因为box是按照顺序书写的，更换box的div顺序，可更换按压顺序。 -->
+
+    <div class="box1"></div>
+    <div class="box2"></div>
+
+</body>
+</html>
